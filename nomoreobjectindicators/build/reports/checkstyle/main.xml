@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.25">
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\ColorTileObject.java">
+</file>
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\ObjectIndicatorsConfig.java">
+<error line="145" column="31" severity="error" message="&apos;{&apos; at column 24 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="157" column="42" severity="error" message="&apos;{&apos; at column 35 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="170" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="181" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="192" column="48" severity="error" message="&apos;{&apos; at column 41 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="203" column="49" severity="error" message="&apos;{&apos; at column 42 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="214" column="51" severity="error" message="&apos;{&apos; at column 44 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+</file>
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\ObjectIndicatorsOverlay.java">
+<error line="28" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
+<error line="30" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
+<error line="56" column="9" severity="error" message="&apos;}&apos; is not followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="143" column="59" severity="error" message="&apos;{&apos; at column 24 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="144" column="108" severity="error" message="&apos;{&apos; at column 66 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="146" column="199" severity="error" message="&apos;{&apos; at column 150 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="155" column="58" severity="error" message="&apos;{&apos; at column 23 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="156" column="108" severity="error" message="&apos;{&apos; at column 66 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+<error line="161" column="199" severity="error" message="&apos;{&apos; at column 150 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
+</file>
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\ObjectIndicatorsPlugin.java">
+</file>
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\ObjectPoint.java">
+</file>
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\OutlineRenderStyle.java">
+</file>
+<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoreobjectindicators\src\main\java\net\runelite\client\plugins\nomoreobjectindicators\RenderStyle.java">
+<error line="33" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
+<error line="34" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
+</file>
+</checkstyle>

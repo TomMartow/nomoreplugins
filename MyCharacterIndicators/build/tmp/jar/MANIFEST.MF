@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.3.0
+Plugin-Id: mycharacterindicators-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Displays indicators based on the players current sta
+ te and skill levels.
+Plugin-License: GNU General Public License v3.0
+

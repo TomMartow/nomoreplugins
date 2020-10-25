@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.3.0
+Plugin-Id: mouselogging-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Logs the mouse click position, and writes to a file 
+ for graphophiles.
+Plugin-License: GNU General Public License v3.0
+

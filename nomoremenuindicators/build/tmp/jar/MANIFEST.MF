@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.1.0
+Plugin-Id: nomoremenuindicators-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Adds Indicators to Menu Buttons.
+Plugin-License: GNU General Public License v3.0
+

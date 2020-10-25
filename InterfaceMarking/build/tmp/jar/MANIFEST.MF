@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.3.0
+Plugin-Id: interfacemarking-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Display's indicators over interface widgets.
+Plugin-License: GNU General Public License v3.0
+

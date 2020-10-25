@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.2.0
+Plugin-Id: statrandomiser-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Randomises the players skill levels (client side onl
+ y).
+Plugin-License: GNU General Public License v3.0
+

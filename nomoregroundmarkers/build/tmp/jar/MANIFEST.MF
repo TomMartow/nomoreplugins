@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.1.0
+Plugin-Id: nomoregroundmarkers-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Enable marking of tiles using the shift key
+Plugin-License: GNU General Public License v3.0
+

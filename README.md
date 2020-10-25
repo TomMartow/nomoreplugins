@@ -1,0 +1,1 @@
+# NoMore AHK OpenOSRS Plugins

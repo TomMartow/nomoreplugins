@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.2.0
+Plugin-Id: nomoreagility-plugin
+Plugin-Provider: NoMore
+Plugin-Description: A plugin that marks the next agility obstacle in the
+  course.
+Plugin-License: GNU General Public License v3.0
+

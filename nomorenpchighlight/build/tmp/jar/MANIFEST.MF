@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Plugin-Version: 0.1.0
+Plugin-Id: nomorenpchighlight-plugin
+Plugin-Provider: NoMore
+Plugin-Description: Highlight NPCs on-screen and/or on the minimap
+Plugin-License: GNU General Public License v3.0
+
