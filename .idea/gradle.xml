@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AIOMarkers" />
+            <option value="$PROJECT_DIR$/InterfaceMarking" />
+            <option value="$PROJECT_DIR$/InventoryItemIndicators" />
+            <option value="$PROJECT_DIR$/MouseLogging" />
+            <option value="$PROJECT_DIR$/MyCharacterIndicators" />
+            <option value="$PROJECT_DIR$/NMUtils" />
+            <option value="$PROJECT_DIR$/NoMoreAgility" />
+            <option value="$PROJECT_DIR$/NoMoreMLM" />
+            <option value="$PROJECT_DIR$/NoMoreWintertodt" />
+            <option value="$PROJECT_DIR$/StatRandomiser" />
+            <option value="$PROJECT_DIR$/TestPlugin" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/nomoregrounditems" />
+            <option value="$PROJECT_DIR$/nomoregroundmarkers" />
+            <option value="$PROJECT_DIR$/nomoreinventorytags" />
+            <option value="$PROJECT_DIR$/nomoremenuindicators" />
+            <option value="$PROJECT_DIR$/nomorenpchighlight" />
+            <option value="$PROJECT_DIR$/nomoreobjectindicators" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
