@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
-Plugin-Version: 0.5.0
+Plugin-Version: 0.0.1
 Plugin-Id: nomorewintertodt-plugin
 Plugin-Provider: NoMore
+Plugin-Dependencies: nmputils-plugin
 Plugin-Description: Displays markers over Wintertodt related objects and
   npcs.
-Plugin-License: GNU General Public License v3.0
+Plugin-License: 3-Clause BSD License
 

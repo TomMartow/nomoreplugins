@@ -1,1 +1,1 @@
-# NoMore AHK OpenOSRS Plugins
+# NoMore Automation Plugins

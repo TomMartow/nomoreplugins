@@ -1,3 +1,5 @@
+import ProjectVersions.openosrsVersion
+
 /*
  * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
@@ -23,13 +25,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.3.0"
+version = "0.0.1"
 
 project.extra["PluginName"] = "AIO Markers"
 project.extra["PluginDescription"] = "An AIO Marker plugin for Player's, NPC's, Game Objects, Inventory Items and Ground Items."
 
 dependencies {
-    implementation(project(":NMUtils"))
+    annotationProcessor(Libraries.lombok)
+    annotationProcessor(Libraries.pf4j)
+
+    compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
+    compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
+    compileOnly(project(":NMPUtils"))
+
+    compileOnly(Libraries.guice)
+    compileOnly(Libraries.javax)
+    compileOnly(Libraries.lombok)
+    compileOnly(Libraries.pf4j)
 }
 
 tasks {
@@ -39,7 +51,7 @@ tasks {
                     "Plugin-Version" to project.version,
                     "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
                     "Plugin-Provider" to project.extra["PluginProvider"],
-                    "Plugin-Dependencies" to nameToId("NMUtils"),
+                    "Plugin-Dependencies" to nameToId("NMPUtils"),
                     "Plugin-Description" to project.extra["PluginDescription"],
                     "Plugin-License" to project.extra["PluginLicense"]
             ))

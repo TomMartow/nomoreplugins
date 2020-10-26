@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Version: 0.1.0
-Plugin-Id: nomoregrounditems-plugin
-Plugin-Provider: NoMore
-Plugin-Description: Highlight ground items and/or show price information
-Plugin-License: GNU General Public License v3.0
-

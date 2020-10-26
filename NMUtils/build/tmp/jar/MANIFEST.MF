@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Version: 0.4.0
-Plugin-Id: nmutils-plugin
-Plugin-Provider: NoMore
-Plugin-Description: Plugin required for numerous plugins created by NoMo
- re.
-Plugin-License: GNU General Public License v3.0
-

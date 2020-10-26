@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Version: 0.1.0
-Plugin-Id: nomoreobjectindicators-plugin
-Plugin-Provider: NoMore
-Plugin-Description: Enable marking of objects using the Shift key
-Plugin-License: GNU General Public License v3.0
-

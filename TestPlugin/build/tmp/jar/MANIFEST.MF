@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Version: 0.1.0
-Plugin-Id: test-plugin
-Plugin-Provider: NoMore
-Plugin-Dependencies: nmutils-plugin
-Plugin-Description: Description
-Plugin-License: GNU General Public License v3.0
-
