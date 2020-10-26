@@ -36,6 +36,7 @@ dependencies {
 
     compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
     compileOnly("com.openosrs:runelite-client:$openosrsVersion+")
+
     compileOnly(project(":NMPUtils"))
 
     compileOnly(Libraries.guice)
