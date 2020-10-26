@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\Options.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\Options.java">
 <error line="3" column="21" severity="error" message="&apos;{&apos; at column 21 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="4" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="5" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\TheConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\TheConfig.java">
 <error line="27" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="53" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="65" column="36" severity="error" message="&apos;{&apos; at column 29 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -38,7 +38,7 @@
 <error line="393" column="39" severity="error" message="&apos;{&apos; at column 32 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="405" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\TheOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\TheOverlay.java">
 <error line="32" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="42" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="43" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -172,7 +172,7 @@
 <error line="172" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="173" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\ThePlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\ThePlugin.java">
 <error line="32" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="49" column="39" severity="error" message="&apos;{&apos; at column 39 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="64" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -180,7 +180,7 @@
 <error line="69" column="34" severity="error" message="&apos;{&apos; at column 27 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="74" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\interfaces\Bank.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InterfaceMarking\src\main\java\net\runelite\client\plugins\interfacemarking\interfaces\Bank.java">
 <error line="3" column="18" severity="error" message="&apos;{&apos; at column 18 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="4" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="5" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>

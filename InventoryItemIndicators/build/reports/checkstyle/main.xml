@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\ConfigItems.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\ConfigItems.java">
 <error line="10" column="19" severity="error" message="&apos;{&apos; at column 19 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="11" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="12" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="13" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\IIConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\IIConfig.java">
 <error line="3" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="8" column="42" severity="error" message="&apos;{&apos; at column 42 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="10" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -169,7 +169,7 @@
 <error line="167" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="167" column="37" severity="error" message="&apos;{&apos; at column 37 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\IIPlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\IIPlugin.java">
 <error line="33" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="60" column="38" severity="error" message="&apos;{&apos; at column 38 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="84" column="61" severity="error" message="&apos;{&apos; at column 54 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -181,12 +181,12 @@
 <error line="223" column="33" severity="error" message="&apos;}&apos; at column 5 should be alone on a line." source="com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck"/>
 <error line="223" column="69" severity="error" message="&apos;{&apos; at column 41 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\InventoryEnum.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\InventoryEnum.java">
 <error line="3" column="20" severity="error" message="&apos;{&apos; at column 20 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="4" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="5" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\InventoryOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\InventoryOverlay.java">
 <error line="3" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="10" column="57" severity="error" message="&apos;{&apos; at column 57 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="12" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -221,11 +221,11 @@
 <error line="39" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="41" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\InventoryWidget.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\InventoryWidget.java">
 <error line="5" column="30" severity="error" message="&apos;{&apos; at column 30 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="6" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\SceneOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\InventoryItemIndicators\src\main\java\net\runelite\client\plugins\inventoryitemindicators\SceneOverlay.java">
 <error line="4" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="10" column="43" severity="error" message="&apos;{&apos; at column 43 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="12" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>

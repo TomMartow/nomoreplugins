@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\NoMoreAgilityConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\NoMoreAgilityConfig.java">
 <error line="3" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="10" column="53" severity="error" message="&apos;{&apos; at column 53 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="12" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -108,7 +108,7 @@
 <error line="123" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="124" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\NoMoreAgilityOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\NoMoreAgilityOverlay.java">
 <error line="3" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="7" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="12" column="51" severity="error" message="&apos;{&apos; at column 51 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -896,7 +896,7 @@
 <error line="597" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="599" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\NoMoreAgilityPlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\NoMoreAgilityPlugin.java">
 <error line="31" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="32" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="43" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -904,17 +904,17 @@
 <error line="89" column="34" severity="error" message="&apos;{&apos; at column 27 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="94" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\Obstacle.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\Obstacle.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\Obstacles.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\Obstacles.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\render\EnumMarks.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\render\EnumMarks.java">
 <error line="5" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="6" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="7" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="8" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\render\EnumObstacles.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\NoMoreAgility\src\main\java\net\runelite\client\plugins\nomoreagility\render\EnumObstacles.java">
 <error line="5" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="6" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="7" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>

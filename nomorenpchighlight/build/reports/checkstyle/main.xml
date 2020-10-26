@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\MemorizedNpc.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\MemorizedNpc.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcIndicatorsConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcIndicatorsConfig.java">
 <error line="178" column="31" severity="error" message="&apos;{&apos; at column 24 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="206" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="217" column="35" severity="error" message="&apos;{&apos; at column 28 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -18,13 +18,13 @@
 <error line="325" column="52" severity="error" message="&apos;{&apos; at column 45 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="333" column="42" severity="error" message="&apos;{&apos; at column 35 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcIndicatorsInput.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcIndicatorsInput.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcIndicatorsPlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcIndicatorsPlugin.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcMinimapOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcMinimapOverlay.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcSceneOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\NpcSceneOverlay.java">
 <error line="236" column="51" severity="error" message="&apos;{&apos; at column 23 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="238" column="78" severity="error" message="&apos;{&apos; at column 43 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="239" column="104" severity="error" message="&apos;{&apos; at column 62 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -42,7 +42,7 @@
 <error line="285" column="96" severity="error" message="&apos;{&apos; at column 61 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="291" column="46" severity="error" message="&apos;{&apos; at column 11 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\RenderStyle.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomorenpchighlight\src\main\java\net\runelite\client\plugins\nomorenpchighlight\RenderStyle.java">
 <error line="40" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
 </checkstyle>

@@ -57,7 +57,7 @@ public class TestPlugin extends Plugin
 	@Inject private TestConfig config;
 	@Inject private TestOverlay overlay;
 	@Inject private Utils utils;
-	@Inject private NMWoodcutter scriptThread;
+	//@Inject private NMWoodcutter scriptThread;
 
 	@Provides
 	TestConfig provideConfig(ConfigManager configManager) {
@@ -68,13 +68,13 @@ public class TestPlugin extends Plugin
 	protected void startUp()
 	{
 		overlayManager.add(overlay);
-		new Thread(scriptThread).start();
-		scriptThread.setShouldRun(true);
+		//new Thread(scriptThread).start();
+		//scriptThread.setShouldRun(true);
 	}
 
 	@Override
 	protected void shutDown() {
 		overlayManager.remove(overlay);
-		scriptThread.setShouldRun(false);
+		//scriptThread.setShouldRun(false);
 	}
 }

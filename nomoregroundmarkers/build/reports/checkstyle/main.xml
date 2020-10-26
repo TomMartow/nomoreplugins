@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerConfig.java">
 <error line="32" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="305" column="43" severity="error" message="&apos;{&apos; at column 36 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="320" column="31" severity="error" message="&apos;{&apos; at column 24 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -16,12 +16,12 @@
 <error line="450" column="53" severity="error" message="&apos;{&apos; at column 46 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="461" column="55" severity="error" message="&apos;{&apos; at column 48 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerInputListener.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerInputListener.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerMinimapOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerMinimapOverlay.java">
 <error line="145" column="56" severity="error" message="&apos;{&apos; at column 42 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerOverlay.java">
 <error line="36" column="8" severity="error" message="Unused import - net.runelite.api.World." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="44" column="8" severity="error" message="Unused import - net.runelite.client.ui.overlay.worldmap.WorldMapPoint." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="153" column="57" severity="error" message="&apos;{&apos; at column 43 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -32,15 +32,15 @@
 <error line="172" column="44" severity="error" message="&apos;{&apos; at column 30 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="178" column="47" severity="error" message="&apos;{&apos; at column 33 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerPlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerPlugin.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerPoint.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerPoint.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerWorldPoint.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\GroundMarkerWorldPoint.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\RenderStyle.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\RenderStyle.java">
 <error line="33" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\RenderStyleMinimap.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoregroundmarkers\src\main\java\net\runelite\client\plugins\nomoregroundmarkers\RenderStyleMinimap.java">
 </file>
 </checkstyle>

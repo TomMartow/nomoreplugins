@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoremenuindicators\src\main\java\net\runelite\client\plugins\nomoremenuindicators\NoMoreMenuIndicatorsConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoremenuindicators\src\main\java\net\runelite\client\plugins\nomoremenuindicators\NoMoreMenuIndicatorsConfig.java">
 <error line="3" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="29" column="31" severity="error" message="&apos;{&apos; at column 24 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="38" column="37" severity="error" message="&apos;{&apos; at column 30 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -20,7 +20,7 @@
 <error line="145" column="36" severity="error" message="&apos;{&apos; at column 29 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="154" column="36" severity="error" message="&apos;{&apos; at column 29 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoremenuindicators\src\main\java\net\runelite\client\plugins\nomoremenuindicators\NoMoreMenuIndicatorsOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoremenuindicators\src\main\java\net\runelite\client\plugins\nomoremenuindicators\NoMoreMenuIndicatorsOverlay.java">
 <error line="5" column="8" severity="error" message="Unused import - net.runelite.api.widgets.Widget." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="6" column="8" severity="error" message="Unused import - net.runelite.api.widgets.WidgetInfo." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="13" column="8" severity="error" message="Unused import - java.util.HashMap." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
@@ -156,7 +156,7 @@
 <error line="79" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="80" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\nomoremenuindicators\src\main\java\net\runelite\client\plugins\nomoremenuindicators\NoMoreMenuIndicatorsPlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\nomoremenuindicators\src\main\java\net\runelite\client\plugins\nomoremenuindicators\NoMoreMenuIndicatorsPlugin.java">
 <error line="7" column="8" severity="error" message="Unused import - lombok.AccessLevel." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="8" column="8" severity="error" message="Unused import - lombok.Getter." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="10" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>

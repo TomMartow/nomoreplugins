@@ -1,4 +1,4 @@
-rootProject.name = "nomoreplugins"
+rootProject.name = "NoMorePlugins"
 
 include(":AIOMarkers")
 include(":InterfaceMarking")

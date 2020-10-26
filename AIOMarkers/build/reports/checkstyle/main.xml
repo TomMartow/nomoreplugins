@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.25">
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\AIOConfig.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\AIOConfig.java">
 <error line="27" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="52" column="60" severity="error" message="&apos;{&apos; at column 53 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="82" column="49" severity="error" message="&apos;{&apos; at column 42 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
@@ -15,7 +15,7 @@
 <error line="201" column="55" severity="error" message="&apos;{&apos; at column 48 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="227" column="42" severity="error" message="&apos;{&apos; at column 35 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\AIOPlugin.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\AIOPlugin.java">
 <error line="36" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="38" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="94" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -23,7 +23,7 @@
 <error line="128" column="57" severity="error" message="&apos;{&apos; at column 50 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="137" column="43" severity="error" message="&apos;{&apos; at column 36 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\ConfigurationOptions.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\ConfigurationOptions.java">
 <error line="3" column="34" severity="error" message="&apos;{&apos; at column 34 should be on a new line." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="4" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="5" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -31,7 +31,7 @@
 <error line="7" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="8" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\NPC\NPCHighlightingOverlay.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\NPC\NPCHighlightingOverlay.java">
 <error line="30" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="34" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="41" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
@@ -108,9 +108,9 @@
 <error line="128" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="129" severity="error" message="Indent must use tab characters" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\NPC\NPCInput.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\NPC\NPCInput.java">
 </file>
-<file name="C:\Users\Thoma\IdeaProjects\nomoreplugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\NPC\NPCMethods.java">
+<file name="C:\Users\thoma\IdeaProjects\NoMorePlugins\AIOMarkers\src\main\java\net\runelite\client\plugins\aiomarkers\NPC\NPCMethods.java">
 <error line="3" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="4" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
 <error line="13" severity="error" message="Multiline imports are disallowed if they are not static" source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck"/>
