@@ -1,8 +1,4 @@
 import com.savvasdalkitsis.jsonmerger.JsonMerger
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.extra
@@ -23,7 +19,7 @@ open class BootstrapTask : DefaultTask() {
     }
 
     private fun hash(file: ByteArray): String {
-        return MessageDigest.getInstance("SHA-512").digest(file).fold("", { str, it -> str + "%02x".format(it) })
+        return MessageDigest.getInstance("SHA-512").digest(file).fold("", { str, it -> str + "%02x".format(it) }).toLowerCase()
     }
 
     private fun getBootstrap(filename: String): JSONArray? {

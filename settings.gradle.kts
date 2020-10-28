@@ -34,7 +34,6 @@ include(":MyCharacterIndicators")
 include(":NoMoreAgility")
 include(":NoMoreWintertodt")
 include(":StatRandomiser")
-//include(":NewPlugin")
 
 for (project in rootProject.children) {
     project.apply {

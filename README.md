@@ -1,1 +1,0 @@
-# NoMore Automation Plugins
