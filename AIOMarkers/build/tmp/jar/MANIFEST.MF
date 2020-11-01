@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Plugin-Version: 0.0.1
+Plugin-Version: 0.0.2
 Plugin-Id: aiomarkers-plugin
 Plugin-Provider: NoMore
 Plugin-Dependencies: nmputils-plugin

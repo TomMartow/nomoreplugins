@@ -23,11 +23,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.aiomarkers.NPC;
+package plugin.nomore.aiomarkers.object;
 
-import plugin.nomore.aiomarkers.AIOConfig;
-import plugin.nomore.aiomarkers.AIOPlugin;
-import plugin.nomore.nmputils.NMPUtils;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
@@ -35,12 +32,14 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
+import plugin.nomore.aiomarkers.AIOConfig;
+import plugin.nomore.aiomarkers.AIOPlugin;
 import plugin.nomore.nmputils.api.RenderAPI;
 
 import javax.inject.Inject;
 import java.awt.*;
 
-public class NPCHighlightingOverlay extends Overlay
+public class ObjectHighlightingOverlay extends Overlay
 {
 
     @Inject
@@ -53,13 +52,13 @@ public class NPCHighlightingOverlay extends Overlay
     private AIOPlugin plugin;
 
     @Inject
-    private NPCMethods npcMethods;
+    private ObjectMethods objectMethods;
 
     @Inject
     private Client client;
 
     @Inject
-    public NPCHighlightingOverlay()
+    public ObjectHighlightingOverlay()
     {
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.LOW);
@@ -76,52 +75,9 @@ public class NPCHighlightingOverlay extends Overlay
         }
         if (config.enableNPCHighlighting())
         {
-            renderNPC(graphics, player);
+            //renderObject(graphics, player);
         }
         return null;
-    }
-
-    private void renderNPC(Graphics2D graphics, Player player)
-    {
-        for (NPC npc : plugin.getNpcHighlightingList())
-        {
-            if (npc == null)
-            {
-                continue;
-            }
-            if (config.npcLineOfSight() && !npcMethods.doesPlayerHaveALineOfSightToNPC(player, npc))
-            {
-                continue;
-            }
-            render.renderNPCCentreBox(graphics, npc, getNPCColor(npc, player), config.npcIndicatorSize());
-        }
-    }
-
-    private Color getNPCColor(NPC npc, Player player)
-    {
-        if (config.npcEnableNPCDefaultColorOverrideWithNPCInteractingWithPlayer()
-                && npc.getInteracting() != null
-                && npc.getInteracting() == player)
-        {
-            return config.npcInteractingWithPlayerColor();
-        }
-        if (config.npcEnableNPCDefaultColorOverrideWithPlayersInteractingWithPlayer())
-        {
-            for (Player otherPlayer : plugin.getNpcOtherPlayersList())
-            {
-                if (otherPlayer == null)
-                {
-                    continue;
-                }
-                if (player.getInteracting() != npc
-                        && otherPlayer.getInteracting() != null
-                        && otherPlayer.getInteracting() == npc)
-                {
-                    return config.npcPlayersInteractingWithNPCColor();
-                }
-            }
-        }
-        return config.npcDefaultHighlightColor();
     }
 
 }

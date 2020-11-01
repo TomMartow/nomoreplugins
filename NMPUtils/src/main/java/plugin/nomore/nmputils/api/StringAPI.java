@@ -1,5 +1,7 @@
 package plugin.nomore.nmputils.api;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class StringAPI
 {
 
@@ -17,5 +19,7 @@ public class StringAPI
     {
         return string.toLowerCase().replaceAll("\\s+", "");
     }
+
+    public boolean containsNumbers(String string) { return StringUtils.containsAny(string, "[0-9]+"); }
 
 }

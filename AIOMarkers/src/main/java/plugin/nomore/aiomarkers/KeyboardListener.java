@@ -22,20 +22,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.aiomarkers.NPC;
+package plugin.nomore.aiomarkers;
 
-import plugin.nomore.aiomarkers.AIOPlugin;
 import net.runelite.client.input.KeyListener;
 
-import javax.inject.Inject;
 import java.awt.event.KeyEvent;
 
-public class NPCInput implements KeyListener
+public class KeyboardListener implements KeyListener
 {
 	private static final int HOTKEY = KeyEvent.VK_SHIFT;
-
-	@Inject
-	private AIOPlugin plugin;
 
 	@Override
 	public void keyTyped(KeyEvent e)
@@ -48,7 +43,7 @@ public class NPCInput implements KeyListener
 	{
 		if (e.getKeyCode() == HOTKEY)
 		{
-			plugin.setNpcHotKeyPressed(true);
+			setHotkeyPressed(true);
 		}
 	}
 
@@ -57,7 +52,18 @@ public class NPCInput implements KeyListener
 	{
 		if (e.getKeyCode() == HOTKEY)
 		{
-			plugin.setNpcHotKeyPressed(false);
+			setHotkeyPressed(false);
 		}
+	}
+
+	private boolean hotkeyPressed = false;
+
+	public boolean isHotkeyPressed()
+	{
+		return hotkeyPressed;
+	}
+	public void setHotkeyPressed(boolean b)
+	{
+		hotkeyPressed = b;
 	}
 }

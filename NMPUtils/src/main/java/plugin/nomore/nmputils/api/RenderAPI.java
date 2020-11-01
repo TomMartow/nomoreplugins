@@ -3,9 +3,11 @@ package plugin.nomore.nmputils.api;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -38,7 +40,7 @@ public class RenderAPI
         int y = (int) rect.getY();
         int w = (int) rect.getWidth();
         int h = (int) rect.getHeight();
-        renderScreenIndicator(graphics, x, y, w, h, color);
+        canvasIndicator(graphics, x, y, w, h, color);
     }
 
     public void renderWidgetItemCentreBox(Graphics2D graphics, WidgetItem item, int boxSize, Color color)
@@ -77,6 +79,64 @@ public class RenderAPI
             location[i] = Integer.parseInt(part);
         }
         return location;
+    }
+
+    public void hull(Graphics2D graphics, Shape convexHull, Color color)
+    {
+        if (convexHull == null)
+        {
+            return;
+        }
+        graphics.setColor(color);
+        graphics.draw(convexHull);
+    }
+
+    public void clickbox(Graphics2D graphics, Point mousePos, Shape convexHull, Color color)
+    {
+        if (convexHull == null)
+        {
+            return;
+        }
+        OverlayUtil.renderClickBox(graphics, mousePos, convexHull, color);
+    }
+
+    public void outline(Graphics2D graphics, Shape bounds, Color color)
+    {
+        if (bounds == null)
+        {
+            return;
+        }
+        OverlayUtil.renderOutlinePolygon(graphics, bounds, color);
+    }
+
+    public void fill(Graphics2D graphics, Shape convexHull, Color color)
+    {
+        if (convexHull == null)
+        {
+            return;
+        }
+        graphics.setColor(color);
+        graphics.fill(convexHull);
+    }
+
+    public void centreTileBox(Graphics2D graphics, WorldPoint worldPoint, Color color, int boxSize)
+    {
+        LocalPoint lp = LocalPoint.fromWorld(client, worldPoint);
+        if (lp == null)
+        {
+            return;
+        }
+        Polygon polygon = Perspective.getCanvasTilePoly(client, lp);
+        if (polygon == null)
+        {
+            return;
+        }
+        Rectangle bounds = polygon.getBounds();
+        if (bounds == null)
+        {
+            return;
+        }
+        renderCentreBox(graphics, bounds, color, boxSize);
     }
 
     public void renderCentreBox(Graphics2D graphics, Rectangle bounds, Color color, int boxSize)
@@ -124,7 +184,7 @@ public class RenderAPI
         renderCentreBox(graphics, bounds, color, boxSize);
     }
 
-    public void renderScreenIndicator(Graphics2D graphics, int x, int y, int width, int height, Color color)
+    public void canvasIndicator(Graphics2D graphics, int x, int y, int width, int height, Color color)
     {
         if (color == null)
         {
@@ -133,5 +193,4 @@ public class RenderAPI
         graphics.setColor(color);
         graphics.fillRect(x, y, width, height);
     }
-
 }

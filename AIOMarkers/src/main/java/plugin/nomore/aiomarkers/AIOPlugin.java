@@ -29,9 +29,8 @@ import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
-import plugin.nomore.aiomarkers.NPC.NPCHighlightingOverlay;
-import plugin.nomore.aiomarkers.NPC.NPCInput;
-import plugin.nomore.aiomarkers.NPC.NPCMethods;
+import plugin.nomore.aiomarkers.npc.NPCHighlightingOverlay;
+import plugin.nomore.aiomarkers.npc.NPCMethods;
 import plugin.nomore.nmputils.NMPUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -85,7 +84,7 @@ public class AIOPlugin extends Plugin
 	private NPCHighlightingOverlay npcHighlightingOverlay;
 
 	@Inject
-	private NPCInput npcInput;
+	private KeyboardListener keyboardListener;
 
 	@Inject
 	private NPCMethods npcMethods;
@@ -96,20 +95,13 @@ public class AIOPlugin extends Plugin
 		return configManager.getConfig(AIOConfig.class);
 	}
 
-	@Getter(AccessLevel.PUBLIC)
-	List<NPC> npcHighlightingList = new ArrayList<>();
-	@Getter(AccessLevel.PUBLIC)
-	List<Player> npcOtherPlayersList = new ArrayList<>();
-	@Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC)
-	boolean npcHotKeyPressed = false;
-
 	@Override
 	protected void startUp()
 	{
 		overlayManager.add(npcHighlightingOverlay);
 		// NPC Highlighting
 		npcMethods.startUp();
-		keyManager.registerKeyListener(npcInput);
+		keyManager.registerKeyListener(keyboardListener);
 	}
 
 	@Override
@@ -118,12 +110,12 @@ public class AIOPlugin extends Plugin
 		overlayManager.remove(npcHighlightingOverlay);
 		// NPC Highlighting
 		npcMethods.shutDown();
-		keyManager.unregisterKeyListener(npcInput);
+		keyManager.unregisterKeyListener(keyboardListener);
 	}
 
 	@Subscribe
 	private void on(GameTick event) { }
-
+	/*
 	@Subscribe
 	private void onFocusChanged(FocusChanged event) { npcMethods.onFocusChanged(event); }
 
@@ -132,6 +124,8 @@ public class AIOPlugin extends Plugin
 	{
 		npcMethods.onGameStateChanged(event);
 	}
+
+	 */
 
 	@Subscribe
 	private void on(NpcSpawned event) { npcMethods.onNPCSpawned(event); }
@@ -160,6 +154,8 @@ public class AIOPlugin extends Plugin
 		npcMethods.onPlayerDespawned(event);
 	}
 
+	/*
+
 	@Subscribe
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
@@ -171,5 +167,7 @@ public class AIOPlugin extends Plugin
 	{
 		npcMethods.onMenuOptionClicked(event);
 	}
+
+	 */
 
 }
