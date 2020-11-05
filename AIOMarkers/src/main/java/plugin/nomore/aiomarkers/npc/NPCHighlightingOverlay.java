@@ -25,6 +25,7 @@
  */
 package plugin.nomore.aiomarkers.npc;
 
+import net.runelite.api.Point;
 import plugin.nomore.aiomarkers.AIOConfig;
 import plugin.nomore.aiomarkers.AIOPlugin;
 import net.runelite.api.Client;
@@ -94,31 +95,61 @@ public class NPCHighlightingOverlay extends Overlay
                     case BOX:
                     {
                         render.renderNPCCentreBox(graphics, npc, getNPCColor(npc, player, color), config.npcIndicatorSize());
+                        if (config.npcDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(npc.getConvexHull(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.npcMouseHoveringIndicatorLocation()), color);
+                        }
                         break;
                     }
                     case CLICKBOX:
                     {
                         render.clickbox(graphics, client.getMouseCanvasPosition(), npc.getConvexHull(), color);
+                        if (config.npcDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(npc.getConvexHull(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.npcMouseHoveringIndicatorLocation()), color);
+                        }
                         break;
                     }
                     case HULL:
                     {
                         render.hull(graphics, npc.getConvexHull(), color);
+                        if (config.npcDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(npc.getConvexHull(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.npcMouseHoveringIndicatorLocation()), color);
+                        }
                         break;
                     }
                     case FILL:
                     {
                         render.fill(graphics, npc.getConvexHull(), color);
+                        if (config.npcDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(npc.getConvexHull(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.npcMouseHoveringIndicatorLocation()), color);
+                        }
                         break;
                     }
                     case TILE_OUTLINE:
                     {
                         render.outline(graphics, npc.getCanvasTilePoly(), color);
+                        if (config.npcDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(npc.getCanvasTilePoly(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.npcMouseHoveringIndicatorLocation()), color);
+                        }
                         break;
                     }
                     case TILE_FILLED:
                     {
                         render.fill(graphics, npc.getCanvasTilePoly(), color);
+                        if (config.npcDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(npc.getCanvasTilePoly(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.npcMouseHoveringIndicatorLocation()), color);
+                        }
                         break;
                     }
                 }

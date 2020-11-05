@@ -114,7 +114,9 @@ public class AIOPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void on(GameTick event) { }
+	private void on(GameTick event)
+	{
+	}
 	/*
 	@Subscribe
 	private void onFocusChanged(FocusChanged event) { npcMethods.onFocusChanged(event); }

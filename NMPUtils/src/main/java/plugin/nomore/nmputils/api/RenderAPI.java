@@ -21,6 +21,109 @@ public class RenderAPI
     @Inject
     private StringAPI string;
 
+    // New
+
+    public void hull(Graphics2D graphics, Shape convexHull, Color color)
+    {
+        if (convexHull == null)
+        {
+            return;
+        }
+        graphics.setColor(color);
+        graphics.draw(convexHull);
+    }
+
+    public void clickbox(Graphics2D graphics, Point mousePos, Shape convexHull, Color color)
+    {
+        if (convexHull == null)
+        {
+            return;
+        }
+        OverlayUtil.renderClickBox(graphics, mousePos, convexHull, color);
+    }
+
+    public void outline(Graphics2D graphics, Shape bounds, Color color)
+    {
+        if (bounds == null)
+        {
+            return;
+        }
+        OverlayUtil.renderOutlinePolygon(graphics, bounds, color);
+    }
+
+    public void fill(Graphics2D graphics, Shape convexHull, Color color)
+    {
+        if (convexHull == null)
+        {
+            return;
+        }
+        graphics.setColor(color);
+        graphics.fill(convexHull);
+    }
+
+    public boolean isMouseHoveringOver(Shape shape, Point mouseCanvasPosition)
+    {
+        if (shape == null)
+        {
+            return false;
+        }
+        return shape.contains(mouseCanvasPosition.getX(), mouseCanvasPosition.getY());
+    }
+
+    public boolean isMouseHoveringOver(Rectangle rect, Point mouseCanvasPosition)
+    {
+        if (rect == null)
+        {
+            return false;
+        }
+        return rect.contains(mouseCanvasPosition.getX(), mouseCanvasPosition.getY());
+    }
+
+    public void canvasIndicator(Graphics2D graphics, int[] indicatorLocation, Color color)
+    {
+        if (color == null)
+        {
+            color = Color.RED;
+        }
+        graphics.setColor(color);
+        graphics.fillRect(indicatorLocation[0],
+                indicatorLocation[1],
+                indicatorLocation[2],
+                indicatorLocation[3]);
+    }
+
+    public void canvasIndicator(Graphics2D graphics, int x, int y, int width, int height, Color color)
+    {
+        if (color == null)
+        {
+            color = Color.RED;
+        }
+        graphics.setColor(color);
+        graphics.fillRect(x, y, width, height);
+    }
+
+    public int[] getCanvasIndicatorLocation(String string)
+    {
+        int[] location = {0,0,5,5};
+        if (string.isEmpty())
+        {
+            return location;
+        }
+        String[] parts = this.string.removeWhiteSpaces(string).split(":");
+        for (int i = 0; i < 4; i++)
+        {
+            String part = this.string.removeCharactersFromString(parts[i]);
+            if (part.isEmpty())
+            {
+                break;
+            }
+            location[i] = Integer.parseInt(part);
+        }
+        return location;
+    }
+
+    // old
+
     public void renderWidgetItem(Graphics2D graphics, WidgetItem item, Color color)
     {
         if (item == null)
@@ -79,44 +182,6 @@ public class RenderAPI
             location[i] = Integer.parseInt(part);
         }
         return location;
-    }
-
-    public void hull(Graphics2D graphics, Shape convexHull, Color color)
-    {
-        if (convexHull == null)
-        {
-            return;
-        }
-        graphics.setColor(color);
-        graphics.draw(convexHull);
-    }
-
-    public void clickbox(Graphics2D graphics, Point mousePos, Shape convexHull, Color color)
-    {
-        if (convexHull == null)
-        {
-            return;
-        }
-        OverlayUtil.renderClickBox(graphics, mousePos, convexHull, color);
-    }
-
-    public void outline(Graphics2D graphics, Shape bounds, Color color)
-    {
-        if (bounds == null)
-        {
-            return;
-        }
-        OverlayUtil.renderOutlinePolygon(graphics, bounds, color);
-    }
-
-    public void fill(Graphics2D graphics, Shape convexHull, Color color)
-    {
-        if (convexHull == null)
-        {
-            return;
-        }
-        graphics.setColor(color);
-        graphics.fill(convexHull);
     }
 
     public void centreTileBox(Graphics2D graphics, WorldPoint worldPoint, Color color, int boxSize)
@@ -182,15 +247,5 @@ public class RenderAPI
             return;
         }
         renderCentreBox(graphics, bounds, color, boxSize);
-    }
-
-    public void canvasIndicator(Graphics2D graphics, int x, int y, int width, int height, Color color)
-    {
-        if (color == null)
-        {
-            color = Color.RED;
-        }
-        graphics.setColor(color);
-        graphics.fillRect(x, y, width, height);
     }
 }

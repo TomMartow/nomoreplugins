@@ -59,9 +59,14 @@ public class NPCMethods
 
     public void shutDown()
     {
+        // At the shut down of the plugin, do the following:
+        // Clear the highlighting list.
         npcsToHighlight.clear();
+        // Clear the config npc name and color hashmap.
         configNPCNameAndColor.clear();
+        // Clear the config npc id and color hashmap.
         configNPCIDAndColor.clear();
+        // Clear the othe players list.
         otherPlayersList.clear();
     }
 

@@ -108,8 +108,8 @@ public interface AIOConfig extends Config
 
 	@ConfigItem(
 			keyName = "configNPCTextField",
-			name = "NPC Name / ID",
-			description = "Use , to split up NPC names and IDs.",
+			name = "NPC Name / ID:Hex Color",
+			description = "Example: \"Goblin:00FF00,\".",
 			position = 14,
 			hidden = true,
 			unhide = "markerConfiguration",
@@ -238,5 +238,29 @@ public interface AIOConfig extends Config
 			titleSection = "npcMiscOptionsTitle"
 	)
 	default boolean npcLineOfSight() { return false; }
+
+	@ConfigItem(
+			keyName = "npcDisplayMouseHoveringIndicator",
+			name = "Mouse hovering indicator",
+			description = "If enabled will display an indicator if hovering over the npc.",
+			position = 25,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "NPC_HIGHLIGHTING",
+			titleSection = "npcMiscOptionsTitle"
+	)
+	default boolean npcDisplayMouseHoveringIndicator() { return false; }
+
+	@ConfigItem(
+			keyName = "npcMouseHoveringIndicatorLocation",
+			name = "X:Y:Width:Height indicator location",
+			description = "If enabled will display an indicator if hovering over the npc.",
+			position = 26,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "NPC_HIGHLIGHTING",
+			titleSection = "npcMiscOptionsTitle"
+	)
+	default String npcMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
 
 }
