@@ -103,7 +103,11 @@ public class NPCMethods
             return;
         }
         // Create a string object from the npc name and remove all whitespaces from it.
-        String npcName = stringAPI.removeWhiteSpaces(Objects.requireNonNull(npc.getName()));
+        if (npc.getName() == null)
+        {
+            return;
+        }
+        String npcName = stringAPI.removeWhiteSpaces(npc.getName());
         // Check that the npc name is not null.
         if (npcName != null)
         {
