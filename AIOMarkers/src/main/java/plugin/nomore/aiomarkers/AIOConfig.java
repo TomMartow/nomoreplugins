@@ -32,6 +32,17 @@ import java.awt.Color;
 @ConfigGroup("aiomarkers")
 public interface AIOConfig extends Config
 {
+
+	String ANSI_RESET = "\u001B[0m";
+	String ANSI_BLACK = "\u001B[30m";
+	String ANSI_RED = "\u001B[31m";
+	String ANSI_GREEN = "\u001B[32m";
+	String ANSI_YELLOW = "\u001B[33m";
+	String ANSI_BLUE = "\u001B[34m";
+	String ANSI_PURPLE = "\u001B[35m";
+	String ANSI_CYAN = "\u001B[36m";
+	String ANSI_WHITE = "\u001B[37m";
+
 	@ConfigTitleSection(
 			keyName = "configurationOptions",
 			name = "Configuration Options",
@@ -59,11 +70,14 @@ public interface AIOConfig extends Config
 	//██║ ╚████║██║     ╚██████╗
 	//╚═╝  ╚═══╝╚═╝      ╚═════╝
 
-	@ConfigTitleSection(
+	@ConfigItem(
 			keyName = "npcHighlightTitle",
 			name = "NPC Highlight Options",
 			description = "",
-			position = 10
+			position = 10,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default Title npcHighlightTitle()
 	{
@@ -77,8 +91,7 @@ public interface AIOConfig extends Config
 			position = 11,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcHighlightTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default boolean enableNPCHighlighting() { return false; }
 
@@ -89,8 +102,7 @@ public interface AIOConfig extends Config
 			position = 12,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcHighlightTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default NPCRenderStyle npcRenderStyle() { return NPCRenderStyle.BOX; }
 
@@ -101,8 +113,7 @@ public interface AIOConfig extends Config
 			position = 13,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcHighlightTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default int npcIndicatorSize() { return 4; }
 
@@ -113,16 +124,17 @@ public interface AIOConfig extends Config
 			position = 14,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcHighlightTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default String npcConfigTextString() { return "Banker, 3010"; }
 
-	@ConfigTitleSection(
+	@ConfigItem(
 			keyName = "npcColorTitle",
 			name = "Indicator Interaction Color Options",
 			description = "",
-			position = 15
+			position = 15,
+			unhide = "markerConfiguration",
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default Title npcColorTitle()
 	{
@@ -136,8 +148,7 @@ public interface AIOConfig extends Config
 			position = 16,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default Color npcDefaultHighlightColor() { return Color.GREEN; }
 
@@ -148,8 +159,7 @@ public interface AIOConfig extends Config
 			position = 17,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default boolean npcEnableNPCDefaultColorOverrideWithNPCInteractingWithPlayer() { return false; }
 
@@ -160,8 +170,7 @@ public interface AIOConfig extends Config
 			position = 18,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default Color npcInteractingWithPlayerColor() { return Color.YELLOW; }
 
@@ -172,8 +181,7 @@ public interface AIOConfig extends Config
 			position = 19,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default boolean npcEnableNPCDefaultColorOverrideWithPlayersInteractingWithPlayer() { return false; }
 
@@ -184,8 +192,7 @@ public interface AIOConfig extends Config
 			position = 20,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default Color npcPlayersInteractingWithNPCColor() { return Color.RED; }
 
@@ -196,8 +203,7 @@ public interface AIOConfig extends Config
 			position = 21,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default boolean npcEnableHighlightingMenuItemForMarkedNPCS() { return false; }
 
@@ -208,16 +214,26 @@ public interface AIOConfig extends Config
 			position = 22,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcColorTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default Color npcMenuItemColorForMarkedNPCS() { return Color.MAGENTA; }
 
-	@ConfigTitleSection(
+	@ConfigItem(
+			keyName = "npc10",
+			name = "",
+			description = "",
+			position = 23,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "NPC_HIGHLIGHTING"
+	)
+	default Title npc11() { return new Title(); }
+
+	@ConfigItem(
 			keyName = "npcMiscOptionsTitle",
 			name = "Miscellaneous Options",
 			description = "",
-			position = 23,
+			position = 24,
 			hidden = true,
 			unhide = "markerConfiguration",
 			unhideValue = "NPC_HIGHLIGHTING"
@@ -228,14 +244,27 @@ public interface AIOConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "npc10",
+			name = "",
+			description = "",
+			position = 25,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "NPC_HIGHLIGHTING"
+	)
+	default Title npc10()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
 			keyName = "npcLineOfSight",
 			name = "Only show NPC's you can \"see\"",
 			description = "",
-			position = 24,
+			position = 26,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcMiscOptionsTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default boolean npcLineOfSight() { return false; }
 
@@ -243,11 +272,10 @@ public interface AIOConfig extends Config
 			keyName = "npcDisplayMouseHoveringIndicator",
 			name = "Mouse hovering indicator",
 			description = "If enabled will display an indicator if hovering over the npc.",
-			position = 25,
+			position = 27,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcMiscOptionsTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default boolean npcDisplayMouseHoveringIndicator() { return false; }
 
@@ -255,11 +283,10 @@ public interface AIOConfig extends Config
 			keyName = "npcMouseHoveringIndicatorLocation",
 			name = "X:Y:Width:Height indicator location",
 			description = "If enabled will display an indicator if hovering over the npc.",
-			position = 26,
+			position = 28,
 			hidden = true,
 			unhide = "markerConfiguration",
-			unhideValue = "NPC_HIGHLIGHTING",
-			titleSection = "npcMiscOptionsTitle"
+			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default String npcMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
 

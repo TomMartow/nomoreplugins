@@ -25,7 +25,6 @@
  */
 package plugin.nomore.aiomarkers.npc;
 
-import net.runelite.api.Point;
 import plugin.nomore.aiomarkers.AIOConfig;
 import plugin.nomore.aiomarkers.AIOPlugin;
 import net.runelite.api.Client;

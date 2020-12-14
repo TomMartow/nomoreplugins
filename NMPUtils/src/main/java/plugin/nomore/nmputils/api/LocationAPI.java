@@ -11,6 +11,9 @@ public class LocationAPI
     @Inject
     private Client client;
 
+    @Inject
+    private DebugAPI debug;
+
     public boolean isWithinAreaNWtoSE(WorldPoint isWorldPoint, int x1, int y2, int x2, int y1, int plane)
     {
 
@@ -89,9 +92,17 @@ public class LocationAPI
     private boolean worldPointAreaCheck(int wpX, int wpY, int wpZ, int x1, int y1, int x2, int y2, int plane)
     {
 
-        return wpX >= x1 && wpX <= x2
+        if (wpX >= x1 && wpX <= x2
                 && wpY >= y1 && wpY <= y2
-                && wpZ == plane;
+                && wpZ == plane)
+        {
+
+            debug.log("The WorldPoint is within the WorldArea.");
+
+            return true;
+        }
+
+        return false;
 
     }
 

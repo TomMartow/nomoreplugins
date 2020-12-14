@@ -1,15 +1,15 @@
 package plugin.nomore.nmputils.api;
 
 import net.runelite.api.Client;
-import net.runelite.api.GameObject;
-import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.queries.GameObjectQuery;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
+import net.runelite.api.NPC;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class NPCAPI
@@ -21,21 +21,24 @@ public class NPCAPI
     @Inject
     private StringAPI string;
 
-    public List<GameObject> getGameObjects()
+    public static List<NPC> npcs = new ArrayList<>();
+
+    public void onNPCSpawned(NPC npc)
     {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .result(client)
-                .list;
+        npcs.add(npc);
     }
 
-    public List<GameObject> getGameObjectsSortedByDistance()
+    public void onNPCDespawned(NPC npc)
+    {
+        npcs.remove(npc);
+    }
+
+    public List<NPC> get()
+    {
+        return npcs;
+    }
+
+    public NPC getClosest()
     {
         assert client.isClientThread();
 
@@ -44,10 +47,113 @@ public class NPCAPI
             return null;
         }
 
-        return new GameObjectQuery()
-                .result(client)
+        return get()
                 .stream()
-                .filter(Objects::nonNull)
+                .min(Comparator.comparing(entityType
+                        -> entityType
+                        .getLocalLocation()
+                        .distanceTo(client.getLocalPlayer()
+                                .getLocalLocation())))
+                .orElse(null);
+    }
+
+    public NPC getClosestMatching(String npcName)
+    {
+        assert client.isClientThread();
+
+        if (client.getLocalPlayer() == null)
+        {
+            return null;
+        }
+
+        return get()
+                .stream()
+                .filter(npc
+                        -> npc != null
+                        && npc.getName() != null
+                        && npc.getName().equalsIgnoreCase(npcName))
+                .min(Comparator.comparing(entityType
+                        -> entityType
+                        .getLocalLocation()
+                        .distanceTo(client.getLocalPlayer()
+                                .getLocalLocation())))
+                .orElse(null);
+    }
+
+    public NPC getClosestMatching(int npcId)
+    {
+        assert client.isClientThread();
+
+        if (client.getLocalPlayer() == null)
+        {
+            return null;
+        }
+
+        return get()
+                .stream()
+                .filter(npc
+                        -> npc != null
+                        && npc.getId() == npcId)
+                .min(Comparator.comparing(entityType
+                        -> entityType
+                        .getLocalLocation()
+                        .distanceTo(client.getLocalPlayer()
+                                .getLocalLocation())))
+                .orElse(null);
+    }
+
+    public List<NPC> getNpcsMatching(String... npcNames)
+    {
+        assert client.isClientThread();
+
+        if (client.getLocalPlayer() == null)
+        {
+            return null;
+        }
+
+        return get()
+                .stream()
+                .filter(i -> i != null
+                        && i.getName() != null
+                        && Arrays.stream(npcNames)
+                        .anyMatch(s -> string.removeWhiteSpaces(s)
+                                .equalsIgnoreCase(string.removeWhiteSpaces(i.getName()))))
+                .collect(Collectors.toList());
+    }
+
+    public List<NPC> getNpcsMatching(int... npcIds)
+    {
+        assert client.isClientThread();
+
+        if (client.getLocalPlayer() == null)
+        {
+            return null;
+        }
+
+        return get()
+                .stream()
+                .filter(i -> i != null
+                        && Arrays.stream(npcIds)
+                        .anyMatch(itemId -> itemId == i.getId()))
+                .collect(Collectors.toList());
+    }
+
+    public List<NPC> getNpcsMatchingSortedByClosest(String... npcNames)
+    {
+        assert client.isClientThread();
+
+        if (client.getLocalPlayer() == null)
+        {
+            return null;
+        }
+
+        return get()
+                .stream()
+                .filter(i -> i != null
+                        && i.getName() != null
+                        && Arrays.stream(npcNames)
+                        .anyMatch(s -> string.removeWhiteSpaces(s)
+                                .equalsIgnoreCase(string.removeWhiteSpaces(i.getName()))))
                 .sorted(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()
@@ -55,7 +161,7 @@ public class NPCAPI
                 .collect(Collectors.toList());
     }
 
-    public GameObject getClosestGameObjectMatching(String objectName)
+    public List<NPC> getNpcsMatchingSortedByClosest(int... npcIds)
     {
         assert client.isClientThread();
 
@@ -64,182 +170,11 @@ public class NPCAPI
             return null;
         }
 
-        return new GameObjectQuery()
-                .filter(gameObject -> gameObject != null
-                        && string.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
-                        .getName())
-                        .equalsIgnoreCase(string.removeWhiteSpaces(objectName)))
-                .result(client)
-                .stream().min(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer().getLocalLocation())))
-                .orElse(null);
-    }
-
-    public GameObject getClosestGameObjectMatching(int objectId)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .filter(gameObject -> gameObject != null
-                        && gameObject.getId() == objectId)
-                .result(client)
-                .stream().min(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer().getLocalLocation())))
-                .orElse(null);
-    }
-
-    public List<GameObject> getGameObjectsMatching(String... objectNames)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .filter(gameObject -> gameObject != null
-                        && Arrays.stream(objectNames)
-                        .anyMatch(objectName -> string.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
-                                .getName())
-                                .equalsIgnoreCase(string.removeWhiteSpaces(objectName))))
-                .result(client)
-                .stream().sorted(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .collect(Collectors.toList());
-    }
-
-    public List<GameObject> getClosestGameObjectsMatching(int... objectIds)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .filter(gameObject -> gameObject != null
-                        && Arrays.stream(objectIds)
-                        .anyMatch(objectId -> objectId == gameObject.getId()))
-                .result(client)
-                .stream().sorted(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .collect(Collectors.toList());
-    }
-
-    public List<GameObject> getGameObjectsNotMatching(String... objectNames)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .filter(gameObject -> gameObject != null
-                        && Arrays.stream(objectNames)
-                        .noneMatch(objectName -> string.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
-                                .getName())
-                                .equalsIgnoreCase(string.removeWhiteSpaces(objectName))))
-                .result(client)
-                .stream().sorted(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .collect(Collectors.toList());
-    }
-
-    public List<GameObject> getClosestGameObjectsNotMatching(int... objectIds)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .filter(gameObject -> gameObject != null
-                        && Arrays.stream(objectIds)
-                        .noneMatch(objectId -> objectId == gameObject.getId()))
-                .result(client)
-                .stream().sorted(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .collect(Collectors.toList());
-    }
-
-    public GameObject getClosestGameObjectWithinDistanceTo(String objectName, WorldPoint comparisonTile, int maxTileDistance)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .isWithinDistance(comparisonTile, maxTileDistance)
-                .result(client)
+        return get()
                 .stream()
-                .filter(gameObject -> gameObject != null
-                        && string.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId()).getName())
-                        .equalsIgnoreCase(string.removeWhiteSpaces(objectName)))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public GameObject getClosestGameObjectWithinDistanceTo(int objectId, WorldPoint comparisonTile, int maxTileDistance)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .isWithinDistance(comparisonTile, maxTileDistance)
-                .result(client)
-                .stream()
-                .filter(gameObject -> gameObject != null
-                        && gameObject.getId() == objectId)
-                .findFirst()
-                .orElse(null);
-    }
-
-    public List<GameObject> getGameObjectsWithinDistanceTo(String[] objectNames, WorldPoint comparisonTile, int maxTileDistance)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return new GameObjectQuery()
-                .isWithinDistance(comparisonTile, maxTileDistance)
-                .result(client)
-                .stream()
-                .filter(gameObject -> gameObject != null
-                        && Arrays.stream(objectNames)
-                        .anyMatch(objectName -> string.removeWhiteSpaces(objectName)
-                                .equalsIgnoreCase(string.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
-                                        .getName()))))
+                .filter(i -> i != null
+                        && Arrays.stream(npcIds)
+                        .anyMatch(itemId -> itemId == i.getId()))
                 .sorted(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()
@@ -247,27 +182,36 @@ public class NPCAPI
                 .collect(Collectors.toList());
     }
 
-    public List<GameObject> getGameObjectsWithinDistanceTo(Integer[] objectIds, WorldPoint comparisonTile, int maxTileDistance)
-    {
-        assert client.isClientThread();
+    ////////////////////////////
 
-        if (client.getLocalPlayer() == null)
+    // MenuEntries
+
+    public MenuEntry attack(NPC npc)
+    {
+        if (npc == null)
         {
             return null;
         }
+        return new MenuEntry("", "",
+                npc.getIndex(),
+                MenuOpcode.NPC_SECOND_OPTION.getId(),
+                0,
+                0,
+                false);
+    }
 
-        return new GameObjectQuery()
-                .isWithinDistance(comparisonTile, maxTileDistance)
-                .result(client)
-                .stream()
-                .filter(gameObject -> gameObject != null
-                        && Arrays.stream(objectIds)
-                        .anyMatch(ObjectId -> ObjectId == gameObject.getId()))
-                .sorted(Comparator.comparing(entityType -> entityType
-                        .getLocalLocation()
-                        .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .collect(Collectors.toList());
+    public MenuEntry trade(NPC npc)
+    {
+        if (npc == null)
+        {
+            return null;
+        }
+        return new MenuEntry("", "",
+                npc.getIndex(),
+                MenuOpcode.NPC_SECOND_OPTION.getId(),
+                0,
+                0,
+                false);
     }
 
 }

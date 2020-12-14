@@ -8,6 +8,7 @@ import net.runelite.client.events.ConfigChanged;
 import plugin.nomore.aiomarkers.AIOConfig;
 import plugin.nomore.aiomarkers.KeyboardListener;
 import net.runelite.api.*;
+import plugin.nomore.nmputils.api.NPCAPI;
 import plugin.nomore.nmputils.api.StringAPI;
 
 import javax.inject.Inject;
