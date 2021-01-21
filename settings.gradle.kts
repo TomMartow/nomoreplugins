@@ -34,6 +34,7 @@ include(":MyCharacterIndicators")
 include(":NoMoreAgility")
 include(":NoMoreWintertodt")
 include(":StatRandomiser")
+include(":NMGroundItems")
 
 for (project in rootProject.children) {
     project.apply {
