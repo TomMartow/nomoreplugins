@@ -31,10 +31,9 @@ import javax.inject.Inject;
 
 import plugin.nomore.aiomarkers.npc.NPCHighlightingOverlay;
 import plugin.nomore.aiomarkers.npc.NPCMethods;
+import plugin.nomore.aiomarkers.object.ObjectHighlightingOverlay;
+import plugin.nomore.aiomarkers.object.ObjectMethods;
 import plugin.nomore.nmputils.NMPUtils;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 
@@ -49,9 +48,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
-
-import java.util.ArrayList;
-import java.util.List;
+import plugin.nomore.nmputils.api.StringAPI;
 
 @Extension
 @PluginDescriptor(
@@ -78,16 +75,25 @@ public class AIOPlugin extends Plugin
 	private NMPUtils utils;
 
 	@Inject
+	private StringAPI stringAPI;
+
+	@Inject
 	private KeyManager keyManager;
 
 	@Inject
 	private NPCHighlightingOverlay npcHighlightingOverlay;
 
 	@Inject
+	private ObjectHighlightingOverlay objectHighlightingOverlay;
+
+	@Inject
 	private KeyboardListener keyboardListener;
 
 	@Inject
 	private NPCMethods npcMethods;
+
+	@Inject
+	private ObjectMethods objectMethods;
 
 	@Provides
     AIOConfig provideConfig(ConfigManager configManager)
@@ -98,19 +104,25 @@ public class AIOPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		overlayManager.add(npcHighlightingOverlay);
-		// NPC Highlighting
-		npcMethods.startUp();
 		keyManager.registerKeyListener(keyboardListener);
+		// NPC Highlighting
+		overlayManager.add(npcHighlightingOverlay);
+		npcMethods.startUp();
+		// Object Markers
+		overlayManager.add(objectHighlightingOverlay);
+		objectMethods.startUp();
 	}
 
 	@Override
 	protected void shutDown()
 	{
-		overlayManager.remove(npcHighlightingOverlay);
-		// NPC Highlighting
-		npcMethods.shutDown();
 		keyManager.unregisterKeyListener(keyboardListener);
+		// NPC Highlighting
+		overlayManager.remove(npcHighlightingOverlay);
+		npcMethods.shutDown();
+		// Object Markers
+		overlayManager.remove(objectHighlightingOverlay);
+		objectMethods.shutDown();
 	}
 
 	@Subscribe
@@ -130,18 +142,19 @@ public class AIOPlugin extends Plugin
 	 */
 
 	@Subscribe
+	private void on(ConfigChanged event)
+	{
+		npcMethods.onConfigChanged(event);
+		objectMethods.onConfigChanged(event);
+	}
+
+	@Subscribe
 	private void on(NpcSpawned event) { npcMethods.onNPCSpawned(event); }
 
 	@Subscribe
 	private void on(NpcDespawned event)
 	{
 		npcMethods.onNPCDespawned(event);
-	}
-
-	@Subscribe
-	private void on(ConfigChanged event)
-	{
-		npcMethods.onConfigChanged(event);
 	}
 
 	@Subscribe
@@ -155,6 +168,42 @@ public class AIOPlugin extends Plugin
 	{
 		npcMethods.onPlayerDespawned(event);
 	}
+
+	@Subscribe
+	private void on(GameObjectSpawned event) { objectMethods.onGameObjectSpawned(event); }
+
+	@Subscribe
+	private void on(GameObjectChanged event) { objectMethods.onGameObjectChanged(event); }
+
+	@Subscribe
+	private void on(GameObjectDespawned event) { objectMethods.onGameObjectDespawned(event); }
+
+	@Subscribe
+	private void on(GroundObjectSpawned event) { objectMethods.onGroundObjectSpawned(event); }
+
+	@Subscribe
+	private void on(GroundObjectChanged event) { objectMethods.onGroundObjectChanged(event); }
+
+	@Subscribe
+	private void on(GroundObjectDespawned event) { objectMethods.onGroundObjectDespawned(event); }
+
+	@Subscribe
+	private void on(DecorativeObjectSpawned event) { objectMethods.onDecorativeObjectSpawned(event); }
+
+	@Subscribe
+	private void on(DecorativeObjectChanged event) { objectMethods.onDecorativeObjectChanged(event); }
+
+	@Subscribe
+	private void on(DecorativeObjectDespawned event) { objectMethods.onDecorativeObjectDespawned(event); }
+
+	@Subscribe
+	private void on(WallObjectSpawned event) { objectMethods.onWallObjectSpawned(event); }
+
+	@Subscribe
+	private void on(WallObjectChanged event) { objectMethods.onWallObjectChanged(event); }
+
+	@Subscribe
+	private void on(WallObjectDespawned event) { objectMethods.onWallObjectDespawned(event); }
 
 	/*
 

@@ -71,13 +71,6 @@ public class NPCMethods
         otherPlayersList.clear();
     }
 
-    //███╗   ██╗██████╗  ██████╗
-    //████╗  ██║██╔══██╗██╔════╝
-    //██╔██╗ ██║██████╔╝██║
-    //██║╚██╗██║██╔═══╝ ██║
-    //██║ ╚████║██║     ╚██████╗
-    //╚═╝  ╚═══╝╚═╝      ╚═════╝
-
     public void onNPCSpawned(NpcSpawned event)
     {
         // Upon an npc spawning, do the following:

@@ -26,22 +26,13 @@ package plugin.nomore.aiomarkers;
 
 import net.runelite.client.config.*;
 import plugin.nomore.aiomarkers.npc.NPCRenderStyle;
+import plugin.nomore.aiomarkers.object.ObjectRenderStyle;
 
 import java.awt.Color;
 
 @ConfigGroup("aiomarkers")
 public interface AIOConfig extends Config
 {
-
-	String ANSI_RESET = "\u001B[0m";
-	String ANSI_BLACK = "\u001B[30m";
-	String ANSI_RED = "\u001B[31m";
-	String ANSI_GREEN = "\u001B[32m";
-	String ANSI_YELLOW = "\u001B[33m";
-	String ANSI_BLUE = "\u001B[34m";
-	String ANSI_PURPLE = "\u001B[35m";
-	String ANSI_CYAN = "\u001B[36m";
-	String ANSI_WHITE = "\u001B[37m";
 
 	@ConfigTitleSection(
 			keyName = "configurationOptions",
@@ -133,6 +124,7 @@ public interface AIOConfig extends Config
 			name = "Indicator Interaction Color Options",
 			description = "",
 			position = 15,
+			hidden = true,
 			unhide = "markerConfiguration",
 			unhideValue = "NPC_HIGHLIGHTING"
 	)
@@ -259,8 +251,8 @@ public interface AIOConfig extends Config
 
 	@ConfigItem(
 			keyName = "npcLineOfSight",
-			name = "Only show NPC's you can \"see\"",
-			description = "",
+			name = "Only show NPC's in line of sight",
+			description = "Only show NPC's your player (tile: diagonally or straight) can \"see\"",
 			position = 26,
 			hidden = true,
 			unhide = "markerConfiguration",
@@ -289,5 +281,143 @@ public interface AIOConfig extends Config
 			unhideValue = "NPC_HIGHLIGHTING"
 	)
 	default String npcMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
+
+
+	//   ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗
+	//  ██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
+	//  ██║   ██║██████╔╝     ██║█████╗  ██║        ██║
+	//  ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║
+	//  ╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║
+	//   ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
+
+	@ConfigItem(
+			keyName = "objectMarkerTitle",
+			name = "Object Marker Options",
+			description = "",
+			position = 29,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default Title objectMarkerTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+			keyName = "enableObjectMarkers",
+			name = "Enable Object Markers",
+			description = "",
+			position = 30,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default boolean enableObjectMarkers() { return false; }
+
+	@ConfigItem(
+			keyName = "objectRenderStyle",
+			name = "Render style",
+			description = "The type of marker.",
+			position = 31,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default ObjectRenderStyle objectRenderStyle() { return ObjectRenderStyle.BOX; }
+
+	@ConfigItem(
+			keyName = "objectIndicatorSize",
+			name = "Indicator size",
+			description = "The size of the marker.",
+			position = 32,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default int objectIndicatorSize() { return 4; }
+
+	@ConfigItem(
+			keyName = "configObjectTextField",
+			name = "Object Name / ID:Hex Color",
+			description = "Example: \"Bank booth:00FF00,\".",
+			position = 33,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default String objectConfigTextString() { return "Bank booth, 10529"; }
+
+	@ConfigItem(
+			keyName = "objectColorTitle",
+			name = "Indicator Interaction Color Options",
+			description = "",
+			position = 34,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default Title objectColorTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+			keyName = "objectDefaultHighlightColor",
+			name = "Default Marker color",
+			description = "The default color for the Object indicator.",
+			position = 35,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default Color objectDefaultHighlightColor() { return Color.GREEN; }
+
+	@ConfigItem(
+			keyName = "objectMiscOptionsTitle",
+			name = "Miscellaneous Options",
+			description = "",
+			position = 36,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default Title objectMiscOptionsTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+			keyName = "objectLineOfSight",
+			name = "Only show Objects in line of sight",
+			description = "Only show Objects your player (tile: diagonally or straight) can \"see\"",
+			position = 37,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default boolean objectLineOfSight() { return false; }
+
+	@ConfigItem(
+			keyName = "objectDisplayMouseHoveringIndicator",
+			name = "Mouse hovering indicator",
+			description = "If enabled will display an indicator if hovering over the object.",
+			position = 38,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default boolean objectDisplayMouseHoveringIndicator() { return false; }
+
+	@ConfigItem(
+			keyName = "objectMouseHoveringIndicatorLocation",
+			name = "X:Y:Width:Height indicator location",
+			description = "If enabled will display an indicator if hovering over the object.",
+			position = 39,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "OBJECT_MARKERS"
+	)
+	default String objectMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
 
 }

@@ -26,7 +26,6 @@
 package plugin.nomore.aiomarkers.object;
 
 import net.runelite.api.Client;
-import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -39,7 +38,7 @@ import plugin.nomore.nmputils.api.RenderAPI;
 import javax.inject.Inject;
 import java.awt.*;
 
-public class ObjectHighlightingOverlay extends Overlay
+public class  ObjectHighlightingOverlay extends Overlay
 {
 
     @Inject
@@ -73,11 +72,92 @@ public class ObjectHighlightingOverlay extends Overlay
         {
             return null;
         }
-        if (config.enableNPCHighlighting())
+        if (config.enableObjectMarkers())
         {
-            //renderObject(graphics, player);
+            renderObjects(graphics, player);
         }
         return null;
+    }
+
+    private void renderObjects(Graphics2D graphics, Player player)
+    {
+        objectMethods.getObjectsToHighlightHashMap().forEach((object, color) ->
+        {
+            if (object != null
+                    && !config.objectLineOfSight()
+                    || config.objectLineOfSight() && objectMethods.doesPlayerHaveALineOfSightToObject(player, object))
+            {
+                assert object != null;
+                switch (config.objectRenderStyle())
+                {
+                    case BOX:
+                    {
+                        Shape clickBox = object.getClickbox();
+                        if (clickBox == null)
+                        {
+                            return;
+                        }
+                        render.renderCentreBox(graphics, clickBox.getBounds(), color, config.objectIndicatorSize());
+                        if (config.objectDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(object.getClickbox(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.objectMouseHoveringIndicatorLocation()), color);
+                        }
+                        break;
+                    }
+                    case CLICKBOX:
+                    {
+                        render.clickbox(graphics, client.getMouseCanvasPosition(), object.getClickbox(), color);
+                        if (config.objectDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(object.getClickbox(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.objectMouseHoveringIndicatorLocation()), color);
+                        }
+                        break;
+                    }
+                    case HULL:
+                    {
+                        render.hull(graphics, object.getClickbox(), color);
+                        if (config.objectDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(object.getClickbox(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.objectMouseHoveringIndicatorLocation()), color);
+                        }
+                        break;
+                    }
+                    case FILL:
+                    {
+                        render.fill(graphics, object.getClickbox(), color);
+                        if (config.objectDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(object.getClickbox(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.objectMouseHoveringIndicatorLocation()), color);
+                        }
+                        break;
+                    }
+                    case TILE_OUTLINE:
+                    {
+                        render.outline(graphics, object.getCanvasTilePoly(), color);
+                        if (config.objectDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(object.getCanvasTilePoly(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.objectMouseHoveringIndicatorLocation()), color);
+                        }
+                        break;
+                    }
+                    case TILE_FILLED:
+                    {
+                        render.fill(graphics, object.getCanvasTilePoly(), color);
+                        if (config.objectDisplayMouseHoveringIndicator()
+                                && render.isMouseHoveringOver(object.getCanvasTilePoly(), client.getMouseCanvasPosition()))
+                        {
+                            render.canvasIndicator(graphics, render.getCanvasIndicatorLocation(config.objectMouseHoveringIndicatorLocation()), color);
+                        }
+                        break;
+                    }
+                }
+            }
+        });
     }
 
 }
