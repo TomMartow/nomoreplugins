@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https:github.com/Owain94>
+ * Copyright (c) 2019, Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,28 +23,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "NoMorePlugins"
+package net.runelite.client.plugins.objectindicators;
 
-include(":NMPUtils")
-include(":AIOMarkers")
-include(":InterfaceMarking")
-include(":InventoryItemIndicators")
-include(":MouseLogger")
-include(":MyCharacterIndicators")
-include(":NoMoreAgility")
-include(":NoMoreWintertodt")
-include(":StatRandomiser")
-include(":NMGroundItems")
-include(":NMGroundMarkers")
-include(":NMInventoryTags")
-include(":NMObjectIndicators")
-
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+public enum RenderStyle
+{
+	CLICKBOX,
+	HULL,
+	BOX,
+	OUTLINE
 }

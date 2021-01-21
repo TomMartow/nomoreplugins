@@ -40,7 +40,7 @@ import net.runelite.client.plugins.nmgrounditems.config.PriceDisplayMode;
 import net.runelite.client.plugins.nmgrounditems.config.TimerDisplayMode;
 import net.runelite.client.plugins.nmgrounditems.config.ValueCalculationMode;
 
-@ConfigGroup("grounditems")
+@ConfigGroup("nmgrounditems")
 public interface GroundItemsConfig extends Config
 {
 	@ConfigTitleSection(

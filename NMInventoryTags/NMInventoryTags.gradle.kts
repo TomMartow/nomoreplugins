@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https:github.com/Owain94>
+ * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,28 +23,27 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "NoMorePlugins"
+version = "0.0.5"
 
-include(":NMPUtils")
-include(":AIOMarkers")
-include(":InterfaceMarking")
-include(":InventoryItemIndicators")
-include(":MouseLogger")
-include(":MyCharacterIndicators")
-include(":NoMoreAgility")
-include(":NoMoreWintertodt")
-include(":StatRandomiser")
-include(":NMGroundItems")
-include(":NMGroundMarkers")
-include(":NMInventoryTags")
-include(":NMObjectIndicators")
+project.extra["PluginName"] = "NM Inventory Tags"
+project.extra["PluginDescription"] = "Add the ability to tag items in your inventory"
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
+dependencies {
+    compileOnly(project(":NMPUtils"))
+}
+
+tasks {
+    jar {
+        manifest {
+            attributes(mapOf(
+                "Plugin-Version" to project.version,
+                "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
+                "Plugin-Provider" to project.extra["PluginProvider"],
+                "Plugin-Dependencies" to nameToId("NMPUtils"),
+                "Plugin-Description" to project.extra["PluginDescription"],
+                "Plugin-License" to project.extra["PluginLicense"]
+            ))
+        }
     }
 }

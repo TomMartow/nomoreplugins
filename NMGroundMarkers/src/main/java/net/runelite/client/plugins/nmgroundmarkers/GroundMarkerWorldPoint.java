@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https:github.com/Owain94>
+ * Copyright (c) 2018, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,29 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.nmgroundmarkers;
 
-rootProject.name = "NoMorePlugins"
+import lombok.Value;
+import net.runelite.api.coords.WorldPoint;
 
-include(":NMPUtils")
-include(":AIOMarkers")
-include(":InterfaceMarking")
-include(":InventoryItemIndicators")
-include(":MouseLogger")
-include(":MyCharacterIndicators")
-include(":NoMoreAgility")
-include(":NoMoreWintertodt")
-include(":StatRandomiser")
-include(":NMGroundItems")
-include(":NMGroundMarkers")
-include(":NMInventoryTags")
-include(":NMObjectIndicators")
-
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+@Value
+class GroundMarkerWorldPoint
+{
+	private GroundMarkerPoint groundMarkerPoint;
+	private WorldPoint worldPoint;
 }
