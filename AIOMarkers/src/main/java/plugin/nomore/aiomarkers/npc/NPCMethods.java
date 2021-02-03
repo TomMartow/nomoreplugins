@@ -1,9 +1,6 @@
 package plugin.nomore.aiomarkers.npc;
 
-import net.runelite.api.events.NpcDespawned;
-import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.PlayerDespawned;
-import net.runelite.api.events.PlayerSpawned;
+import net.runelite.api.events.*;
 import net.runelite.client.events.ConfigChanged;
 import plugin.nomore.aiomarkers.AIOConfig;
 import plugin.nomore.aiomarkers.KeyboardListener;
@@ -62,6 +59,18 @@ public class NPCMethods
     {
         // At the shut down of the plugin, do the following:
         // Clear the highlighting list.
+        npcsToHighlight.clear();
+        // Clear the config npc name and color hashmap.
+        configNPCNameAndColor.clear();
+        // Clear the config npc id and color hashmap.
+        configNPCIDAndColor.clear();
+        // Clear the othe players list.
+        otherPlayersList.clear();
+    }
+
+    public void onGameStateChanged(GameStateChanged event)
+    {
+        // At a change of game state, do the following:
         npcsToHighlight.clear();
         // Clear the config npc name and color hashmap.
         configNPCNameAndColor.clear();

@@ -25,6 +25,8 @@
 package plugin.nomore.aiomarkers;
 
 import net.runelite.client.config.*;
+import plugin.nomore.aiomarkers.item.ground.GroundItemRenderStyle;
+import plugin.nomore.aiomarkers.item.inventory.InventoryItemRenderStyle;
 import plugin.nomore.aiomarkers.npc.NPCRenderStyle;
 import plugin.nomore.aiomarkers.object.ObjectRenderStyle;
 
@@ -33,6 +35,8 @@ import java.awt.Color;
 @ConfigGroup("aiomarkers")
 public interface AIOConfig extends Config
 {
+
+	// https://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Type%20Something%20
 
 	@ConfigTitleSection(
 			keyName = "configurationOptions",
@@ -419,5 +423,275 @@ public interface AIOConfig extends Config
 			unhideValue = "OBJECT_MARKERS"
 	)
 	default String objectMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
+
+	//   ██████╗ ██████╗  ██████╗ ██╗   ██╗███╗   ██╗██████╗ 
+	//  ██╔════╝ ██╔══██╗██╔═══██╗██║   ██║████╗  ██║██╔══██╗
+	//  ██║  ███╗██████╔╝██║   ██║██║   ██║██╔██╗ ██║██║  ██║
+	//  ██║   ██║██╔══██╗██║   ██║██║   ██║██║╚██╗██║██║  ██║
+	//  ╚██████╔╝██║  ██║╚██████╔╝╚██████╔╝██║ ╚████║██████╔╝
+	//   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═════╝ 
+	//                                                       
+	//  ██╗████████╗███████╗███╗   ███╗                      
+	//  ██║╚══██╔══╝██╔════╝████╗ ████║                      
+	//  ██║   ██║   █████╗  ██╔████╔██║                      
+	//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║                      
+	//  ██║   ██║   ███████╗██║ ╚═╝ ██║                      
+	//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝                      
+	//                                                       
+	
+	@ConfigItem(
+			keyName = "groundItemHighlightingTitle",
+			name = "Ground Item Highlighting Options",
+			description = "",
+			position = 29,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default Title groundItemHighlightingTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+			keyName = "enableGroundItemHighlighting",
+			name = "Enable Ground Item Highlighting",
+			description = "",
+			position = 30,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default boolean enableGroundItemHighlighting() { return false; }
+
+	@ConfigItem(
+			keyName = "groundItemRenderStyle",
+			name = "Render style",
+			description = "The type of marker.",
+			position = 31,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default GroundItemRenderStyle groundItemRenderStyle() { return GroundItemRenderStyle.BOX; }
+
+	@ConfigItem(
+			keyName = "groundItemIndicatorSize",
+			name = "Indicator size",
+			description = "The size of the marker.",
+			position = 32,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default int groundItemIndicatorSize() { return 4; }
+
+	@ConfigItem(
+			keyName = "configGroundItemTextField",
+			name = "Item Name / ID:Hex Color",
+			description = "Example: \"Bones:00FF00,\".",
+			position = 33,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default String groundItemConfigTextString() { return "Bones, 590"; }
+
+	@ConfigItem(
+			keyName = "groundItemColorTitle",
+			name = "Indicator Interaction Color Options",
+			description = "",
+			position = 34,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default Title groundItemColorTitle() { return new Title(); }
+
+	@ConfigItem(
+			keyName = "groundItemDefaultHighlightColor",
+			name = "Default Marker color",
+			description = "The default color for the Object indicator.",
+			position = 35,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default Color groundItemDefaultHighlightColor() { return Color.GREEN; }
+
+	@ConfigItem(
+			keyName = "groundItemMiscOptionsTitle",
+			name = "Miscellaneous Options",
+			description = "",
+			position = 36,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default Title groundItemMiscOptionsTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+			keyName = "groundItemLineOfSight",
+			name = "Only show Objects in line of sight",
+			description = "Only show Objects your player (tile: diagonally or straight) can \"see\"",
+			position = 37,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default boolean groundItemLineOfSight() { return false; }
+
+	@ConfigItem(
+			keyName = "groundItemDisplayMouseHoveringIndicator",
+			name = "Mouse hovering indicator",
+			description = "If enabled will display an indicator if hovering over the groundItem.",
+			position = 38,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default boolean groundItemDisplayMouseHoveringIndicator() { return false; }
+
+	@ConfigItem(
+			keyName = "groundItemMouseHoveringIndicatorLocation",
+			name = "X:Y:Width:Height indicator location",
+			description = "If enabled will display an indicator if hovering over the groundItem.",
+			position = 39,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "GROUND_ITEM_HIGHLIGHTING"
+	)
+	default String groundItemMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
+
+	//  ██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+	//  ██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+	//  ██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝ ╚████╔╝
+	//  ██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝
+	//  ██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║
+	//  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+	//
+	//  ████████╗ █████╗  ██████╗  ██████╗ ██╗███╗   ██╗ ██████╗
+	//  ╚══██╔══╝██╔══██╗██╔════╝ ██╔════╝ ██║████╗  ██║██╔════╝
+	//     ██║   ███████║██║  ███╗██║  ███╗██║██╔██╗ ██║██║  ███╗
+	//     ██║   ██╔══██║██║   ██║██║   ██║██║██║╚██╗██║██║   ██║
+	//     ██║   ██║  ██║╚██████╔╝╚██████╔╝██║██║ ╚████║╚██████╔╝
+	//     ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝
+	//
+
+	@ConfigItem(
+			keyName = "inventoryItemHighlightingTitle",
+			name = "Inventory Item Highlighting Options",
+			description = "",
+			position = 29,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default Title inventoryItemHighlightingTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+			keyName = "enableInventoryItemHighlighting",
+			name = "Enable Inventory Item Highlighting",
+			description = "",
+			position = 30,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default boolean enableInventoryItemHighlighting() { return false; }
+
+	@ConfigItem(
+			keyName = "inventoryItemRenderStyle",
+			name = "Render style",
+			description = "The type of marker.",
+			position = 31,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default InventoryItemRenderStyle inventoryItemRenderStyle() { return InventoryItemRenderStyle.BOX; }
+
+	@ConfigItem(
+			keyName = "inventoryItemIndicatorSize",
+			name = "Indicator size",
+			description = "The size of the marker.",
+			position = 32,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default int inventoryItemIndicatorSize() { return 4; }
+
+	@ConfigItem(
+			keyName = "configInventoryItemTextField",
+			name = "Item Name / ID:Hex Color",
+			description = "Example: \"Bones:00FF00,\".",
+			position = 33,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default String inventoryItemConfigTextString() { return "Bones, 590"; }
+
+	@ConfigItem(
+			keyName = "inventoryItemColorTitle",
+			name = "Indicator Interaction Color Options",
+			description = "",
+			position = 34,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default Title inventoryItemColorTitle() { return new Title(); }
+
+	@ConfigItem(
+			keyName = "inventoryItemDefaultHighlightColor",
+			name = "Default Marker color",
+			description = "The default color for the Object indicator.",
+			position = 35,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default Color inventoryItemDefaultHighlightColor() { return Color.GREEN; }
+
+	@ConfigItem(
+			keyName = "inventoryItemMiscOptionsTitle",
+			name = "Miscellaneous Options",
+			description = "",
+			position = 36,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default Title inventoryItemMiscOptionsTitle() { return new Title(); }
+
+	@ConfigItem(
+			keyName = "inventoryItemDisplayMouseHoveringIndicator",
+			name = "Mouse hovering indicator",
+			description = "If enabled will display an indicator if hovering over the inventoryItem.",
+			position = 38,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default boolean inventoryItemDisplayMouseHoveringIndicator() { return false; }
+
+	@ConfigItem(
+			keyName = "inventoryItemMouseHoveringIndicatorLocation",
+			name = "X:Y:Width:Height indicator location",
+			description = "If enabled will display an indicator if hovering over the inventoryItem.",
+			position = 39,
+			hidden = true,
+			unhide = "markerConfiguration",
+			unhideValue = "INVENTORY_TAGGING"
+	)
+	default String inventoryItemMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
 
 }

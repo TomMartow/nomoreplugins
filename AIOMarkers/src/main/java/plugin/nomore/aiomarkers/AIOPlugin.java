@@ -29,6 +29,10 @@ import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
+import plugin.nomore.aiomarkers.item.ground.GroundItemHighlightingOverlay;
+import plugin.nomore.aiomarkers.item.ground.GroundItemMethods;
+import plugin.nomore.aiomarkers.item.inventory.InventoryItemHighlightingOverlay;
+import plugin.nomore.aiomarkers.item.inventory.InventoryItemMethods;
 import plugin.nomore.aiomarkers.npc.NPCHighlightingOverlay;
 import plugin.nomore.aiomarkers.npc.NPCMethods;
 import plugin.nomore.aiomarkers.object.ObjectHighlightingOverlay;
@@ -87,6 +91,12 @@ public class AIOPlugin extends Plugin
 	private ObjectHighlightingOverlay objectHighlightingOverlay;
 
 	@Inject
+	private GroundItemHighlightingOverlay groundItemHighlightingOverlay;
+
+	@Inject
+	private InventoryItemHighlightingOverlay inventoryItemHighlightingOverlay;
+
+	@Inject
 	private KeyboardListener keyboardListener;
 
 	@Inject
@@ -94,6 +104,13 @@ public class AIOPlugin extends Plugin
 
 	@Inject
 	private ObjectMethods objectMethods;
+
+	@Inject
+	private GroundItemMethods groundItemMethods;
+
+	@Inject
+	private InventoryItemMethods inventoryItemMethods;
+
 
 	@Provides
     AIOConfig provideConfig(ConfigManager configManager)
@@ -111,6 +128,12 @@ public class AIOPlugin extends Plugin
 		// Object Markers
 		overlayManager.add(objectHighlightingOverlay);
 		objectMethods.startUp();
+		// Inventory Item Highlighting
+		overlayManager.add(groundItemHighlightingOverlay);
+		groundItemMethods.startUp();
+		// Ground Item Highlighting
+		overlayManager.add(inventoryItemHighlightingOverlay);
+		inventoryItemMethods.startUp();
 	}
 
 	@Override
@@ -123,29 +146,41 @@ public class AIOPlugin extends Plugin
 		// Object Markers
 		overlayManager.remove(objectHighlightingOverlay);
 		objectMethods.shutDown();
+		// Inventory Item Highlighting
+		overlayManager.remove(inventoryItemHighlightingOverlay);
+		inventoryItemMethods.shutDown();
+		// Ground Item Highlighting
+		overlayManager.remove(groundItemHighlightingOverlay);
+		groundItemMethods.shutDown();
 	}
 
 	@Subscribe
 	private void on(GameTick event)
 	{
 	}
+
 	/*
 	@Subscribe
 	private void onFocusChanged(FocusChanged event) { npcMethods.onFocusChanged(event); }
+
+	 */
 
 	@Subscribe
 	private void on(GameStateChanged event)
 	{
 		npcMethods.onGameStateChanged(event);
+		objectMethods.onGameStateChanged(event);
+		inventoryItemMethods.onGameStateChanged(event);
+		groundItemMethods.onGameStateChanged(event);
 	}
-
-	 */
 
 	@Subscribe
 	private void on(ConfigChanged event)
 	{
 		npcMethods.onConfigChanged(event);
 		objectMethods.onConfigChanged(event);
+		inventoryItemMethods.onConfigChanged(event);
+		groundItemMethods.onConfigChanged(event);
 	}
 
 	@Subscribe
@@ -204,6 +239,15 @@ public class AIOPlugin extends Plugin
 
 	@Subscribe
 	private void on(WallObjectDespawned event) { objectMethods.onWallObjectDespawned(event); }
+
+	@Subscribe
+	private void on(ItemSpawned event) { groundItemMethods.onItemSpawned(event); }
+
+	@Subscribe
+	private void on(ItemDespawned event) { groundItemMethods.onItemDespawned(event); }
+
+	@Subscribe
+	private void on(ItemContainerChanged event) { inventoryItemMethods.onItemContainerChanged(event); }
 
 	/*
 

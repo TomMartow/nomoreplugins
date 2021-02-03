@@ -14,6 +14,10 @@
             <option value="$PROJECT_DIR$/InventoryItemIndicators" />
             <option value="$PROJECT_DIR$/MouseLogger" />
             <option value="$PROJECT_DIR$/MyCharacterIndicators" />
+            <option value="$PROJECT_DIR$/NMGroundItems" />
+            <option value="$PROJECT_DIR$/NMGroundMarkers" />
+            <option value="$PROJECT_DIR$/NMInventoryTags" />
+            <option value="$PROJECT_DIR$/NMObjectIndicators" />
             <option value="$PROJECT_DIR$/NMPUtils" />
             <option value="$PROJECT_DIR$/NoMoreAgility" />
             <option value="$PROJECT_DIR$/NoMoreWintertodt" />

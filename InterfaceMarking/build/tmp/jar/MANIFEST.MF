@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Version: 0.0.1
-Plugin-Id: interfacemarking-plugin
-Plugin-Provider: NoMore
-Plugin-Dependencies: nmputils-plugin
-Plugin-Description: Display's indicators over interface widgets.
-Plugin-License: 3-Clause BSD License
-

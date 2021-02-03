@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Plugin-Version: 0.0.1
-Plugin-Id: inventoryitemindicators-plugin
-Plugin-Provider: NoMore
-Plugin-Dependencies: nmputils-plugin
-Plugin-Description: Display an indicator over inventory items.
-Plugin-License: 3-Clause BSD License
-
