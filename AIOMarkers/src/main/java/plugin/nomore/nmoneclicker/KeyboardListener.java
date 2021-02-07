@@ -1,7 +1,5 @@
-import ProjectVersions.openosrsVersion
-
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Seth <http://github.com/sethtroll>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,27 +22,48 @@ import ProjectVersions.openosrsVersion
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package plugin.nomore.nmoneclicker;
 
-version = "0.0.5"
+import net.runelite.client.input.KeyListener;
 
-project.extra["PluginName"] = "AIO Markers"
-project.extra["PluginDescription"] = "An AIO Marker plugin for Player's, NPC's, Game Objects, Inventory Items and Ground Items."
+import java.awt.event.KeyEvent;
 
-dependencies {
-    compileOnly(project(":NMPUtils"))
-}
+public class KeyboardListener implements KeyListener
+{
+	private static final int HOTKEY = KeyEvent.VK_SHIFT;
 
-tasks {
-    jar {
-        manifest {
-            attributes(mapOf(
-                    "Plugin-Version" to project.version,
-                    "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
-                    "Plugin-Provider" to project.extra["PluginProvider"],
-                    "Plugin-Dependencies" to nameToId("NMPUtils"),
-                    "Plugin-Description" to project.extra["PluginDescription"],
-                    "Plugin-License" to project.extra["PluginLicense"]
-            ))
-        }
-    }
+	@Override
+	public void keyTyped(KeyEvent e)
+	{
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode() == HOTKEY)
+		{
+			setHotkeyPressed(true);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if (e.getKeyCode() == HOTKEY)
+		{
+			setHotkeyPressed(false);
+		}
+	}
+
+	private boolean hotkeyPressed = false;
+
+	public boolean isHotkeyPressed()
+	{
+		return hotkeyPressed;
+	}
+	public void setHotkeyPressed(boolean b)
+	{
+		hotkeyPressed = b;
+	}
 }

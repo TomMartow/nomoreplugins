@@ -1,8 +1,6 @@
 package plugin.nomore.nmputils.api;
 
-import net.runelite.api.Client;
-import net.runelite.api.NPC;
-import net.runelite.api.Perspective;
+import net.runelite.api.*;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -219,6 +217,19 @@ public class RenderAPI
     public void renderNPCCentreBox(Graphics2D graphics, NPC npc, Color color, int boxSize)
     {
         Shape shape = npc.getConvexHull();
+        if (shape == null)
+        {
+            return;
+        }
+        int x = (int) shape.getBounds().getCenterX() - boxSize / 2;
+        int y = (int) shape.getBounds().getCenterY() - boxSize / 2;
+        graphics.setColor(color);
+        graphics.fillRect(x, y, boxSize, boxSize);
+    }
+
+    public void renderObjectCentreBox(Graphics2D graphics, TileObject object, Color color, int boxSize)
+    {
+        Shape shape = object.getClickbox();
         if (shape == null)
         {
             return;

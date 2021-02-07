@@ -25,14 +25,10 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.0.5"
+version = "0.0.1"
 
-project.extra["PluginName"] = "AIO Markers"
-project.extra["PluginDescription"] = "An AIO Marker plugin for Player's, NPC's, Game Objects, Inventory Items and Ground Items."
-
-dependencies {
-    compileOnly(project(":NMPUtils"))
-}
+project.extra["PluginName"] = "NMOne Clicker"
+project.extra["PluginDescription"] = "QOL fixes that should be implemented."
 
 tasks {
     jar {
@@ -41,7 +37,6 @@ tasks {
                     "Plugin-Version" to project.version,
                     "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
                     "Plugin-Provider" to project.extra["PluginProvider"],
-                    "Plugin-Dependencies" to nameToId("NMPUtils"),
                     "Plugin-Description" to project.extra["PluginDescription"],
                     "Plugin-License" to project.extra["PluginLicense"]
             ))

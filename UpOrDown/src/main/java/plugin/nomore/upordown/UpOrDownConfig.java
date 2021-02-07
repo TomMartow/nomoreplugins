@@ -1,7 +1,5 @@
-import ProjectVersions.openosrsVersion
-
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,27 +22,12 @@ import ProjectVersions.openosrsVersion
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package plugin.nomore.upordown;
 
-version = "0.0.5"
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
 
-project.extra["PluginName"] = "AIO Markers"
-project.extra["PluginDescription"] = "An AIO Marker plugin for Player's, NPC's, Game Objects, Inventory Items and Ground Items."
-
-dependencies {
-    compileOnly(project(":NMPUtils"))
-}
-
-tasks {
-    jar {
-        manifest {
-            attributes(mapOf(
-                    "Plugin-Version" to project.version,
-                    "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
-                    "Plugin-Provider" to project.extra["PluginProvider"],
-                    "Plugin-Dependencies" to nameToId("NMPUtils"),
-                    "Plugin-Description" to project.extra["PluginDescription"],
-                    "Plugin-License" to project.extra["PluginLicense"]
-            ))
-        }
-    }
+@ConfigGroup("upordown")
+public interface UpOrDownConfig extends Config
+{
 }
