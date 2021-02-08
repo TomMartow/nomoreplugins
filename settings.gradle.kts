@@ -38,7 +38,7 @@ include(":NMGroundItems")
 include(":NMGroundMarkers")
 include(":NMInventoryTags")
 include(":NMObjectIndicators")
-include(":NMOneClicker")
+include(":QOLClicks")
 include(":UpOrDown")
 
 for (project in rootProject.children) {

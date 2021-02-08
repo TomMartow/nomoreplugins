@@ -31,7 +31,7 @@ import java.awt.*;
 import java.util.EnumSet;
 
 @ConfigGroup("nmoneclicker")
-public interface NMOneClickerConfig extends Config
+public interface QOLClicksConfig extends Config
 {
 
 	// https://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Type%20Something%20

@@ -27,7 +27,7 @@ import ProjectVersions.openosrsVersion
 
 version = "0.0.1"
 
-project.extra["PluginName"] = "NMOne Clicker"
+project.extra["PluginName"] = "QOL CLicks"
 project.extra["PluginDescription"] = "QOL fixes that should be implemented."
 
 tasks {

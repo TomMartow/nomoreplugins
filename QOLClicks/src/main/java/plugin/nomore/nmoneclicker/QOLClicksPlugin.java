@@ -29,12 +29,10 @@ import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
-import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 
 import net.runelite.api.events.*;
-import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -54,20 +52,20 @@ import java.util.concurrent.Executors;
 
 @Extension
 @PluginDescriptor(
-		name = "NM One Clicker",
+		name = "QOL Clicks",
 		description = "QOL fixes that should be implemented.",
-		tags = {"click", "nomore", "one click"},
+		tags = {"click", "nomore", "qol"},
 		type = PluginType.UTILITY
 )
 @Slf4j
-public class NMOneClickerPlugin extends Plugin
+public class QOLClicksPlugin extends Plugin
 {
 
 	@Inject
 	private Client client;
 
 	@Inject
-	private NMOneClickerConfig config;
+	private QOLClicksConfig config;
 
 	@Inject
 	private Firemaking firemaking;
@@ -84,12 +82,13 @@ public class NMOneClickerPlugin extends Plugin
 	@Inject
 	public ExecutorService executor;
 
+	public MenuEntry swappedEntry = null;
 	public boolean iterating = false;
 
 	@Provides
-	NMOneClickerConfig provideConfig(ConfigManager configManager)
+	QOLClicksConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(NMOneClickerConfig.class);
+		return configManager.getConfig(QOLClicksConfig.class);
 	}
 
 	@Override
@@ -170,7 +169,7 @@ public class NMOneClickerPlugin extends Plugin
 
 		 */
 		
-		if (config.enableDebugging())
+		if (config.enableDebugging() && event.getOpcode() != MenuOpcode.WALK.getId())
 		{
 			System.out.println(
 					"\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
@@ -183,6 +182,8 @@ public class NMOneClickerPlugin extends Plugin
 							+ "\nOrig: forceLeftClick: " + origIsFLC + "   ||   Mod: forceLeftClick: " 	+ event.isForceLeftClick()
 			);
 		}
+
+
 	}
 
 	@Subscribe

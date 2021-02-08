@@ -8,7 +8,7 @@ import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.nmoneclicker.NMOneClickerPlugin;
+import plugin.nomore.nmoneclicker.QOLClicksPlugin;
 import plugin.nomore.nmoneclicker.menu.Inventory;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ public class Firemaking
     Client client;
 
     @Inject
-    NMOneClickerPlugin plugin;
+    QOLClicksPlugin plugin;
 
     @Inject
     Inventory inventory;

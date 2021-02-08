@@ -2,15 +2,11 @@ package plugin.nomore.nmoneclicker.misc;
 
 import net.runelite.api.*;
 import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.client.menus.MenuManager;
-import plugin.nomore.nmoneclicker.NMOneClickerPlugin;
+import plugin.nomore.nmoneclicker.QOLClicksPlugin;
 import plugin.nomore.nmoneclicker.menu.Display;
 import plugin.nomore.nmoneclicker.menu.Object;
 
 import javax.inject.Inject;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class Banking
 {
@@ -19,7 +15,7 @@ public class Banking
     Client client;
 
     @Inject
-    NMOneClickerPlugin plugin;
+    QOLClicksPlugin plugin;
 
     @Inject
     Display display;

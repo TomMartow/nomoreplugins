@@ -29,12 +29,14 @@ public class Fishing
     public boolean menuOptionClicked(MenuEntry event)
     {
         if (event.getOpcode() == MenuOpcode.ITEM_USE.getId()
-                && FLY_FISHING_IDS.contains(event.getIdentifier()))
+                && FLY_FISHING_IDS.contains(event.getIdentifier())
+                && event.getOption().equals("Lure"))
         {
             return fly.menuOptionClicked(event);
         }
         if (event.getOpcode() == MenuOpcode.ITEM_USE.getId()
-                && CAGE_FISHING_ID == event.getIdentifier())
+                && CAGE_FISHING_ID == event.getIdentifier()
+                && event.getOption().equals("Cage"))
         {
             return cage.menuOptionClicked(event);
         }
