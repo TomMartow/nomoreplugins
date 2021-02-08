@@ -98,7 +98,7 @@ public interface QOLClicksConfig extends Config
 			keyName = "debugTitle",
 			name = "Developer",
 			description = "",
-			position = 100
+			position = 20
 	)
 	default Title debugTitle()
 	{
@@ -110,8 +110,20 @@ public interface QOLClicksConfig extends Config
 			name = "Debug Messages",
 			description = "Enable debug messages (dev only).",
 			titleSection = "debugTitle",
-			position = 100
+			position = 101
 	)
 	default boolean enableDebugging() { return false; }
+
+	@ConfigItem(
+			keyName = "enableWriteToClipboard",
+			name = "Copy to clipboard",
+			description = "Copies the menu entry to your clipboard to provide suggestions.",
+			titleSection = "debugTitle",
+			hidden = true,
+			unhide = "enableDebugMessages",
+			unhideValue = "true",
+			position = 102
+	)
+	default boolean enableWriteToClipboard() { return false; }
 
 }

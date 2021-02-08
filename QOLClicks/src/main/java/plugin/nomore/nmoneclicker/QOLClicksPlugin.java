@@ -45,6 +45,10 @@ import plugin.nomore.nmoneclicker.skills.cooking.Cooking;
 import plugin.nomore.nmoneclicker.skills.firemaking.Firemaking;
 import plugin.nomore.nmoneclicker.skills.fishing.Fishing;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -181,9 +185,22 @@ public class QOLClicksPlugin extends Plugin
 							+ "\nOrig: Param1: " + origP1 + "   ||   Mod: Param1: " + event.getParam1()
 							+ "\nOrig: forceLeftClick: " + origIsFLC + "   ||   Mod: forceLeftClick: " 	+ event.isForceLeftClick()
 			);
+
+			if (config.enableWriteToClipboard())
+			{
+				writeTextToClipboard(
+						"```\n"
+						+ new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
+						+ "\nOrig: Option: " + origOption
+						+ "\nOrig: Target: " + origTarget
+						+ "\nOrig: Identifier: " + origId
+						+ "\nOrig: Opcode: " + origMenuOpcode
+						+ "\nOrig: Param0: " + origP0
+						+ "\nOrig: Param1: " + origP1
+						+ "\nOrig: forceLeftClick: " + origIsFLC
+						+ "\n```");
+			}
 		}
-
-
 	}
 
 	@Subscribe
@@ -228,6 +245,13 @@ public class QOLClicksPlugin extends Plugin
 				e.getParam1(),
 				forceLeftClick
 		);
+	}
+
+	public static void writeTextToClipboard(String s)
+	{
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		Transferable transferable = new StringSelection(s);
+		clipboard.setContents(transferable, null);
 	}
 
 }
