@@ -68,7 +68,7 @@ public class Fishing
         {
             cage.menuEntryAdded(event);
         }
-        if (config.enableLobsterPot()
+        if (config.enableBarbarianRod()
                 && event.getOpcode() == MenuOpcode.ITEM_USE.getId()
                 && client.getItemDefinition(event.getIdentifier()).getName().equalsIgnoreCase("Lobster pot"))
         {
