@@ -27,6 +27,7 @@ public class Npcs
     {
         return new NPCQuery().result(client).list;
     }
+
     public NPC getClosest()
     {
         assert client.isClientThread();
@@ -61,12 +62,13 @@ public class Npcs
                         -> npc != null
                         && npc.getName() != null
                         && npc.getName().equalsIgnoreCase(npcName))
+                .collect(Collectors.toList())
+                .stream()
                 .min(Comparator.comparing(entityType
                         -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .orElse(null);
+                                .getLocalLocation()))).orElse(null);
     }
 
     public NPC getClosestMatching(int npcId)
@@ -83,12 +85,13 @@ public class Npcs
                 .filter(npc
                         -> npc != null
                         && npc.getId() == npcId)
+                .collect(Collectors.toList())
+                .stream()
                 .min(Comparator.comparing(entityType
                         -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()
-                                .getLocalLocation())))
-                .orElse(null);
+                                .getLocalLocation()))).orElse(null);
     }
 
     public List<NPC> getNpcsMatching(String... npcNames)
