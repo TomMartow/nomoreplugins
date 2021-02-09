@@ -25,7 +25,7 @@ public class Cage
 
     public boolean menuOptionClicked(MenuEntry event)
     {
-        NPC npc = npcs.getClosestNpcWithAction("Cage");
+        NPC npc = npcs.getClosestNpcWithMenuAction("Cage");
         if (npc == null)
         {
             return false;
@@ -43,7 +43,7 @@ public class Cage
         {
             return;
         }
-        NPC npc = npcs.getClosestMatching("Rod Fishing spot");
+        NPC npc = npcs.getClosestMatchingName("Rod Fishing spot");
         if (npc == null)
         {
             return;

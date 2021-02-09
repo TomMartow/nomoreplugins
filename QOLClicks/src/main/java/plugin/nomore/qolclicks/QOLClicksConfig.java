@@ -152,6 +152,19 @@ public interface QOLClicksConfig extends Config
 	)
 	default boolean enableBanking() { return false; }
 
+	/*
+
+	@ConfigItem(
+			keyName = "enableDropping",
+			name = "Drop-All",
+			description = "Add a menu option \"Drop-All\" to the inventory tab. The menu option will only show if a bank is nearby.",
+			position = 10,
+			titleSection = "miscMenuSwapsTitle"
+	)
+	default boolean enableBanking() { return false; }
+
+	*/
+
 	@ConfigTitleSection(
 			keyName = "debugTitle",
 			name = "Developer",

@@ -67,10 +67,10 @@ public class UpOrDownPlugin extends Plugin
 	public List<ElevationObject> elevationObjects = new ArrayList<>();
 
 	private static final Set<String> ACTIONS_DOWN = ImmutableSet.of(
-			"Climb-down"
+			"Climb-down", "Climb down"
 	);
 	private static final Set<String> ACTIONS_UP = ImmutableSet.of(
-			"Climb-up"
+			"Climb-up", "Climb up"
 	);
 
 	@Provides

@@ -45,7 +45,7 @@ public class Unnote
         {
             return false;
         }
-        NPC npc = npcs.getClosestMatching("Phials");
+        NPC npc = npcs.getClosestMatchingName("Phials");
         if (npc == null)
         {
             return false;
@@ -72,7 +72,7 @@ public class Unnote
             return;
         }
         WidgetItem widgetItem = inventory.getItem(event.getIdentifier());
-        NPC npc = npcs.getClosestNpcWithAction("Phials");
+        NPC npc = npcs.getClosestMatchingName("Phials");
         if (npc == null)
         {
             return;

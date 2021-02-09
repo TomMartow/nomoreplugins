@@ -29,6 +29,8 @@ import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 
@@ -51,7 +53,9 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -102,6 +106,17 @@ public class QOLClicksPlugin extends Plugin
 	protected void startUp()
 	{
 		executor = Executors.newSingleThreadExecutor();
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+		client.getNpcs().forEach(npc ->
+		{
+			if (npc != null)
+			{
+				npcList.add(npc);
+			}
+		});
 	}
 
 	@Override
@@ -232,6 +247,26 @@ public class QOLClicksPlugin extends Plugin
 		{
 			prayer.menuEntryAdded(event);
 		}
+	}
+
+	public static List<NPC> npcList = new ArrayList<>();
+	public List<NPC> getNpcList() { return npcList; }
+
+	@Subscribe
+	private void on(NpcSpawned e)
+	{
+		NPC npc = e.getNpc();
+		if (npc == null)
+		{
+			return;
+		}
+		npcList.add(npc);
+	}
+
+	@Subscribe
+	private void on(NpcDespawned e)
+	{
+		npcList.remove(e.getNpc());
 	}
 
 	public void setSelected(WidgetInfo widgetInfo, int itemIndex, int itemId)

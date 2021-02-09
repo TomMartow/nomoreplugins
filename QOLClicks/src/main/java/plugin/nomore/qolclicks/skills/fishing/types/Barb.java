@@ -27,7 +27,7 @@ public class Barb
 
     public boolean menuOptionClicked(MenuEntry event)
     {
-        NPC npc = npcs.getClosestMatching(10096);
+        NPC npc = npcs.getClosestMatchingId(1542);
         if (npc == null)
         {
             return false;
@@ -45,7 +45,7 @@ public class Barb
         {
             return;
         }
-        NPC npc = npcs.getClosestMatching(10096);
+        NPC npc = npcs.getClosestMatchingId(1542);
         if (npc == null)
         {
             return;

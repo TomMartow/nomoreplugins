@@ -70,7 +70,7 @@ public class Fishing
         }
         if (config.enableBarbarianRod()
                 && event.getOpcode() == MenuOpcode.ITEM_USE.getId()
-                && client.getItemDefinition(event.getIdentifier()).getName().equalsIgnoreCase("Lobster pot"))
+                && client.getItemDefinition(event.getIdentifier()).getName().equalsIgnoreCase("Barbarian rod"))
         {
             barb.menuEntryAdded(event);
         }

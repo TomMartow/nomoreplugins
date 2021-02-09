@@ -4,6 +4,7 @@ import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.NPC;
 import net.runelite.api.queries.NPCQuery;
+import plugin.nomore.qolclicks.QOLClicksPlugin;
 import plugin.nomore.qolclicks.utils.StringUtils;
 
 import javax.annotation.Nullable;
@@ -21,22 +22,22 @@ public class Npcs
     Client client;
 
     @Inject
+    QOLClicksPlugin plugin;
+
+    @Inject
     StringUtils string;
 
     public List<NPC> get()
     {
-        return new NPCQuery().result(client).list;
+        return plugin.getNpcList();
     }
 
     public NPC getClosest()
     {
-        assert client.isClientThread();
-
         if (client.getLocalPlayer() == null)
         {
             return null;
         }
-
         return get()
                 .stream()
                 .min(Comparator.comparing(entityType
@@ -47,15 +48,12 @@ public class Npcs
                 .orElse(null);
     }
 
-    public NPC getClosestMatching(String npcName)
+    public NPC getClosestMatchingName(String npcName)
     {
-        assert client.isClientThread();
-
         if (client.getLocalPlayer() == null)
         {
             return null;
         }
-
         return get()
                 .stream()
                 .filter(npc
@@ -71,15 +69,12 @@ public class Npcs
                                 .getLocalLocation()))).orElse(null);
     }
 
-    public NPC getClosestMatching(int npcId)
+    public NPC getClosestMatchingId(int npcId)
     {
-        assert client.isClientThread();
-
         if (client.getLocalPlayer() == null)
         {
             return null;
         }
-
         return get()
                 .stream()
                 .filter(npc
@@ -94,43 +89,7 @@ public class Npcs
                                 .getLocalLocation()))).orElse(null);
     }
 
-    public List<NPC> getNpcsMatching(String... npcNames)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return get()
-                .stream()
-                .filter(i -> i != null
-                        && i.getName() != null
-                        && Arrays.stream(npcNames)
-                        .anyMatch(s -> string.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(string.removeWhiteSpaces(i.getName()))))
-                .collect(Collectors.toList());
-    }
-
-    public List<NPC> getNpcsMatching(int... npcIds)
-    {
-        assert client.isClientThread();
-
-        if (client.getLocalPlayer() == null)
-        {
-            return null;
-        }
-
-        return get()
-                .stream()
-                .filter(i -> i != null
-                        && Arrays.stream(npcIds)
-                        .anyMatch(itemId -> itemId == i.getId()))
-                .collect(Collectors.toList());
-    }
-
-    public List<NPC> getNpcsMatchingSortedByClosest(String... npcNames)
+    public List<NPC> getNpcsMatchingName(String... npcNames)
     {
         assert client.isClientThread();
 
@@ -153,7 +112,7 @@ public class Npcs
                 .collect(Collectors.toList());
     }
 
-    public List<NPC> getNpcsMatchingSortedByClosest(int... npcIds)
+    public List<NPC> getNpcsMatchingId(int... npcIds)
     {
         assert client.isClientThread();
 
@@ -174,23 +133,18 @@ public class Npcs
                 .collect(Collectors.toList());
     }
 
-    public NPC getClosestNpcWithAction(String action)
+    public NPC getClosestNpcWithMenuAction(String action)
     {
-        assert client.isClientThread();
-
         if (client.getLocalPlayer() == null)
         {
             return null;
         }
-
-        Stream<NPC> npcActions = get()
+        return get()
                 .stream()
                 .filter(npc
                         -> npc != null
                         && Arrays.stream(client.getNpcDefinition(npc.getId()).getActions())
-                        .anyMatch(a -> a.equalsIgnoreCase(action)));
-
-        return npcActions
+                        .anyMatch(a -> a.equalsIgnoreCase(action)))
                 .min(Comparator.comparing(entityType
                         -> entityType
                         .getLocalLocation()
@@ -199,7 +153,7 @@ public class Npcs
                 .orElse(null);
     }
 
-    public List<NPC> getNpcsWithAction(String action)
+    public List<NPC> getNpcsWithMenuAction(String action)
     {
         assert client.isClientThread();
 
@@ -208,14 +162,12 @@ public class Npcs
             return null;
         }
 
-        Stream<NPC> objectActions = get()
+        return get()
                 .stream()
                 .filter(npc
                         -> npc != null
                         && Arrays.stream(client.getNpcDefinition(npc.getId()).getActions())
-                        .anyMatch(a -> a.equalsIgnoreCase(action)));
-
-        return objectActions
+                        .anyMatch(a -> a.equalsIgnoreCase(action)))
                 .min(Comparator.comparing(entityType
                         -> entityType
                         .getLocalLocation()
