@@ -98,7 +98,7 @@ public interface QOLClicksConfig extends Config
 
 	@ConfigItem(
 			keyName = "enableBarbarianRod",
-			name = "Lobster Cage",
+			name = "Barbarian Rod",
 			description = "Add a menu option \"Fish\" to the barbarian rod. The menu option will only show if a barbarian rod fishing spot is nearby.",
 			position = 6,
 			hidden = true,
