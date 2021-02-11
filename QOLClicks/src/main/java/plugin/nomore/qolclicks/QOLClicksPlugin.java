@@ -252,10 +252,13 @@ public class QOLClicksPlugin extends Plugin
 	@Subscribe
 	private void on(MenuOptionClicked event)
 	{
+		/*
 		if (!paused && event.isAuthentic())
 		{
 			event.consume();
 		}
+
+		 */
 		MenuEntry clone = event.clone();
 
 		String origOption = event.getOption();
