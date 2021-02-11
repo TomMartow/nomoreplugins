@@ -5,7 +5,7 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.events.MenuEntryAdded;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
-import plugin.nomore.qolclicks.menu.Menu;
+import plugin.nomore.qolclicks.utils.Menu;
 import plugin.nomore.qolclicks.utils.Npcs;
 
 import javax.inject.Inject;
@@ -48,6 +48,7 @@ public class Barb
         NPC npc = npcs.getClosestMatchingId(1542);
         if (npc == null)
         {
+            System.out.println("The npc is null");
             return;
         }
         event.setOption("Fish");

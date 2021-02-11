@@ -45,7 +45,8 @@ public class Prayer
     public void menuEntryAdded(MenuEntryAdded event)
     {
         if (config.enableUnnoteBones()
-                && event.getOpcode() == MenuOpcode.ITEM_USE.getId())
+                && event.getOpcode() == MenuOpcode.ITEM_USE.getId()
+                && client.getItemDefinition(event.getIdentifier()).getName().toLowerCase().contains("bones"))
         {
             unnote.menuEntryAdded(event);
         }

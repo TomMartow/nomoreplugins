@@ -27,7 +27,6 @@ public class Fishing
     @Inject
     Barb barb;
 
-
     public boolean menuOptionClicked(MenuEntry event)
     {
         if (config.enableFishingRod()

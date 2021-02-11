@@ -152,18 +152,50 @@ public interface QOLClicksConfig extends Config
 	)
 	default boolean enableBanking() { return false; }
 
-	/*
-
 	@ConfigItem(
-			keyName = "enableDropping",
-			name = "Drop-All",
-			description = "Add a menu option \"Drop-All\" to the inventory tab. The menu option will only show if a bank is nearby.",
+			keyName = "enableDropSimilar",
+			name = "Drop-Similar",
+			description = "Add a menu option \"Drop-Similar\" to the inventory tab. When clicked, it will drop all items in your inventory that are an exact match of the clicked item.",
 			position = 10,
 			titleSection = "miscMenuSwapsTitle"
 	)
-	default boolean enableBanking() { return false; }
+	default boolean enableDropSimilar() { return false; }
 
-	*/
+	@ConfigItem(
+			keyName = "enableDropAll",
+			name = "Drop-Items",
+			description = "Add a menu option \"Drop-Items\" to the inventory tab. When clicked, it will drop all items in your inventory that match the names in the \"Items to drop\" text box.",
+			position = 11,
+			titleSection = "miscMenuSwapsTitle"
+	)
+	default boolean enableDropItems() { return false; }
+
+	@ConfigItem(
+			keyName = "itemsToDrop",
+			name = "  Items to drop",
+			description = "Add the name of the item that you wish to drop here.",
+			position = 12,
+			titleSection = "miscMenuSwapsTitle"
+	)
+	default String itemsToDrop() { return "Bones,"; }
+
+	@ConfigItem(
+			keyName = "dropAllMinTime",
+			name = "  Min time (millis)",
+			description = "The minimum amount of time it will take to drop an item.",
+			position = 13,
+			titleSection = "miscMenuSwapsTitle"
+	)
+	default int dropMinTime() { return 250; }
+
+	@ConfigItem(
+			keyName = "dropAllMaxTime",
+			name = "  Max time (millis)",
+			description = "The maximum amount of time it will take to drop an item.",
+			position = 14,
+			titleSection = "miscMenuSwapsTitle"
+	)
+	default int dropMaxTime() { return 1000; }
 
 	@ConfigTitleSection(
 			keyName = "debugTitle",

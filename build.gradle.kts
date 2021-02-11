@@ -13,6 +13,7 @@ plugins {
     checkstyle
 }
 
+
 project.extra["GithubUrl"] = "https://github.com/TomMartow/NoMorePlugins"
 
 apply<BootstrapPlugin>()
@@ -72,6 +73,7 @@ subprojects {
         implementation(group = "org.pf4j", name = "pf4j", version = "3.4.1")
         implementation(group = "org.projectlombok", name = "lombok", version = "1.18.12")
         implementation(group = "org.pushing-pixels", name = "radiance-substance", version = "2.5.1")
+        implementation(group = "com.guardsquare", name = "proguard-base", version = "7.0.1")
 
         compileOnly("com.openosrs:runelite-api:$openosrsVersion+")
         compileOnly("com.openosrs.rs:runescape-api:$openosrsVersion+")
@@ -82,6 +84,7 @@ subprojects {
         compileOnly(Libraries.javax)
         compileOnly(Libraries.lombok)
         compileOnly(Libraries.pf4j)
+
     }
 
     configure<JavaPluginConvention> {

@@ -29,8 +29,6 @@ import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 
@@ -43,10 +41,14 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import org.pf4j.Extension;
 import plugin.nomore.qolclicks.misc.Banking;
+import plugin.nomore.qolclicks.misc.inventory.DropItems;
+import plugin.nomore.qolclicks.misc.inventory.DropSimilar;
 import plugin.nomore.qolclicks.skills.cooking.Cooking;
 import plugin.nomore.qolclicks.skills.firemaking.Firemaking;
 import plugin.nomore.qolclicks.skills.fishing.Fishing;
 import plugin.nomore.qolclicks.skills.prayer.Prayer;
+import plugin.nomore.qolclicks.utils.Inventory;
+import plugin.nomore.qolclicks.utils.Menu;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -92,9 +94,23 @@ public class QOLClicksPlugin extends Plugin
 	private Banking banking;
 
 	@Inject
+	private Inventory inventory;
+
+	@Inject
+	private DropSimilar dropSimilar;
+
+	@Inject
+	private DropItems dropItems;
+
+	@Inject
+	private Menu menu;
+
+	@Inject
 	public ExecutorService executor;
 
-	public boolean iterating = false;
+	public static boolean paused = true;
+	public static boolean shouldDropSimilar = false;
+	public static boolean shouldDropItems = false;
 
 	@Provides
 	QOLClicksConfig provideConfig(ConfigManager configManager)
@@ -123,12 +139,123 @@ public class QOLClicksPlugin extends Plugin
 	protected void shutDown()
 	{
 		executor.shutdown();
-		iterating = false;
+		paused = false;
+	}
+
+	@Subscribe
+	private void on(GameTick e)
+	{
+		if (paused)
+		{
+			return;
+		}
+		if (inventory.getItemsToDrop() != null)
+		{
+			if (config.enableDropSimilar() && shouldDropSimilar)
+			{
+				log.info("Executed dropSimilar.");
+				inventory.dropItems(inventory.getItemsToDrop());
+			}
+			if (config.enableDropItems() && shouldDropItems)
+			{
+				log.info("Executed dropItems.");
+				inventory.dropItems(inventory.getItemsToDrop());
+			}
+		}
+	}
+
+	@Subscribe
+	private void on(MenuOpened event)
+	{
+		if (!config.enableDropItems()
+				&& !config.enableDropSimilar())
+		{
+			return;
+		}
+		if (event.getFirstEntry().getParam1() != WidgetInfo.INVENTORY.getId())
+		{
+			return;
+		}
+		MenuEntry[] originalEntries = event.getMenuEntries();
+		MenuEntry dropSimilar = new MenuEntry("Drop-Similar",
+				"<col=ffff00>" + client.getItemDefinition(event.getFirstEntry().getIdentifier()).getName(),
+				event.getFirstEntry().getIdentifier(), MenuOpcode.ITEM_DROP.getId(),
+				event.getFirstEntry().getParam0(),
+				event.getFirstEntry().getParam1(),
+				event.getFirstEntry().isForceLeftClick());
+		MenuEntry dropItems = new MenuEntry("Drop-Items",
+				"<col=ffff00>" + client.getItemDefinition(event.getFirstEntry().getIdentifier()).getName(),
+				event.getFirstEntry().getIdentifier(), MenuOpcode.ITEM_DROP.getId(),
+				event.getFirstEntry().getParam0(),
+				event.getFirstEntry().getParam1(),
+				event.getFirstEntry().isForceLeftClick());
+
+		if (config.enableDropSimilar() && !config.enableDropItems())
+		{
+			if (originalEntries.length == 3)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropSimilar, originalEntries[2]});
+			}
+			if (originalEntries.length == 4)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropSimilar, originalEntries[2], originalEntries[3]});
+			}
+			if (originalEntries.length == 5)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropSimilar, originalEntries[2], originalEntries[3], originalEntries[4]});
+			}
+			if (originalEntries.length == 6)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropSimilar, originalEntries[2], originalEntries[3], originalEntries[4], originalEntries[5]});
+			}
+		}
+		if (!config.enableDropSimilar() && config.enableDropItems())
+		{
+			if (originalEntries.length == 3)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, originalEntries[2]});
+			}
+			if (originalEntries.length == 4)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, originalEntries[2], originalEntries[3]});
+			}
+			if (originalEntries.length == 5)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, originalEntries[2], originalEntries[3], originalEntries[4]});
+			}
+			if (originalEntries.length == 6)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, originalEntries[2], originalEntries[3], originalEntries[4], originalEntries[5]});
+			}
+		}
+		if (config.enableDropSimilar() && config.enableDropItems())
+		{
+			if (originalEntries.length == 3)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, dropSimilar, originalEntries[2]});
+			}
+			if (originalEntries.length == 4)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, dropSimilar, originalEntries[2], originalEntries[3]});
+			}
+			if (originalEntries.length == 5)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, dropSimilar, originalEntries[2], originalEntries[3], originalEntries[4]});
+			}
+			if (originalEntries.length == 6)
+			{
+				event.setMenuEntries(new MenuEntry[]{originalEntries[0], originalEntries[1], dropItems, dropSimilar, originalEntries[2], originalEntries[3], originalEntries[4], originalEntries[5]});
+			}
+		}
 	}
 
 	@Subscribe
 	private void on(MenuOptionClicked event)
 	{
+		if (!paused && event.isAuthentic())
+		{
+			event.consume();
+		}
 		MenuEntry clone = event.clone();
 
 		String origOption = event.getOption();
@@ -138,6 +265,7 @@ public class QOLClicksPlugin extends Plugin
 		int origP0 = event.getParam0();
 		int origP1 = event.getParam1();
 		boolean origIsFLC = event.isForceLeftClick();
+		boolean origIsCon = event.isConsumed();
 
 		if (config.enableFiremaking())
 		{
@@ -156,7 +284,8 @@ public class QOLClicksPlugin extends Plugin
 		}
 
 		if (config.enableFishingRod()
-				|| config.enableLobsterPot())
+				|| config.enableLobsterPot()
+				|| config.enableBarbarianRod())
 		{
 			if (!fishing.menuOptionClicked(event))
 			{
@@ -189,34 +318,34 @@ public class QOLClicksPlugin extends Plugin
 
 		 */
 
-		if (config.enableDebugging() && event.getOpcode() != MenuOpcode.WALK.getId())
+		if (config.enableDropSimilar()
+				&& paused
+				&& event.getOption().equals("Drop-Similar")
+				&& dropSimilar.menuOptionClicked(event))
 		{
-			System.out.println(
-					"\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
-							+ "\nOrig: Option: " + origOption + "   ||   Mod: Option: " + event.getOption()
-							+ "\nOrig: Target: " + origTarget + "   ||   Mod: Target: " + event.getTarget()
-							+ "\nOrig: Identifier: " + origId + "   ||   Mod: Identifier: " + event.getIdentifier()
-							+ "\nOrig: Opcode: " + origMenuOpcode + "   ||   Mod: Opcode: "	+ event.getMenuOpcode()
-							+ "\nOrig: Param0: " + origP0 + "   ||   Mod: Param0: " + event.getParam0()
-							+ "\nOrig: Param1: " + origP1 + "   ||   Mod: Param1: " + event.getParam1()
-							+ "\nOrig: forceLeftClick: " + origIsFLC + "   ||   Mod: forceLeftClick: " 	+ event.isForceLeftClick()
-			);
-
-			if (config.enableWriteToClipboard())
-			{
-				writeTextToClipboard(
-						"```\n"
-						+ "\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
-						+ "\nOrig: Option: " + origOption + "   ||   Mod: Option: " + event.getOption()
-						+ "\nOrig: Target: " + origTarget + "   ||   Mod: Target: " + event.getTarget()
-						+ "\nOrig: Identifier: " + origId + "   ||   Mod: Identifier: " + event.getIdentifier()
-						+ "\nOrig: Opcode: " + origMenuOpcode + "   ||   Mod: Opcode: "	+ event.getMenuOpcode()
-						+ "\nOrig: Param0: " + origP0 + "   ||   Mod: Param0: " + event.getParam0()
-						+ "\nOrig: Param1: " + origP1 + "   ||   Mod: Param1: " + event.getParam1()
-						+ "\nOrig: forceLeftClick: " + origIsFLC + "   ||   Mod: forceLeftClick: " 	+ event.isForceLeftClick()
-						+ "\n```");
-			}
+			setPaused(false);
+			shouldDropSimilar = true;
+			event.consume();
 		}
+
+		if (config.enableDropItems()
+				&& paused
+				&& event.getOption().equals("Drop-Items")
+				&& dropItems.menuOptionClicked(event))
+		{
+			setPaused(false);
+			shouldDropItems = true;
+			event.consume();
+		}
+
+		if (menu.getTargetMenu() != null)
+		{
+			event.setMenuEntry(menu.getTargetMenu());
+			event.setTarget(event.getTarget() + client.getItemDefinition(event.getIdentifier()).getName());
+			menu.setTargetMenuNull();
+		}
+
+		debug(event, origOption, origTarget, origId, origMenuOpcode, origP0, origP1, origIsFLC, origIsCon);
 	}
 
 	@Subscribe
@@ -233,7 +362,8 @@ public class QOLClicksPlugin extends Plugin
 		}
 
 		if (config.enableFishingRod()
-				|| config.enableLobsterPot())
+				|| config.enableLobsterPot()
+				|| config.enableBarbarianRod())
 		{
 			fishing.menuEntryAdded(event);
 		}
@@ -295,5 +425,43 @@ public class QOLClicksPlugin extends Plugin
 		Transferable transferable = new StringSelection(s);
 		clipboard.setContents(transferable, null);
 	}
+
+	public void setPaused(boolean b) { paused = b; }
+	public boolean getPaused() { return paused; }
+
+	private void debug(MenuOptionClicked event, String origOption, String origTarget, int origId,MenuOpcode origMenuOpcode,int origP0,int origP1,boolean origIsFLC,boolean origIsCon)
+	{
+		if (config.enableDebugging()
+				&& event.getOpcode() != MenuOpcode.WALK.getId())
+		{
+			System.out.println(
+					"\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
+							+ "\nOrig: Option: " + origOption + "   ||   Mod: Option: " + event.getOption()
+							+ "\nOrig: Target: " + origTarget + "   ||   Mod: Target: " + event.getTarget()
+							+ "\nOrig: Identifier: " + origId + "   ||   Mod: Identifier: " + event.getIdentifier()
+							+ "\nOrig: Opcode: " + origMenuOpcode + "   ||   Mod: Opcode: "	+ event.getMenuOpcode()
+							+ "\nOrig: Param0: " + origP0 + "   ||   Mod: Param0: " + event.getParam0()
+							+ "\nOrig: Param1: " + origP1 + "   ||   Mod: Param1: " + event.getParam1()
+							+ "\nOrig: forceLeftClick: " + origIsFLC + "   ||   Mod: forceLeftClick: " 	+ event.isForceLeftClick()
+							+ "\nOrig: isConsumed: " + origIsCon + "   ||   Mod: isConsumed: " 	+ event.isConsumed()
+			);
+
+			if (config.enableWriteToClipboard())
+			{
+				writeTextToClipboard(
+						"```\n"
+								+ "\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
+								+ "\nOrig: Option: " + origOption + "   ||   Mod: Option: " + event.getOption()
+								+ "\nOrig: Target: " + origTarget + "   ||   Mod: Target: " + event.getTarget()
+								+ "\nOrig: Identifier: " + origId + "   ||   Mod: Identifier: " + event.getIdentifier()
+								+ "\nOrig: Opcode: " + origMenuOpcode + "   ||   Mod: Opcode: "	+ event.getMenuOpcode()
+								+ "\nOrig: Param0: " + origP0 + "   ||   Mod: Param0: " + event.getParam0()
+								+ "\nOrig: Param1: " + origP1 + "   ||   Mod: Param1: " + event.getParam1()
+								+ "\nOrig: forceLeftClick: " + origIsFLC + "   ||   Mod: forceLeftClick: " 	+ event.isForceLeftClick()
+								+ "\n```");
+			}
+		}
+	}
+
 
 }

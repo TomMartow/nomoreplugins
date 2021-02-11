@@ -3,7 +3,7 @@ package plugin.nomore.qolclicks.skills.fishing.types;
 import net.runelite.api.*;
 import net.runelite.api.events.MenuEntryAdded;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
-import plugin.nomore.qolclicks.menu.Menu;
+import plugin.nomore.qolclicks.utils.Menu;
 import plugin.nomore.qolclicks.utils.Npcs;
 
 import javax.inject.Inject;

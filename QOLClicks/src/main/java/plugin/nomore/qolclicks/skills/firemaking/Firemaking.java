@@ -1,16 +1,13 @@
 package plugin.nomore.qolclicks.skills.firemaking;
 
-import com.google.common.collect.ImmutableSet;
 import net.runelite.api.*;
 import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
 import plugin.nomore.qolclicks.utils.Inventory;
-import plugin.nomore.qolclicks.menu.Menu;
+import plugin.nomore.qolclicks.utils.Menu;
 
 import javax.inject.Inject;
-import java.util.Set;
 
 public class Firemaking
 {

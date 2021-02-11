@@ -1,17 +1,61 @@
-package plugin.nomore.qolclicks.menu;
+package plugin.nomore.qolclicks.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.callback.ClientThread;
+import net.runelite.client.game.ItemManager;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
 
 import javax.inject.Inject;
 
+@Slf4j
 public class Menu
 {
 
     @Inject
+    Client client;
+
+    @Inject
+    ClientThread clientThread;
+
+    @Inject
     QOLClicksPlugin plugin;
+
+    @Inject
+    ItemManager itemManager;
+
+    @Inject
+    Inventory inventory;
+
+    public static MenuEntry targetMenu = null;
+    public MenuEntry getTargetMenu() { return targetMenu; }
+    public void setTargetMenuNull() { targetMenu = null; }
+
+    public void setMenuEntry(MenuEntry m)
+    {
+        targetMenu = new MenuEntry(
+                m.getOption(),
+                m.getTarget(),
+                m.getIdentifier(),
+                m.getOpcode(),
+                m.getParam0(),
+                m.getParam1(),
+                m.isForceLeftClick());
+    }
+
+    public MenuEntry dropItem(WidgetItem item)
+    {
+        return new MenuEntry(
+                "Drop",
+                "<col=ff9040>",
+                item.getId(),
+                MenuOpcode.ITEM_DROP.getId(),
+                item.getIndex(),
+                WidgetInfo.INVENTORY.getId(),
+                false);
+    }
 
     public void useItemOnItem(String option, String target, WidgetItem itemClicked, WidgetItem itemToBeUsedOn, MenuEntry event)
     {
