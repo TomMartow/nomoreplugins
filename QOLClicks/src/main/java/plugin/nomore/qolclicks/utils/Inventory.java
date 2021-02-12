@@ -7,14 +7,15 @@ import net.runelite.api.queries.InventoryWidgetItemQuery;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.menus.MenuManager;
 import plugin.nomore.qolclicks.QOLClicksConfig;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
 
 import javax.inject.Inject;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -48,6 +49,9 @@ public class Inventory implements Runnable
     @Inject
     Random random;
 
+    @Inject
+    MenuManager menuManager;
+
     public static List<WidgetItem> itemsToDrop = null;
     public void setItemsToDrop(List<WidgetItem> itemList) { itemsToDrop = itemList; }
     public List<WidgetItem> getItemsToDrop() { return itemsToDrop; }
@@ -80,26 +84,19 @@ public class Inventory implements Runnable
             System.out.println("The items are null.");
             return;
         }
-        plugin.executor.submit(() ->
+        try
         {
-            try
+            for (WidgetItem item : items)
             {
-                plugin.setPaused(true);
-                for (WidgetItem item : items)
-                {
-                    System.out.println(item.getId());
-                    menu.setMenuEntry(menu.dropItem(item));
-                    mouse.clickInstant(mousePos.getClickPoint(item.getCanvasBounds()));
-                    sleep.forXMillis(random.getIntBetween(config.dropMinTime(), config.dropMaxTime()));
-                }
-                plugin.setPaused(false);
+                menu.setMenuEntry(menu.dropItem(item));
+                mouse.clickInstant(mousePos.getClickPoint(item.getCanvasBounds()));
+                sleep.forXMillis(random.getIntBetween(config.dropMinTime(), config.dropMaxTime()));
             }
-            catch (RuntimeException e)
-            {
-                plugin.setPaused(false);
-                log.info("Error");
-            }
-        });
+        }
+        catch (RuntimeException e)
+        {
+            log.info("Error");
+        }
     }
 
     public void dropItems(String... itemName)
@@ -119,30 +116,43 @@ public class Inventory implements Runnable
             System.out.println("The items are null.");
             return;
         }
-        plugin.setPaused(true);
-        plugin.executor.submit(() ->
+
+        List<Rectangle> rects = new ArrayList<>();
+        List<String> names = new ArrayList<>();
+        for (WidgetItem item : items)
         {
-            try
+            if (item == null)
             {
-                for (WidgetItem item : items)
-                {
-                    if (item == null)
-                    {
-                        continue;
-                    }
-                    log.info("Dropping item in slot " + item.getIndex());
-                    menu.setMenuEntry(menu.dropItem(item));
-                    mouse.clickInstant(mousePos.getClickPoint(item.getCanvasBounds()));
-                    sleep.forXMillis(random.getIntBetween(250, 800));
-                }
-                setItemsToDrop(null);
+                items.remove(item);
+                continue;
             }
-            catch (RuntimeException e)
+            rects.add(item.getCanvasBounds());
+            names.add(client.getItemDefinition(item.getId()).getName());
+        }
+        for (String name : names)
+        {
+            menuManager.addPriorityEntry("drop", name);
+            menuManager.addPriorityEntry("release", name);
+            menuManager.addPriorityEntry("destroy", name);
+        }
+        plugin.setDropping(true);
+        log.info(String.valueOf(plugin.isDropping()));
+        new Thread(() ->
+        {
+            for (Rectangle rect : rects)
             {
-                log.info("Error");
-                setItemsToDrop(null);
+                mouse.clickInstant(mousePos.getClickPoint(rect));
+                sleep.forXMillis(random.getIntBetween(config.dropMinTime(), config.dropMaxTime()));
             }
-        });
+            for (String name : names)
+            {
+                menuManager.removePriorityEntry("drop", name);
+                menuManager.removePriorityEntry("release", name);
+                menuManager.removePriorityEntry("destroy", name);
+            }
+            plugin.setDropping(false);
+            log.info(String.valueOf(plugin.isDropping()));
+        }).start();
     }
 
     public WidgetItem getItem(String itemName)

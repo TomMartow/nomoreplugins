@@ -29,6 +29,9 @@ import com.google.inject.Provides;
 
 import javax.inject.Inject;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 
@@ -105,12 +108,9 @@ public class QOLClicksPlugin extends Plugin
 	@Inject
 	private Menu menu;
 
-	@Inject
-	public ExecutorService executor;
-
-	public static boolean paused = true;
-	public static boolean shouldDropSimilar = false;
-	public static boolean shouldDropItems = false;
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
+	boolean dropping = false;
 
 	@Provides
 	QOLClicksConfig provideConfig(ConfigManager configManager)
@@ -121,7 +121,6 @@ public class QOLClicksPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		executor = Executors.newSingleThreadExecutor();
 		if (client.getLocalPlayer() == null)
 		{
 			return;
@@ -138,30 +137,6 @@ public class QOLClicksPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
-		executor.shutdown();
-		paused = false;
-	}
-
-	@Subscribe
-	private void on(GameTick e)
-	{
-		if (paused)
-		{
-			return;
-		}
-		if (inventory.getItemsToDrop() != null)
-		{
-			if (config.enableDropSimilar() && shouldDropSimilar)
-			{
-				log.info("Executed dropSimilar.");
-				inventory.dropItems(inventory.getItemsToDrop());
-			}
-			if (config.enableDropItems() && shouldDropItems)
-			{
-				log.info("Executed dropItems.");
-				inventory.dropItems(inventory.getItemsToDrop());
-			}
-		}
 	}
 
 	@Subscribe
@@ -322,30 +297,25 @@ public class QOLClicksPlugin extends Plugin
 		 */
 
 		if (config.enableDropSimilar()
-				&& paused
 				&& event.getOption().equals("Drop-Similar")
 				&& dropSimilar.menuOptionClicked(event))
 		{
-			setPaused(false);
-			shouldDropSimilar = true;
 			event.consume();
+			inventory.dropItems(inventory.getItemsToDrop());
 		}
 
 		if (config.enableDropItems()
-				&& paused
 				&& event.getOption().equals("Drop-Items")
 				&& dropItems.menuOptionClicked(event))
 		{
-			setPaused(false);
-			shouldDropItems = true;
 			event.consume();
+			inventory.dropItems(inventory.getItemsToDrop());
 		}
 
-		if (menu.getTargetMenu() != null)
+		if (isDropping())
 		{
-			event.setMenuEntry(menu.getTargetMenu());
-			event.setTarget(event.getTarget() + client.getItemDefinition(event.getIdentifier()).getName());
-			menu.setTargetMenuNull();
+			event.setOption("Drop");
+			event.setTarget("<col=ff9040>" + client.getItemDefinition(event.getIdentifier()).getName());
 		}
 
 		debug(event, origOption, origTarget, origId, origMenuOpcode, origP0, origP1, origIsFLC, origIsCon);
@@ -428,9 +398,6 @@ public class QOLClicksPlugin extends Plugin
 		Transferable transferable = new StringSelection(s);
 		clipboard.setContents(transferable, null);
 	}
-
-	public void setPaused(boolean b) { paused = b; }
-	public boolean getPaused() { return paused; }
 
 	private void debug(MenuOptionClicked event, String origOption, String origTarget, int origId,MenuOpcode origMenuOpcode,int origP0,int origP1,boolean origIsFLC,boolean origIsCon)
 	{
