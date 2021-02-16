@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.scene;
 
 import com.google.common.base.Strings;
 import net.runelite.api.Client;
@@ -6,6 +6,7 @@ import net.runelite.api.GameObject;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.queries.GameObjectQuery;
+import plugin.nomore.qolclicks.utils.StringUtils;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -194,6 +195,26 @@ public class Objects
                         .anyMatch(s -> strings.removeWhiteSpaces(s)
                                 .equalsIgnoreCase(strings.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
                                         .getName()))))
+                .collect(Collectors.toList());
+    }
+
+    public List<GameObject> getGameObjectsWithNameContaining(String... gameObjectNames)
+    {
+        assert client.isClientThread();
+
+        if (client.getLocalPlayer() == null)
+        {
+            return null;
+        }
+
+        return getGameObjects()
+                .stream()
+                .filter(gameObject -> gameObject != null
+                        && Arrays.stream(gameObjectNames)
+                        .anyMatch(gameObjectName -> client.getObjectDefinition(gameObject.getId())
+                                .getName()
+                                .toLowerCase()
+                                .contains(gameObjectName.toLowerCase())))
                 .collect(Collectors.toList());
     }
 

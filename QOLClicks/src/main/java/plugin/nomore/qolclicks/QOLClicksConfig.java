@@ -32,141 +32,175 @@ public interface QOLClicksConfig extends Config
 
 	// https://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Type%20Something%20
 
-	@ConfigTitleSection(
-			keyName = "skillingMenuSwapsTitle",
-			name = "Skilling Menu Swaps",
-			description = "",
-			position = 1
-	)
-	default Title skillingMenuSwapsTitle()
-	{
-		return new Title();
-	}
-
-	@ConfigItem(
-			keyName = "skillConfiguration",
-			name = "Display options for:",
+	@ConfigSection(
+			keyName = "cookingSection",
+			name = "Cooking",
 			description = "",
 			position = 2,
-			titleSection = "skillingMenuSwapsTitle"
+			titleSection = "mainTitle"
 	)
-	default SkillOptions skillConfiguration() { return SkillOptions.COOKING; }
-
-	//   ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗
-	//  ██╔════╝██╔═══██╗██╔═══██╗██║ ██╔╝██║████╗  ██║██╔════╝
-	//  ██║     ██║   ██║██║   ██║█████╔╝ ██║██╔██╗ ██║██║  ███╗
-	//  ██║     ██║   ██║██║   ██║██╔═██╗ ██║██║╚██╗██║██║   ██║
-	//  ╚██████╗╚██████╔╝╚██████╔╝██║  ██╗██║██║ ╚████║╚██████╔╝
-	//   ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
-	//
+	default boolean cookingSection() { return false; }
 
 	@ConfigItem(
-			keyName = "enableCooking",
-			name = "Cook",
-			description = "Add a menu option \"Cook\" to raw food items. The menu option will only show if a fire or range is nearby.",
+			keyName = "enableFire",
+			name = "Fire",
+			description = "Add a menu option \"Cook\" to raw food items. The menu option will only show if a fire is nearby.",
+			position = 1,
+			section = "cookingSection"
+	)
+	default boolean enableFire() { return false; }
+
+	@ConfigItem(
+			keyName = "enableRange",
+			name = "Range",
+			description = "Add a menu option \"Cook\" to raw food items. The menu option will only show if a range is nearby.",
+			position = 1,
+			section = "cookingSection"
+	)
+	default boolean enableRange() { return false; }
+
+	@ConfigSection(
+			keyName = "fishingSection",
+			name = "Fishing",
+			description = "",
+			position = 3
+	)
+	default boolean fishingSection() { return false; }
+
+	@ConfigItem(
+			keyName = "enableBarbarianRod",
+			name = "Barbarian rod",
+			description = "Add a menu option \"Use-rod\" to the barbarian rod. The menu option will only show if a barbarian rod fishing spot is nearby.",
+			position = 1,
+			section = "fishingSection"
+	)
+	default boolean enableBarbarianRod() { return false; }
+
+	@ConfigItem(
+			keyName = "enableCutOffcuts",
+			name = "  Offcuts",
+			description = "Add a menu option \"Cut\" to the knife. The menu option will only show if a leaping trout, salmon or sturgeon is in the inventory.",
+			position = 2,
+			section = "fishingSection"
+	)
+	default boolean enableCutOffcuts() { return false; }
+
+	@ConfigItem(
+			keyName = "enableCutOffcutsAutoCut",
+			name = "    Auto-cut fishes",
+			description = "Auto cuts fish into offcuts.",
 			position = 3,
+			section = "fishingSection",
 			hidden = true,
-			unhide = "skillConfiguration",
-			unhideValue = "COOKING",
-			titleSection = "skillingMenuSwapsTitle"
+			unhide = "enableCutOffcuts",
+			unhideValue = "true"
 	)
-	default boolean enableCooking() { return false; }
+	default boolean enableCutOffcutsAutoCut() { return false; }
 
 	@ConfigItem(
-			keyName = "enableFishing",
-			name = "Fly Fishing Rod",
-			description = "Add a menu option \"Lure\" to the fly fishing rod. The menu option will only show if a lure fishing spot it nearby.",
+			keyName = "enableCutOffcutsAutoDrop",
+			name = "    Auto-drop offcuts",
+			description = "Auto drops the offcuts.",
 			position = 4,
+			section = "fishingSection",
 			hidden = true,
-			unhide = "skillConfiguration",
-			unhideValue = "FISHING",
-			titleSection = "skillingMenuSwapsTitle"
+			unhide = "enableCutOffcuts",
+			unhideValue = "true"
 	)
-	default boolean enableFishingRod() { return false; }
+	default boolean enableCutOffcutsAutoDrop() { return false; }
 
 	@ConfigItem(
 			keyName = "enableLobsterPot",
-			name = "Lobster Cage",
+			name = "Lobster pot",
 			description = "Add a menu option \"Cage\" to the lobster pot. The menu option will only show if a cage fishing spot is nearby.",
 			position = 5,
-			hidden = true,
-			unhide = "skillConfiguration",
-			unhideValue = "FISHING",
-			titleSection = "skillingMenuSwapsTitle"
+			section = "fishingSection"
 	)
 	default boolean enableLobsterPot() { return false; }
 
 	@ConfigItem(
-			keyName = "enableBarbarianRod",
-			name = "Barbarian Rod",
-			description = "Add a menu option \"Fish\" to the barbarian rod. The menu option will only show if a barbarian rod fishing spot is nearby.",
+			keyName = "enableFishingRod",
+			name = "Lure",
+			description = "Add a menu option \"Lure\" to the fly fishing rod. The menu option will only show if a lure fishing spot it nearby.",
 			position = 6,
-			hidden = true,
-			unhide = "skillConfiguration",
-			unhideValue = "FISHING",
-			titleSection = "skillingMenuSwapsTitle"
+			section = "fishingSection"
 	)
-	default boolean enableBarbarianRod() { return false; }
+	default boolean enableFishingRod() { return false; }
+
+	@ConfigSection(
+			keyName = "firemakingSection",
+			name = "Firemaking",
+			description = "",
+			position = 4
+	)
+	default boolean firemakingSection() { return false; }
 
 	@ConfigItem(
 			keyName = "enableFiremaking",
 			name = "Burn",
 			description = "Add a menu option \"Burn\" to all logs. The menu option will only show if a tinderbox is in the inventory.",
-			position = 6,
-			hidden = true,
-			unhide = "skillConfiguration",
-			unhideValue = "FIREMAKING",
-			titleSection = "skillingMenuSwapsTitle"
+			position = 1,
+			section = "firemakingSection"
 	)
 	default boolean enableFiremaking() { return false; }
+
+	@ConfigSection(
+			keyName = "prayerSection",
+			name = "Prayer",
+			description = "",
+			position = 5
+	)
+	default boolean prayerSection() { return false; }
 
 	@ConfigItem(
 			keyName = "enableUnnoteBones",
 			name = "Unnote Bones",
 			description = "Add a menu option \"Unnote\" to all bones. The menu option will only show if the npc \"Phials\" is nearby.",
-			position = 7,
-			hidden = true,
-			unhide = "skillConfiguration",
-			unhideValue = "PRAYER",
-			titleSection = "skillingMenuSwapsTitle"
+			position = 1,
+			section = "prayerSection"
 	)
 	default boolean enableUnnoteBones() { return false; }
 
-	@ConfigTitleSection(
-			keyName = "miscMenuSwapsTitle",
-			name = "Misc Menu Swaps",
+	@ConfigSection(
+			keyName = "bankingSection",
+			name = "Banking",
 			description = "",
-			position = 8
+			position = 6
 	)
-	default Title miscMenuSwapsTitle()
-	{
-		return new Title();
-	}
+	default boolean bankingSection() { return false; }
 
 	@ConfigItem(
 			keyName = "enableBanking",
 			name = "Bank",
 			description = "Add a menu option \"Bank\" to the inventory tab. The menu option will only show if a bank is nearby.",
-			position = 9,
-			titleSection = "miscMenuSwapsTitle"
+			position = 1,
+			section = "bankingSection"
 	)
 	default boolean enableBanking() { return false; }
+
+	@ConfigSection(
+			keyName = "dropSection",
+			name = "Inventory Dropping",
+			description = "",
+			position = 7
+	)
+	default boolean dropSection() { return false; }
 
 	@ConfigItem(
 			keyName = "enableDropSimilar",
 			name = "Drop-Similar",
 			description = "Add a menu option \"Drop-Similar\" to the inventory tab. When clicked, it will drop all items in your inventory that are an exact match of the clicked item.",
-			position = 10,
-			titleSection = "miscMenuSwapsTitle"
+			position = 1,
+			section = "dropSection"
 	)
 	default boolean enableDropSimilar() { return false; }
 
 	@ConfigItem(
-			keyName = "enableDropAll",
+			keyName = "enableDropItems",
 			name = "Drop-Items",
 			description = "Add a menu option \"Drop-Items\" to the inventory tab. When clicked, it will drop all items in your inventory that match the names in the \"Items to drop\" text box.",
-			position = 11,
-			titleSection = "miscMenuSwapsTitle"
+			position = 2,
+			section = "dropSection"
 	)
 	default boolean enableDropItems() { return false; }
 
@@ -174,26 +208,34 @@ public interface QOLClicksConfig extends Config
 			keyName = "itemsToDrop",
 			name = "  Items to drop",
 			description = "Add the name of the item that you wish to drop here.",
-			position = 12,
-			titleSection = "miscMenuSwapsTitle"
+			position = 3,
+			section = "dropSection"
 	)
 	default String itemsToDrop() { return "Bones,"; }
 
+	@ConfigTitleSection(
+			keyName = "automationTitle",
+			name = "Automation",
+			description = "The minimum amount of time it will take to drop an item.",
+			position = 8
+	)
+	default Title automationTitle() { return new Title(); }
+
 	@ConfigItem(
 			keyName = "dropAllMinTime",
-			name = "  Min time (millis)",
+			name = "Min time (millis)",
 			description = "The minimum amount of time it will take to drop an item.",
-			position = 13,
-			titleSection = "miscMenuSwapsTitle"
+			position = 1,
+			titleSection = "automationTitle"
 	)
 	default int dropMinTime() { return 250; }
 
 	@ConfigItem(
 			keyName = "dropAllMaxTime",
-			name = "  Max time (millis)",
+			name = "Max time (millis)",
 			description = "The maximum amount of time it will take to drop an item.",
-			position = 14,
-			titleSection = "miscMenuSwapsTitle"
+			position = 2,
+			titleSection = "automationTitle"
 	)
 	default int dropMaxTime() { return 1000; }
 
@@ -209,7 +251,8 @@ public interface QOLClicksConfig extends Config
 			keyName = "enableDebugMessages",
 			name = "Debug Messages",
 			description = "Enable debug messages (dev only).",
-			position = 101
+			position = 101,
+			titleSection = "debugTitle"
 	)
 	default boolean enableDebugging() { return false; }
 
@@ -220,7 +263,8 @@ public interface QOLClicksConfig extends Config
 			hidden = true,
 			unhide = "enableDebugMessages",
 			unhideValue = "true",
-			position = 102
+			position = 102,
+			titleSection = "debugTitle"
 	)
 	default boolean enableWriteToClipboard() { return false; }
 

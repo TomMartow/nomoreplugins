@@ -1,5 +1,7 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.scene;
 
+import joptsimple.internal.Strings;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.NPC;
@@ -12,9 +14,11 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 public class Npcs
 {
 
@@ -141,12 +145,10 @@ public class Npcs
         }
         return get()
                 .stream()
-                .filter(npc
-                        -> npc != null
-                        && Arrays.stream(client.getNpcDefinition(npc.getId()).getActions())
-                        .anyMatch(a -> a.equalsIgnoreCase(action)))
-                .min(Comparator.comparing(entityType
-                        -> entityType
+                .filter(npc -> Arrays.stream(client.getNpcDefinition(npc.getId()).getActions())
+                .anyMatch(npcAction -> !Strings.isNullOrEmpty(npcAction)
+                        && npcAction.equalsIgnoreCase(action)))
+                .min(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()
                                 .getLocalLocation())))
@@ -164,17 +166,17 @@ public class Npcs
 
         return get()
                 .stream()
-                .filter(npc
-                        -> npc != null
-                        && Arrays.stream(client.getNpcDefinition(npc.getId()).getActions())
-                        .anyMatch(a -> a.equalsIgnoreCase(action)))
-                .min(Comparator.comparing(entityType
-                        -> entityType
+                .filter(npc -> Arrays.stream(client.getNpcDefinition(npc.getId()).getActions())
+                        .anyMatch(npcAction -> !Strings.isNullOrEmpty(npcAction)
+                                && npcAction.equalsIgnoreCase(action)))
+                .min(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()
                                 .getLocalLocation())))
                 .stream()
                 .collect(Collectors.toList());
     }
+
+
 
 }

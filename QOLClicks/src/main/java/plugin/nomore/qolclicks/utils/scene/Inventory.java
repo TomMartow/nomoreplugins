@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.scene;
 
 import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
@@ -10,16 +10,18 @@ import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.menus.MenuManager;
 import plugin.nomore.qolclicks.QOLClicksConfig;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
+import plugin.nomore.qolclicks.utils.MenuClicked;
+import plugin.nomore.qolclicks.utils.Cursor;
+import plugin.nomore.qolclicks.utils.StringUtils;
+import plugin.nomore.qolclicks.utils.TargetMenues;
+import plugin.nomore.qolclicks.utils.builds.InventoryItem;
 
 import javax.inject.Inject;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class Inventory implements Runnable
+public class Inventory
 {
 
     @Inject
@@ -35,124 +37,65 @@ public class Inventory implements Runnable
     StringUtils string;
 
     @Inject
-    Sleep sleep;
+    MenuClicked menuClicked;
 
     @Inject
-    Menu menu;
-
-    @Inject
-    Mouse mouse;
-
-    @Inject
-    MousePosition mousePos;
-
-    @Inject
-    Random random;
+    Cursor mousePos;
 
     @Inject
     MenuManager menuManager;
 
-    public static List<WidgetItem> itemsToDrop = null;
-    public void setItemsToDrop(List<WidgetItem> itemList) { itemsToDrop = itemList; }
-    public List<WidgetItem> getItemsToDrop() { return itemsToDrop; }
+    @Inject
+    TargetMenues targetMenues;
 
-    public List<WidgetItem> getWidgetItemsThatMatchesConfigItemName()
+    public void dropItem(InventoryItem inventoryItem)
     {
-        List<WidgetItem> items = new ArrayList<>();
-        for (WidgetItem item : getItems())
-        {
-            if (item == null)
-            {
-                continue;
-            }
-            for (String configItemName : string.removeWhiteSpaces(config.itemsToDrop()).split(","))
-            {
-                if (configItemName.equals(string.removeWhiteSpaces(client.getItemDefinition(item.getId()).getName())))
-                {
-                    items.add(item);
-                }
-            }
-        }
-        return items;
-    }
-
-    public void dropAll()
-    {
-        List<WidgetItem> items = getItems();
-        if (items == null)
-        {
-            System.out.println("The items are null.");
-            return;
-        }
-        try
-        {
-            for (WidgetItem item : items)
-            {
-                menu.setMenuEntry(menu.dropItem(item));
-                mouse.clickInstant(mousePos.getClickPoint(item.getCanvasBounds()));
-                sleep.forXMillis(random.getIntBetween(config.dropMinTime(), config.dropMaxTime()));
-            }
-        }
-        catch (RuntimeException e)
-        {
-            log.info("Error");
-        }
-    }
-
-    public void dropItems(String... itemName)
-    {
-        dropItems(getItems(itemName));
-    }
-
-    public void dropItems(int... itemId)
-    {
-        dropItems(getItems(itemId));
-    }
-
-    public void dropItems(List<WidgetItem> items)
-    {
-        if (items == null)
-        {
-            System.out.println("The items are null.");
-            return;
-        }
-
-        List<Rectangle> rects = new ArrayList<>();
-        List<String> names = new ArrayList<>();
-        for (WidgetItem item : items)
-        {
-            if (item == null)
-            {
-                items.remove(item);
-                continue;
-            }
-            rects.add(item.getCanvasBounds());
-            names.add(client.getItemDefinition(item.getId()).getName());
-        }
-        for (String name : names)
-        {
-            menuManager.addPriorityEntry("drop", name);
-            menuManager.addPriorityEntry("release", name);
-            menuManager.addPriorityEntry("destroy", name);
-        }
-        plugin.setDropping(true);
-        log.info(String.valueOf(plugin.isDropping()));
+        menuManager.addPriorityEntry("drop", inventoryItem.getName());
+        menuManager.addPriorityEntry("release", inventoryItem.getName());
+        menuManager.addPriorityEntry("destroy", inventoryItem.getName());
         new Thread(() ->
         {
-            for (Rectangle rect : rects)
-            {
-                mouse.clickInstant(mousePos.getClickPoint(rect));
-                sleep.forXMillis(random.getIntBetween(config.dropMinTime(), config.dropMaxTime()));
-            }
-            for (String name : names)
-            {
-                menuManager.removePriorityEntry("drop", name);
-                menuManager.removePriorityEntry("release", name);
-                menuManager.removePriorityEntry("destroy", name);
-            }
-            plugin.setDropping(false);
-            log.info(String.valueOf(plugin.isDropping()));
+            plugin.setTargetMenu(targetMenues.getDropItem(inventoryItem));
+            plugin.click(inventoryItem.getItem().getCanvasBounds());
         }).start();
+        menuManager.removePriorityEntry("drop", inventoryItem.getName());
+        menuManager.removePriorityEntry("release", inventoryItem.getName());
+        menuManager.removePriorityEntry("destroy", inventoryItem.getName());
+    }
+
+    public void dropItems(List<InventoryItem> items)
+    {
+        for (InventoryItem inventoryItem : items)
+        {
+            menuManager.addPriorityEntry("drop", inventoryItem.getName());
+            menuManager.addPriorityEntry("release", inventoryItem.getName());
+            menuManager.addPriorityEntry("destroy", inventoryItem.getName());
+        }
+        plugin.setIterating(true);
+        new Thread(() ->
+        {
+            for (InventoryItem inventoryItem : items)
+            {
+                plugin.setTargetMenu(targetMenues.getDropItem(inventoryItem));
+                plugin.click(inventoryItem.getItem().getCanvasBounds());
+                try
+                {
+                    Thread.sleep(plugin.getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
+                }
+                catch (InterruptedException e)
+                {
+                    plugin.setIterating(false);
+                    e.printStackTrace();
+                }
+            }
+            plugin.setIterating(false);
+        }).start();
+        for (InventoryItem inventoryItem : items)
+        {
+            menuManager.removePriorityEntry("drop", inventoryItem.getName());
+            menuManager.removePriorityEntry("release", inventoryItem.getName());
+            menuManager.removePriorityEntry("destroy", inventoryItem.getName());
+        }
     }
 
     public WidgetItem getItem(String itemName)
@@ -174,6 +117,29 @@ public class Inventory implements Runnable
                 .result(client).first();
     }
 
+    public WidgetItem getLastItem(String... itemNames)
+    {
+        return new InventoryWidgetItemQuery()
+                .result(client)
+                .list
+                .stream()
+                .sorted(Collections.reverseOrder())
+                .filter(i -> i != null
+                        && Arrays.stream(itemNames)
+                        .anyMatch(s -> s.equalsIgnoreCase(client.getItemDefinition(i.getId())
+                                .getName())))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public WidgetItem getLastItem(int... itemId)
+    {
+        return new InventoryWidgetItemQuery()
+                .idEquals(itemId)
+                .result(client)
+                .last();
+    }
+
     public List<WidgetItem> getItems()
     {
         Widget inventoryWidget = client.getWidget(WidgetInfo.INVENTORY);
@@ -186,10 +152,16 @@ public class Inventory implements Runnable
 
     public List<WidgetItem> getItems(String... itemNames)
     {
-        return new InventoryWidgetItemQuery()
-                .result(client)
+        Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
+        if (inventory == null)
+        {
+            return null;
+        }
+        return inventory
+                .getWidgetItems()
                 .stream()
-                .filter(i -> Arrays.stream(itemNames)
+                .filter(i -> i != null
+                        && Arrays.stream(itemNames)
                         .anyMatch(s -> s.equalsIgnoreCase(client.getItemDefinition(i.getId())
                                 .getName())))
                 .collect(Collectors.toList());
@@ -324,11 +296,5 @@ public class Inventory implements Runnable
                         && item.getIndex() == slotNumber)
                 .findFirst()
                 .orElse(null);
-    }
-
-    @Override
-    public void run()
-    {
-
     }
 }
