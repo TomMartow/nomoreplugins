@@ -187,31 +187,40 @@ public interface QOLClicksConfig extends Config
 	default boolean dropSection() { return false; }
 
 	@ConfigItem(
-			keyName = "enableDropSimilar",
-			name = "Drop-Similar",
-			description = "Add a menu option \"Drop-Similar\" to the inventory tab. When clicked, it will drop all items in your inventory that are an exact match of the clicked item.",
+			keyName = "enableDropMatching",
+			name = "Drop-Matching",
+			description = "Add a menu option \"Drop-Matching\" to the inventory tab. When clicked, it will drop all items in your inventory that match the names in the \"Matching\" text box.",
 			position = 1,
 			section = "dropSection"
 	)
-	default boolean enableDropSimilar() { return false; }
+	default boolean enableDropMatching() { return false; }
 
 	@ConfigItem(
-			keyName = "enableDropItems",
-			name = "Drop-Items",
-			description = "Add a menu option \"Drop-Items\" to the inventory tab. When clicked, it will drop all items in your inventory that match the names in the \"Items to drop\" text box.",
+			keyName = "matchingTextBox",
+			name = "  Drop list",
+			description = "Add the name of the item that you wish to drop here.",
 			position = 2,
 			section = "dropSection"
 	)
-	default boolean enableDropItems() { return false; }
+	default String dropMatchingTextBox() { return "Bones,"; }
 
 	@ConfigItem(
-			keyName = "itemsToDrop",
-			name = "  Items to drop",
-			description = "Add the name of the item that you wish to drop here.",
+			keyName = "enableDropExcept",
+			name = "Drop-Except",
+			description = "Add a menu option \"Drop-Except\" to the inventory tab. When clicked, it will drop all items in your inventory that do not match the names in the \"Not matching\" text box.",
 			position = 3,
 			section = "dropSection"
 	)
-	default String itemsToDrop() { return "Bones,"; }
+	default boolean enableDropExcept() { return false; }
+
+	@ConfigItem(
+			keyName = "itemsToDrop",
+			name = "  Ignore list",
+			description = "Add the name of the item that you wish to ignore here.",
+			position = 4,
+			section = "dropSection"
+	)
+	default String dropExceptTextBox() { return "Coins,"; }
 
 	@ConfigTitleSection(
 			keyName = "automationTitle",

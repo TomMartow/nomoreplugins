@@ -127,8 +127,8 @@ public class QOLClicksPlugin extends Plugin
 	{
 		if (e.getFirstEntry().getParam1() == WidgetInfo.INVENTORY.getId())
 		{
-			if (config.enableDropItems()
-					|| config.enableDropSimilar())
+			if (config.enableDropMatching()
+					|| config.enableDropExcept())
 			{
 				addDropMenu(e);
 			}
@@ -420,34 +420,10 @@ public class QOLClicksPlugin extends Plugin
 		//
 
 		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Drop-Similar"))
+				&& e.getOption().equals("Drop-Matching"))
 		{
 			List<InventoryItem> dropList = new ArrayList<>();
-			for (WidgetItem item : inventory.getItems())
-			{
-				if (item == null)
-				{
-					continue;
-				}
-				if (item.getId() != e.getIdentifier())
-				{
-					continue;
-				}
-				dropList.add(InventoryItem.builder()
-						.item(item)
-						.name(client.getItemDefinition(item.getId()).getName())
-						.build());
-			}
-			inventory.dropItems(dropList);
-			e.consume();
-			return;
-		}
-
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Drop-Items"))
-		{
-			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configItemNames = string.removeWhiteSpaces(config.itemsToDrop()).split(",");
+			String[] configItemNames = string.removeWhiteSpaces(config.dropMatchingTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
 				if (item == null)
@@ -460,6 +436,34 @@ public class QOLClicksPlugin extends Plugin
 						.build();
 				if (Arrays.stream(configItemNames)
 						.anyMatch(cIN
+								-> string.removeWhiteSpaces(inventoryItem.getName())
+								.equalsIgnoreCase(cIN)))
+				{
+					dropList.add(inventoryItem);
+				}
+			}
+			inventory.dropItems(dropList);
+			e.consume();
+			return;
+		}
+
+		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
+				&& e.getOption().equals("Drop-Except"))
+		{
+			List<InventoryItem> dropList = new ArrayList<>();
+			String[] configItemNames = string.removeWhiteSpaces(config.dropExceptTextBox()).split(",");
+			for (WidgetItem item : inventory.getItems())
+			{
+				if (item == null)
+				{
+					continue;
+				}
+				InventoryItem inventoryItem = InventoryItem.builder()
+						.item(item)
+						.name(client.getItemDefinition(item.getId()).getName())
+						.build();
+				if (Arrays.stream(configItemNames)
+						.noneMatch(cIN
 								-> string.removeWhiteSpaces(inventoryItem.getName())
 								.equalsIgnoreCase(cIN)))
 				{
@@ -752,76 +756,76 @@ public class QOLClicksPlugin extends Plugin
 		MenuEntry[] origE = e.getMenuEntries();
 		MenuEntry firstEntry = e.getFirstEntry();
 
-		MenuEntry dropSimilar = new MenuEntry("Drop-Similar",
-				"<col=ffff00>" + client.getItemDefinition(firstEntry.getIdentifier()).getName(),
+		MenuEntry dropMatching = new MenuEntry("Drop-Matching",
+				"<col=ffff00>Drop list",
 				firstEntry.getIdentifier(),
 				MenuOpcode.ITEM_USE.getId(),
 				firstEntry.getParam0(),
 				firstEntry.getParam1(),
 				firstEntry.isForceLeftClick());
 
-		MenuEntry dropItems = new MenuEntry("Drop-Items",
-				"<col=ffff00>" + client.getItemDefinition(firstEntry.getIdentifier()).getName(),
+		MenuEntry dropExcept = new MenuEntry("Drop-Except",
+				"<col=ffff00>Ignore list",
 				firstEntry.getIdentifier(), MenuOpcode.ITEM_USE.getId(),
 				firstEntry.getParam0(),
 				firstEntry.getParam1(),
 				firstEntry.isForceLeftClick());
 
-		if (config.enableDropSimilar() && !config.enableDropItems())
+		if (!config.enableDropExcept() && config.enableDropMatching())
 		{
 			if (origE.length == 3)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropSimilar, origE[2]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2]});
 			}
 			if (origE.length == 4)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropSimilar, origE[2], origE[3]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2], origE[3]});
 			}
 			if (origE.length == 5)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropSimilar, origE[2], origE[3], origE[4]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2], origE[3], origE[4]});
 			}
 			if (origE.length == 6)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropSimilar, origE[2], origE[3], origE[4], origE[5]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2], origE[3], origE[4], origE[5]});
 			}
 		}
-		if (!config.enableDropSimilar() && config.enableDropItems())
+		if (config.enableDropExcept() && !config.enableDropMatching())
 		{
 			if (origE.length == 3)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, origE[2]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2]});
 			}
 			if (origE.length == 4)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, origE[2], origE[3]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2], origE[3]});
 			}
 			if (origE.length == 5)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, origE[2], origE[3], origE[4]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2], origE[3], origE[4]});
 			}
 			if (origE.length == 6)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, origE[2], origE[3], origE[4], origE[5]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2], origE[3], origE[4], origE[5]});
 			}
 		}
-		if (config.enableDropSimilar() && config.enableDropItems())
+		if (config.enableDropExcept() && config.enableDropMatching())
 		{
 			if (origE.length == 3)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, dropSimilar, origE[2]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2]});
 			}
 			if (origE.length == 4)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, dropSimilar, origE[2], origE[3]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2], origE[3]});
 			}
 			if (origE.length == 5)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, dropSimilar, origE[2], origE[3], origE[4]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2], origE[3], origE[4]});
 			}
 			if (origE.length == 6)
 			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropItems, dropSimilar, origE[2], origE[3], origE[4], origE[5]});
+				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2], origE[3], origE[4], origE[5]});
 			}
 		}
 	}
