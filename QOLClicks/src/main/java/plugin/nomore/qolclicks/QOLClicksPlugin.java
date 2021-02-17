@@ -451,13 +451,13 @@ public class QOLClicksPlugin extends Plugin
 				&& e.getOption().equals("Drop-Matching"))
 		{
 			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configMatchingTextBoxStrings = string.removeWhiteSpaces(config.dropMatchingTextBox()).split(",");
+			String[] configMatchingTextBoxStrings = string.string(config.dropMatchingTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
 				if (item != null
 						&& Arrays.stream(configMatchingTextBoxStrings)
 						.anyMatch(cIN
-								-> string.removeWhiteSpaces(client.getItemDefinition(item.getId()).getName())
+								-> string.string(client.getItemDefinition(item.getId()).getName())
 								.equalsIgnoreCase(cIN)))
 				{
 					dropList.add(InventoryItem.builder()
@@ -475,13 +475,13 @@ public class QOLClicksPlugin extends Plugin
 				&& e.getOption().equals("Drop-Except"))
 		{
 			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configExceptTextBoxStrings = string.removeWhiteSpaces(config.dropExceptTextBox()).split(",");
+			String[] configExceptTextBoxStrings = string.string(config.dropExceptTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
 				if (item != null
 						&& Arrays.stream(configExceptTextBoxStrings)
 						.noneMatch(cIN
-								-> string.removeWhiteSpaces(client.getItemDefinition(item.getId()).getName())
+								-> string.string(client.getItemDefinition(item.getId()).getName())
 								.equalsIgnoreCase(cIN)))
 				{
 					dropList.add(InventoryItem.builder()
@@ -490,6 +490,7 @@ public class QOLClicksPlugin extends Plugin
 							.build());
 				}
 			}
+			//inventory.testDropItems(dropList);
 			inventory.dropItems(dropList);
 			e.consume();
 			return;
@@ -503,8 +504,8 @@ public class QOLClicksPlugin extends Plugin
 		//  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 		//
 
-		if (e.getMenuOpcode() == MenuOpcode.GAME_OBJECT_FIRST_OPTION
-				&& e.getTarget().toLowerCase().contains("bank"))
+		if (e.getOption().equals("Open")
+				&& e.getTarget().contains("Bank"))
 		{
 			List<GameObject> gameObjectList = objects.getGameObjectsWithNameContaining("Bank chest", "Bank booth");
 			if (gameObjectList.size() == 0)

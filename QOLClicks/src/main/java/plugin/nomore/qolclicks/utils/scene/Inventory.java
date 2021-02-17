@@ -84,14 +84,51 @@ public class Inventory
             menuManager.removePriorityEntry("destroy", inventoryItem.getName());
         }
     }
+/*
+    public void testDropItems(List<InventoryItem> items)
+    {
+        String[] dropOrder = format.string(config.dropOrder()).split(",");
+        log.info("The items amount is: " + items.size());
+        for (InventoryItem inventoryItem : items)
+        {
+            menuManager.addPriorityEntry("drop", inventoryItem.getName());
+            menuManager.addPriorityEntry("release", inventoryItem.getName());
+            menuManager.addPriorityEntry("destroy", inventoryItem.getName());
+        }
+        plugin.setIterating(true);
+        new Thread(() ->
+        {
+            for (InventoryItem item : items)
+            {
+                log.info(item.getName() + " in slot " + item.getItem().getIndex() + " config: " + dropOrder[item.getItem().getIndex()]);
+                mouse.clickC(item.getItem().getCanvasBounds());
+                try
+                {
+                    Thread.sleep(random.getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
+                }
+                catch (InterruptedException e)
+                {
+                    plugin.setIterating(false);
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        for (InventoryItem inventoryItem : items)
+        {
+            menuManager.removePriorityEntry("drop", inventoryItem.getName());
+            menuManager.removePriorityEntry("release", inventoryItem.getName());
+            menuManager.removePriorityEntry("destroy", inventoryItem.getName());
+        }
+    }
+    */
 
     public WidgetItem getItem(String itemName)
     {
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .stream()
-                .filter(i -> format.removeWhiteSpaces(itemName)
-                        .equalsIgnoreCase(format.removeWhiteSpaces(client.getItemDefinition(i.getId())
+                .filter(i -> format.string(itemName)
+                        .equalsIgnoreCase(format.string(client.getItemDefinition(i.getId())
                                 .getName())))
                 .findFirst()
                 .orElse(null);
@@ -208,8 +245,8 @@ public class Inventory
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .stream()
-                .filter(i -> format.removeWhiteSpaces(itemName)
-                        .contains(format.removeWhiteSpaces(client.getItemDefinition(i.getId())
+                .filter(i -> format.string(itemName)
+                        .contains(format.string(client.getItemDefinition(i.getId())
                                 .getName())))
                 .findFirst()
                 .orElse(null);
@@ -220,8 +257,8 @@ public class Inventory
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .stream()
-                .filter(i -> format.removeWhiteSpaces(itemName)
-                        .contains(format.removeWhiteSpaces(client.getItemDefinition(i.getId())
+                .filter(i -> format.string(itemName)
+                        .contains(format.string(client.getItemDefinition(i.getId())
                                 .getName())))
                 .collect(Collectors.toList());
     }

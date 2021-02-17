@@ -187,8 +187,8 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(s -> format.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(format.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
+                        .anyMatch(s -> format.string(s)
+                                .equalsIgnoreCase(format.string(client.getObjectDefinition(gameObject.getId())
                                         .getName()))))
                 .collect(Collectors.toList());
     }
@@ -243,8 +243,8 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(s -> format.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(format.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
+                        .anyMatch(s -> format.string(s)
+                                .equalsIgnoreCase(format.string(client.getObjectDefinition(gameObject.getId())
                                         .getName()))))
                 .sorted(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
@@ -287,8 +287,8 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(s -> format.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(format.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
+                        .anyMatch(s -> format.string(s)
+                                .equalsIgnoreCase(format.string(client.getObjectDefinition(gameObject.getId())
                                         .getName())))).min(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()

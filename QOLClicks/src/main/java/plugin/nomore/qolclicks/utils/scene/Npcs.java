@@ -97,8 +97,8 @@ public class Npcs
                 .filter(i -> i != null
                         && i.getName() != null
                         && Arrays.stream(npcNames)
-                        .anyMatch(s -> string.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(string.removeWhiteSpaces(i.getName()))))
+                        .anyMatch(s -> string.string(s)
+                                .equalsIgnoreCase(string.string(i.getName()))))
                 .sorted(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()

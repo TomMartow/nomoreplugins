@@ -13,7 +13,7 @@ public class Format
         return string.toLowerCase().replaceAll("[0-9]", "");
     }
 
-    public String removeWhiteSpaces(String string)
+    public String string(String string)
     {
         return string.toLowerCase().replaceAll("\\s+", "");
     }

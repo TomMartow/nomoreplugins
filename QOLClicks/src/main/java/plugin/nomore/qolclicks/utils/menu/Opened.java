@@ -116,8 +116,8 @@ public class Opened
             return;
         }
         MenuEntry openBank = new MenuEntry(
-                Arrays.stream(client.getObjectDefinition(object.getId()).getActions()).findFirst().orElse("Bank"),
-                "<col=ffff00>" + client.getObjectDefinition(object.getId()).getName(),
+                "Open",
+                "<col=ffff00>Bank",
                 object.getId(),
                 MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId(),
                 object.getSceneMinLocation().getX(),
