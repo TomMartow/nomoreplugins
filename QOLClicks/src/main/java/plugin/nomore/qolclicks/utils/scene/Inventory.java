@@ -84,43 +84,30 @@ public class Inventory
             menuManager.removePriorityEntry("destroy", inventoryItem.getName());
         }
     }
-/*
-    public void testDropItems(List<InventoryItem> items)
+
+    public List<InventoryItem> sortDropListOrder(List<InventoryItem> items)
     {
         String[] dropOrder = format.string(config.dropOrder()).split(",");
-        log.info("The items amount is: " + items.size());
-        for (InventoryItem inventoryItem : items)
+        List<InventoryItem> sortedDropItems = new ArrayList<>();
+        for (int i = 0; i < dropOrder.length; i++)
         {
-            menuManager.addPriorityEntry("drop", inventoryItem.getName());
-            menuManager.addPriorityEntry("release", inventoryItem.getName());
-            menuManager.addPriorityEntry("destroy", inventoryItem.getName());
-        }
-        plugin.setIterating(true);
-        new Thread(() ->
-        {
-            for (InventoryItem item : items)
+            try
             {
-                log.info(item.getName() + " in slot " + item.getItem().getIndex() + " config: " + dropOrder[item.getItem().getIndex()]);
-                mouse.clickC(item.getItem().getCanvasBounds());
-                try
+                InventoryItem item = items.get(Integer.parseInt(dropOrder[i]));
+                if (item == null)
                 {
-                    Thread.sleep(random.getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
+                    continue;
                 }
-                catch (InterruptedException e)
-                {
-                    plugin.setIterating(false);
-                    e.printStackTrace();
-                }
+                //log.info(" Name: " + item.getName() + " DropOrder: " + dropOrder[i] + " Index: " + item.getItem().getIndex());
+                sortedDropItems.add(item);
             }
-        }).start();
-        for (InventoryItem inventoryItem : items)
-        {
-            menuManager.removePriorityEntry("drop", inventoryItem.getName());
-            menuManager.removePriorityEntry("release", inventoryItem.getName());
-            menuManager.removePriorityEntry("destroy", inventoryItem.getName());
+            catch (IndexOutOfBoundsException e)
+            {
+                log.info("NO: " + dropOrder[i]);
+            }
         }
+        return sortedDropItems;
     }
-    */
 
     public WidgetItem getItem(String itemName)
     {

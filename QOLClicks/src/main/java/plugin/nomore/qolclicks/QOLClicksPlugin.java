@@ -454,19 +454,25 @@ public class QOLClicksPlugin extends Plugin
 			String[] configMatchingTextBoxStrings = string.string(config.dropMatchingTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
-				if (item != null
-						&& Arrays.stream(configMatchingTextBoxStrings)
-						.anyMatch(cIN
-								-> string.string(client.getItemDefinition(item.getId()).getName())
-								.equalsIgnoreCase(cIN)))
+				if (item != null)
 				{
-					dropList.add(InventoryItem.builder()
-							.item(item)
-							.name(client.getItemDefinition(item.getId()).getName())
-							.build());
+					if (Arrays.stream(configMatchingTextBoxStrings)
+							.anyMatch(cIN
+									-> string.string(client.getItemDefinition(item.getId()).getName())
+									.equalsIgnoreCase(cIN)))
+					{
+						dropList.add(InventoryItem.builder()
+								.item(item)
+								.name(client.getItemDefinition(item.getId()).getName())
+								.build());
+					}
+					else
+					{
+						dropList.add(null);
+					}
 				}
 			}
-			inventory.dropItems(dropList);
+			inventory.dropItems(inventory.sortDropListOrder(dropList));
 			e.consume();
 			return;
 		}
@@ -478,20 +484,25 @@ public class QOLClicksPlugin extends Plugin
 			String[] configExceptTextBoxStrings = string.string(config.dropExceptTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
-				if (item != null
-						&& Arrays.stream(configExceptTextBoxStrings)
+				if (item != null)
+				{
+					if (Arrays.stream(configExceptTextBoxStrings)
 						.noneMatch(cIN
 								-> string.string(client.getItemDefinition(item.getId()).getName())
 								.equalsIgnoreCase(cIN)))
-				{
-					dropList.add(InventoryItem.builder()
-							.item(item)
-							.name(client.getItemDefinition(item.getId()).getName())
-							.build());
+					{
+						dropList.add(InventoryItem.builder()
+								.item(item)
+								.name(client.getItemDefinition(item.getId()).getName())
+								.build());
+					}
+					else
+					{
+						dropList.add(null);
+					}
 				}
 			}
-			//inventory.testDropItems(dropList);
-			inventory.dropItems(dropList);
+			inventory.dropItems(inventory.sortDropListOrder(dropList));
 			e.consume();
 			return;
 		}

@@ -103,7 +103,7 @@ public class Opened
     {
         MenuEntry[] origE = e.getMenuEntries();
 
-        List<GameObject> gameObjectList = objects.getGameObjectsMatching("Bank chest", "Bank booth");
+        List<GameObject> gameObjectList = objects.getGameObjectsWithNameContaining("Bank");
         if (gameObjectList.size() == 0)
         {
             return;
