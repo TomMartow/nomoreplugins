@@ -40,24 +40,22 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import org.jetbrains.annotations.NotNull;
 import org.pf4j.Extension;
-import plugin.nomore.qolclicks.utils.*;
-import plugin.nomore.qolclicks.utils.Cursor;
-import plugin.nomore.qolclicks.utils.builds.GameObjectItem;
-import plugin.nomore.qolclicks.utils.builds.InventoryItem;
+import plugin.nomore.qolclicks.utils.automation.Format;
+import plugin.nomore.qolclicks.utils.automation.Mouse;
+import plugin.nomore.qolclicks.utils.automation.Random;
+import plugin.nomore.qolclicks.utils.debugging.Debug;
+import plugin.nomore.qolclicks.utils.menu.Added;
+import plugin.nomore.qolclicks.utils.menu.Clicked;
+import plugin.nomore.qolclicks.utils.menu.Opened;
+import plugin.nomore.qolclicks.utils.scene.builds.GameObjectItem;
+import plugin.nomore.qolclicks.utils.scene.builds.InventoryItem;
 import plugin.nomore.qolclicks.utils.scene.Inventory;
 import plugin.nomore.qolclicks.utils.scene.Npcs;
 import plugin.nomore.qolclicks.utils.scene.Objects;
-import plugin.nomore.qolclicks.utils.TargetMenues;
+import plugin.nomore.qolclicks.utils.menu.TargetMenus;
 
 import javax.inject.Inject;
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -74,14 +72,17 @@ public class QOLClicksPlugin extends Plugin
 
 	@Inject private Client client;
 	@Inject private QOLClicksConfig config;
-	@Inject private MenuClicked menuClicked;
-	@Inject private MenuAdded menuAdded;
-	@Inject private Cursor cursor;
+	@Inject private Clicked clicked;
+	@Inject private Added added;
+	@Inject private Opened opened;
+	@Inject private Random random;
 	@Inject private Inventory inventory;
 	@Inject private Objects objects;
 	@Inject private Npcs npcs;
-	@Inject private StringUtils string;
-	@Inject private TargetMenues targetMenues;
+	@Inject private Format string;
+	@Inject private TargetMenus targetMenus;
+	@Inject private Debug debug;
+	@Inject private Mouse mouse;
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
@@ -130,14 +131,17 @@ public class QOLClicksPlugin extends Plugin
 			if (config.enableDropMatching()
 					|| config.enableDropExcept())
 			{
-				addDropMenu(e);
+				opened.addDropMenu(e);
 			}
 		}
 
 		if (e.getFirstEntry().getMenuOpcode() == MenuOpcode.CC_OP
 				&& e.getFirstEntry().getOption().equalsIgnoreCase("Inventory"))
 		{
-			addBankMenu(e);
+			if (config.enableBanking())
+			{
+				opened.addBankMenu(e);
+			}
 		}
 	}
 
@@ -157,7 +161,7 @@ public class QOLClicksPlugin extends Plugin
 		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
 				&& e.getOption().equals("Burn"))
 		{
-			menuClicked.useItemOnItem(
+			clicked.useItemOnItem(
 					inventory.getItemInSlotIfMatches(e.getIdentifier(), e.getParam0()),
 					inventory.getItem("Tinderbox"),
 					e);
@@ -176,21 +180,21 @@ public class QOLClicksPlugin extends Plugin
 		{
 			if (!config.enableRange() && config.enableFire())
 			{
-				menuClicked.useItemOnGameObject(
+				clicked.useItemOnGameObject(
 						inventory.getItem(e.getIdentifier()),
 						objects.getClosestGameObjectMatching("Fire"),
 						e);
 			}
 			else if (config.enableRange() && !config.enableFire())
 			{
-				menuClicked.useItemOnGameObject(
+				clicked.useItemOnGameObject(
 						inventory.getItem(e.getIdentifier()),
 						objects.getClosestGameObjectMatching("Range"),
 						e);
 			}
 			else if (config.enableRange() && config.enableFire())
 			{
-				menuClicked.useItemOnGameObject(
+				clicked.useItemOnGameObject(
 						inventory.getItem(e.getIdentifier()),
 						objects.getMatchingGameObjectsSortedByClosest("Fire", "Range").get(0),
 						e);
@@ -213,9 +217,17 @@ public class QOLClicksPlugin extends Plugin
 			{
 				return;
 			}
-			NPC npc = npcList.size() > 2
-					? npcList.get(new Random().nextInt(2))
-					: npcList.get(new Random().nextInt(npcList.size()));
+			NPC npc;
+			if (config.findClosest())
+			{
+				npc = npcList.get(0);
+			}
+			else
+			{
+				npc = npcList.size() > 2
+						? npcList.get(new java.util.Random().nextInt(2))
+						: npcList.get(new java.util.Random().nextInt(npcList.size()));
+			}
 			if (npc == null)
 			{
 				return;
@@ -231,7 +243,7 @@ public class QOLClicksPlugin extends Plugin
 						0,
 						0,
 						false));
-				click(client.getCanvas().getBounds());
+				mouse.clickC(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -262,10 +274,10 @@ public class QOLClicksPlugin extends Plugin
 						{
 							continue;
 						}
-						click(knife.getCanvasBounds());
+						mouse.clickC(knife.getCanvasBounds());
 						try
 						{
-							Thread.sleep(getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
+							Thread.sleep(random.getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
 						}
 						catch (InterruptedException exc)
 						{
@@ -277,7 +289,7 @@ public class QOLClicksPlugin extends Plugin
 					{
 						try
 						{
-							Thread.sleep(getRandomIntBetweenRange(600, 1200));
+							Thread.sleep(random.getRandomIntBetweenRange(600, 1200));
 						}
 						catch (InterruptedException exc)
 						{
@@ -309,13 +321,13 @@ public class QOLClicksPlugin extends Plugin
 			if (inventory.getItems().size() == 28
 					&& !inventory.contains("Fish offcuts"))
 			{
-				menuClicked.dropItem(
+				clicked.dropItem(
 						fish,
 						e);
 			}
 			else
 			{
-				menuClicked.useItemOnItem(
+				clicked.useItemOnItem(
 						knife,
 						fish,
 						e
@@ -331,9 +343,17 @@ public class QOLClicksPlugin extends Plugin
 			{
 				return;
 			}
-			NPC npc = npcList.size() > 2
-					? npcList.get(new Random().nextInt(2))
-					: npcList.get(new Random().nextInt(npcList.size()));
+			NPC npc;
+			if (config.findClosest())
+			{
+				npc = npcList.get(0);
+			}
+			else
+			{
+				npc = npcList.size() > 2
+						? npcList.get(new java.util.Random().nextInt(2))
+						: npcList.get(new java.util.Random().nextInt(npcList.size()));
+			}
 			if (npc == null)
 			{
 				return;
@@ -349,7 +369,7 @@ public class QOLClicksPlugin extends Plugin
 						0,
 						0,
 						false));
-				click(client.getCanvas().getBounds());
+				mouse.clickC(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -363,9 +383,17 @@ public class QOLClicksPlugin extends Plugin
 			{
 				return;
 			}
-			NPC npc = npcList.size() > 2
-					? npcList.get(new Random().nextInt(2))
-					: npcList.get(new Random().nextInt(npcList.size()));
+			NPC npc;
+			if (config.findClosest())
+			{
+				npc = npcList.get(0);
+			}
+			else
+			{
+				npc = npcList.size() > 2
+					? npcList.get(new java.util.Random().nextInt(2))
+					: npcList.get(new java.util.Random().nextInt(npcList.size()));
+			}
 			if (npc == null)
 			{
 				return;
@@ -381,7 +409,7 @@ public class QOLClicksPlugin extends Plugin
 						0,
 						0,
 						false));
-				click(client.getCanvas().getBounds());
+				mouse.clickC(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -403,7 +431,7 @@ public class QOLClicksPlugin extends Plugin
 					.toLowerCase()
 					.contains("bones"))
 			{
-				menuClicked.useItemOnNPC(
+				clicked.useItemOnNPC(
 						"Unnote",
 						inventory.getItem(e.getIdentifier()),
 						npcs.getClosestMatchingName("Phials"),
@@ -423,23 +451,19 @@ public class QOLClicksPlugin extends Plugin
 				&& e.getOption().equals("Drop-Matching"))
 		{
 			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configItemNames = string.removeWhiteSpaces(config.dropMatchingTextBox()).split(",");
+			String[] configMatchingTextBoxStrings = string.removeWhiteSpaces(config.dropMatchingTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
-				if (item == null)
-				{
-					continue;
-				}
-				InventoryItem inventoryItem = InventoryItem.builder()
-						.item(item)
-						.name(client.getItemDefinition(item.getId()).getName())
-						.build();
-				if (Arrays.stream(configItemNames)
+				if (item != null
+						&& Arrays.stream(configMatchingTextBoxStrings)
 						.anyMatch(cIN
-								-> string.removeWhiteSpaces(inventoryItem.getName())
+								-> string.removeWhiteSpaces(client.getItemDefinition(item.getId()).getName())
 								.equalsIgnoreCase(cIN)))
 				{
-					dropList.add(inventoryItem);
+					dropList.add(InventoryItem.builder()
+							.item(item)
+							.name(client.getItemDefinition(item.getId()).getName())
+							.build());
 				}
 			}
 			inventory.dropItems(dropList);
@@ -451,23 +475,19 @@ public class QOLClicksPlugin extends Plugin
 				&& e.getOption().equals("Drop-Except"))
 		{
 			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configItemNames = string.removeWhiteSpaces(config.dropExceptTextBox()).split(",");
+			String[] configExceptTextBoxStrings = string.removeWhiteSpaces(config.dropExceptTextBox()).split(",");
 			for (WidgetItem item : inventory.getItems())
 			{
-				if (item == null)
-				{
-					continue;
-				}
-				InventoryItem inventoryItem = InventoryItem.builder()
-						.item(item)
-						.name(client.getItemDefinition(item.getId()).getName())
-						.build();
-				if (Arrays.stream(configItemNames)
+				if (item != null
+						&& Arrays.stream(configExceptTextBoxStrings)
 						.noneMatch(cIN
-								-> string.removeWhiteSpaces(inventoryItem.getName())
+								-> string.removeWhiteSpaces(client.getItemDefinition(item.getId()).getName())
 								.equalsIgnoreCase(cIN)))
 				{
-					dropList.add(inventoryItem);
+					dropList.add(InventoryItem.builder()
+							.item(item)
+							.name(client.getItemDefinition(item.getId()).getName())
+							.build());
 				}
 			}
 			inventory.dropItems(dropList);
@@ -491,9 +511,17 @@ public class QOLClicksPlugin extends Plugin
 			{
 				return;
 			}
-			GameObject object = gameObjectList.size() > 2
-					? gameObjectList.get(new Random().nextInt(2))
-					: gameObjectList.get(new Random().nextInt(gameObjectList.size()));
+			GameObject object;
+			if (config.findClosest())
+			{
+				object = gameObjectList.get(0);
+			}
+			else
+			{
+				object = gameObjectList.size() > 2
+						? gameObjectList.get(new java.util.Random().nextInt(2))
+						: gameObjectList.get(new java.util.Random().nextInt(gameObjectList.size()));
+			}
 			if (object == null)
 			{
 				return;
@@ -513,7 +541,7 @@ public class QOLClicksPlugin extends Plugin
 						object.getSceneMinLocation().getX(),
 						object.getSceneMinLocation().getY(),
 						false));
-				click(client.getCanvas().getBounds());
+				mouse.clickC(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -527,7 +555,7 @@ public class QOLClicksPlugin extends Plugin
 			setTargetMenu(null);
 		}
 
-		debugOption(originalEntry, e);
+		debug.clickedEntry(originalEntry, e);
 	}
 
 	@Subscribe
@@ -550,7 +578,7 @@ public class QOLClicksPlugin extends Plugin
 					.toLowerCase()
 					.contains("logs"))
 			{
-				menuAdded.useItemOnItem(
+				added.useItemOnItem(
 						"Burn",
 						inventory.getItem(event.getIdentifier()),
 						inventory.getItem("Tinderbox"),
@@ -572,7 +600,7 @@ public class QOLClicksPlugin extends Plugin
 					.toLowerCase()
 					.contains("raw"))
 			{
-				menuAdded.interactWithNPC(
+				added.interactWithNPC(
 						"Lure",
 						npcs.getClosestNpcWithMenuAction("Lure"),
 						event);
@@ -591,7 +619,7 @@ public class QOLClicksPlugin extends Plugin
 					.getName()
 					.equalsIgnoreCase("Barbarian rod"))
 			{
-				menuAdded.interactWithNPC(
+				added.interactWithNPC(
 						"Use-rod",
 						npcs.getClosestNpcWithMenuAction("Use-rod"),
 						event);
@@ -606,7 +634,7 @@ public class QOLClicksPlugin extends Plugin
 						|| inventory.contains("Leaping salmon")
 						|| inventory.contains("Leaping sturgeon"))
 				{
-					menuAdded.useItemOnItem(
+					added.useItemOnItem(
 							"Cut",
 							inventory.getItem("Knife"),
 							inventory.getItem("Knife"),
@@ -619,7 +647,7 @@ public class QOLClicksPlugin extends Plugin
 					.getName()
 					.equalsIgnoreCase("Lobster pot"))
 			{
-				menuAdded.interactWithNPC(
+				added.interactWithNPC(
 						"Cage",
 						npcs.getClosestNpcWithMenuAction("Cage"),
 						event);
@@ -630,7 +658,7 @@ public class QOLClicksPlugin extends Plugin
 					.getName()
 					.equalsIgnoreCase("Fly fishing rod"))
 			{
-				menuAdded.interactWithNPC(
+				added.interactWithNPC(
 						"Lure",
 						npcs.getClosestNpcWithMenuAction("Lure"),
 						event);
@@ -652,7 +680,7 @@ public class QOLClicksPlugin extends Plugin
 						.toLowerCase()
 						.contains("bones"))
 				{
-					menuAdded.useItemOnNPC(
+					added.useItemOnNPC(
 							"Unnote",
 							inventory.getItem(event.getIdentifier()),
 							npcs.getClosestMatchingName("Phials"),
@@ -703,213 +731,6 @@ public class QOLClicksPlugin extends Plugin
 				e.getParam1(),
 				forceLeftClick
 		);
-	}
-
-	public static void writeTextToClipboard(String s)
-	{
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		Transferable transferable = new StringSelection(s);
-		clipboard.setContents(transferable, null);
-	}
-
-	private void debugOption(MenuEntry o, MenuOptionClicked e)
-	{
-		if (!config.enableDebugging())
-		{
-			return;
-		}
-		if (e.getOpcode() == MenuOpcode.WALK.getId())
-		{
-			return;
-		}
-		System.out.println(
-				"\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
-						+ "\nOrig: Point: " + getPointClicked().getX() + ", " + getPointClicked().getY()
-						+ "\nOrig: Option: " + o.getOption() + "   ||   Mod: Option: " + e.getOption()
-						+ "\nOrig: Target: " + o.getTarget() + "   ||   Mod: Target: " + e.getTarget()
-						+ "\nOrig: Identifier: " + o.getIdentifier() + "   ||   Mod: Identifier: " + e.getIdentifier()
-						+ "\nOrig: Opcode: " + e.getMenuOpcode() + "   ||   Mod: Opcode: "	+ e.getMenuOpcode()
-						+ "\nOrig: Param0: " + o.getParam0() + "   ||   Mod: Param0: " + e.getParam0()
-						+ "\nOrig: Param1: " + o.getParam1() + "   ||   Mod: Param1: " + e.getParam1()
-						+ "\nOrig: forceLeftClick: " + o.isForceLeftClick() + "   ||   Mod: forceLeftClick: " 	+ e.isForceLeftClick()
-						+ "\nEvent consumed: " + e.isConsumed()
-		);
-		if (config.enableWriteToClipboard())
-		{
-			writeTextToClipboard(
-					"```\n"
-							+ "\nOrig: Point: " + getPointClicked().getX() + ", " + getPointClicked().getY()
-							+ "\nOrig: Option: " + o.getOption() + "   ||   Mod: Option: " + e.getOption()
-							+ "\nOrig: Target: " + o.getTarget() + "   ||   Mod: Target: " + e.getTarget()
-							+ "\nOrig: Identifier: " + o.getIdentifier() + "   ||   Mod: Identifier: " + e.getIdentifier()
-							+ "\nOrig: Opcode: " + e.getMenuOpcode() + "   ||   Mod: Opcode: "	+ e.getMenuOpcode()
-							+ "\nOrig: Param0: " + o.getParam0() + "   ||   Mod: Param0: " + e.getParam0()
-							+ "\nOrig: Param1: " + o.getParam1() + "   ||   Mod: Param1: " + e.getParam1()
-							+ "\nOrig: forceLeftClick: " + o.isForceLeftClick() + "   ||   Mod: forceLeftClick: " 	+ e.isForceLeftClick()
-							+ "\nEvent consumed: " + e.isConsumed()
-							+ "\n```");
-		}
-	}
-
-	private void addDropMenu(MenuOpened e)
-	{
-		MenuEntry[] origE = e.getMenuEntries();
-		MenuEntry firstEntry = e.getFirstEntry();
-
-		MenuEntry dropMatching = new MenuEntry("Drop-Matching",
-				"<col=ffff00>Drop list",
-				firstEntry.getIdentifier(),
-				MenuOpcode.ITEM_USE.getId(),
-				firstEntry.getParam0(),
-				firstEntry.getParam1(),
-				firstEntry.isForceLeftClick());
-
-		MenuEntry dropExcept = new MenuEntry("Drop-Except",
-				"<col=ffff00>Ignore list",
-				firstEntry.getIdentifier(), MenuOpcode.ITEM_USE.getId(),
-				firstEntry.getParam0(),
-				firstEntry.getParam1(),
-				firstEntry.isForceLeftClick());
-
-		if (!config.enableDropExcept() && config.enableDropMatching())
-		{
-			if (origE.length == 3)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2]});
-			}
-			if (origE.length == 4)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2], origE[3]});
-			}
-			if (origE.length == 5)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2], origE[3], origE[4]});
-			}
-			if (origE.length == 6)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropMatching, origE[2], origE[3], origE[4], origE[5]});
-			}
-		}
-		if (config.enableDropExcept() && !config.enableDropMatching())
-		{
-			if (origE.length == 3)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2]});
-			}
-			if (origE.length == 4)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2], origE[3]});
-			}
-			if (origE.length == 5)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2], origE[3], origE[4]});
-			}
-			if (origE.length == 6)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, origE[2], origE[3], origE[4], origE[5]});
-			}
-		}
-		if (config.enableDropExcept() && config.enableDropMatching())
-		{
-			if (origE.length == 3)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2]});
-			}
-			if (origE.length == 4)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2], origE[3]});
-			}
-			if (origE.length == 5)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2], origE[3], origE[4]});
-			}
-			if (origE.length == 6)
-			{
-				e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], dropExcept, dropMatching, origE[2], origE[3], origE[4], origE[5]});
-			}
-		}
-	}
-
-	private void addBankMenu(MenuOpened e)
-	{
-		MenuEntry[] origE = e.getMenuEntries();
-
-		List<GameObject> gameObjectList = objects.getGameObjectsMatching("Bank chest", "Bank booth");
-		if (gameObjectList.size() == 0)
-		{
-			return;
-		}
-		GameObject object = gameObjectList.size() > 2
-				? gameObjectList.get(new Random().nextInt(2))
-				: gameObjectList.get(new Random().nextInt(gameObjectList.size()));
-		if (object == null)
-		{
-			return;
-		}
-		MenuEntry openBank = new MenuEntry(
-				Arrays.stream(client.getObjectDefinition(object.getId()).getActions()).findFirst().orElse("Bank"),
-				"<col=ffff00>" + client.getObjectDefinition(object.getId()).getName(),
-				object.getId(),
-				MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId(),
-				object.getSceneMinLocation().getX(),
-				object.getSceneMinLocation().getY(),
-				false);
-
-		e.setMenuEntries(new MenuEntry[]{origE[0], origE[1], openBank});
-	}
-
-	public void click(Rectangle rectangle)
-	{
-		assert !client.isClientThread();
-		Point point = getClickPoint(rectangle);
-		click(point);
-	}
-
-	public void click(Point p)
-	{
-		assert !client.isClientThread();
-
-		if (client.isStretchedEnabled())
-		{
-			final Dimension stretched = client.getStretchedDimensions();
-			final Dimension real = client.getRealDimensions();
-			final double width = (stretched.width / real.getWidth());
-			final double height = (stretched.height / real.getHeight());
-			final Point point = new Point((int) (p.getX() * width), (int) (p.getY() * height));
-			mouseEvent(501, point);
-			mouseEvent(502, point);
-			mouseEvent(500, point);
-			return;
-		}
-		setPointClicked(p);
-		mouseEvent(501, p);
-		mouseEvent(502, p);
-		mouseEvent(500, p);
-	}
-
-	public Point getClickPoint(@NotNull Rectangle rect)
-	{
-		final int x = (int) (rect.getX() + getRandomIntBetweenRange((int) rect.getWidth() / 6 * -1, (int) rect.getWidth() / 6) + rect.getWidth() / 2);
-		final int y = (int) (rect.getY() + getRandomIntBetweenRange((int) rect.getHeight() / 6 * -1, (int) rect.getHeight() / 6) + rect.getHeight() / 2);
-
-		return new Point(x, y);
-	}
-
-	public int getRandomIntBetweenRange(int min, int max)
-	{
-		return (int) ((Math.random() * ((max - min) + 1)) + min);
-	}
-
-	private void mouseEvent(int id, @NotNull Point point)
-	{
-		MouseEvent e = new MouseEvent(
-				client.getCanvas(), id,
-				System.currentTimeMillis(),
-				0, point.getX(), point.getY(),
-				1, false, 1
-		);
-
-		client.getCanvas().dispatchEvent(e);
 	}
 
 }

@@ -3,33 +3,23 @@ package plugin.nomore.qolclicks.utils.scene;
 import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.GameObject;
 import net.runelite.api.NPC;
-import net.runelite.api.queries.NPCQuery;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
-import plugin.nomore.qolclicks.utils.StringUtils;
+import plugin.nomore.qolclicks.utils.automation.Format;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 public class Npcs
 {
 
-    @Inject
-    Client client;
-
-    @Inject
-    QOLClicksPlugin plugin;
-
-    @Inject
-    StringUtils string;
+    @Inject private Client client;
+    @Inject private QOLClicksPlugin plugin;
+    @Inject private Format string;
 
     public List<NPC> get()
     {

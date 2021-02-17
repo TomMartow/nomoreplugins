@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.menu;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
@@ -9,20 +9,13 @@ import plugin.nomore.qolclicks.utils.scene.Objects;
 import javax.inject.Inject;
 
 @Slf4j
-public class MenuAdded
+public class Added
 {
 
-    @Inject
-    Client client;
-
-    @Inject
-    QOLClicksPlugin plugin;
-
-    @Inject
-    MenuAdded menuClicked;
-
-    @Inject
-    Objects objects;
+    @Inject private Client client;
+    @Inject private QOLClicksPlugin plugin;
+    @Inject private Added menuClicked;
+    @Inject private Objects objects;
 
     public void useItemOnItem(String option, WidgetItem itemClicked, WidgetItem itemToBeUsedOn, MenuEntry e)
     {

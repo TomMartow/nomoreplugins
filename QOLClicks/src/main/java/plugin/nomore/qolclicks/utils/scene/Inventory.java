@@ -10,11 +10,12 @@ import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.menus.MenuManager;
 import plugin.nomore.qolclicks.QOLClicksConfig;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
-import plugin.nomore.qolclicks.utils.MenuClicked;
-import plugin.nomore.qolclicks.utils.Cursor;
-import plugin.nomore.qolclicks.utils.StringUtils;
-import plugin.nomore.qolclicks.utils.TargetMenues;
-import plugin.nomore.qolclicks.utils.builds.InventoryItem;
+import plugin.nomore.qolclicks.utils.automation.Mouse;
+import plugin.nomore.qolclicks.utils.menu.Clicked;
+import plugin.nomore.qolclicks.utils.automation.Random;
+import plugin.nomore.qolclicks.utils.automation.Format;
+import plugin.nomore.qolclicks.utils.menu.TargetMenus;
+import plugin.nomore.qolclicks.utils.scene.builds.InventoryItem;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -24,29 +25,15 @@ import java.util.stream.Collectors;
 public class Inventory
 {
 
-    @Inject
-    Client client;
-
-    @Inject
-    QOLClicksPlugin plugin;
-
-    @Inject
-    QOLClicksConfig config;
-
-    @Inject
-    StringUtils string;
-
-    @Inject
-    MenuClicked menuClicked;
-
-    @Inject
-    Cursor mousePos;
-
-    @Inject
-    MenuManager menuManager;
-
-    @Inject
-    TargetMenues targetMenues;
+    @Inject private Client client;
+    @Inject private QOLClicksPlugin plugin;
+    @Inject private QOLClicksConfig config;
+    @Inject private Format format;
+    @Inject private Clicked clicked;
+    @Inject private Random random;
+    @Inject private MenuManager menuManager;
+    @Inject private TargetMenus targetMenus;
+    @Inject private Mouse mouse;
 
     public void dropItem(InventoryItem inventoryItem)
     {
@@ -55,8 +42,8 @@ public class Inventory
         menuManager.addPriorityEntry("destroy", inventoryItem.getName());
         new Thread(() ->
         {
-            plugin.setTargetMenu(targetMenues.getDropItem(inventoryItem));
-            plugin.click(inventoryItem.getItem().getCanvasBounds());
+            plugin.setTargetMenu(targetMenus.createDropItem(inventoryItem));
+            mouse.clickC(inventoryItem.getItem().getCanvasBounds());
         }).start();
         menuManager.removePriorityEntry("drop", inventoryItem.getName());
         menuManager.removePriorityEntry("release", inventoryItem.getName());
@@ -76,11 +63,11 @@ public class Inventory
         {
             for (InventoryItem inventoryItem : items)
             {
-                plugin.setTargetMenu(targetMenues.getDropItem(inventoryItem));
-                plugin.click(inventoryItem.getItem().getCanvasBounds());
+                plugin.setTargetMenu(targetMenus.createDropItem(inventoryItem));
+                mouse.clickC(inventoryItem.getItem().getCanvasBounds());
                 try
                 {
-                    Thread.sleep(plugin.getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
+                    Thread.sleep(random.getRandomIntBetweenRange(config.dropMinTime(), config.dropMaxTime()));
                 }
                 catch (InterruptedException e)
                 {
@@ -103,8 +90,8 @@ public class Inventory
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .stream()
-                .filter(i -> string.removeWhiteSpaces(itemName)
-                        .equalsIgnoreCase(string.removeWhiteSpaces(client.getItemDefinition(i.getId())
+                .filter(i -> format.removeWhiteSpaces(itemName)
+                        .equalsIgnoreCase(format.removeWhiteSpaces(client.getItemDefinition(i.getId())
                                 .getName())))
                 .findFirst()
                 .orElse(null);
@@ -221,8 +208,8 @@ public class Inventory
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .stream()
-                .filter(i -> string.removeWhiteSpaces(itemName)
-                        .contains(string.removeWhiteSpaces(client.getItemDefinition(i.getId())
+                .filter(i -> format.removeWhiteSpaces(itemName)
+                        .contains(format.removeWhiteSpaces(client.getItemDefinition(i.getId())
                                 .getName())))
                 .findFirst()
                 .orElse(null);
@@ -233,8 +220,8 @@ public class Inventory
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .stream()
-                .filter(i -> string.removeWhiteSpaces(itemName)
-                        .contains(string.removeWhiteSpaces(client.getItemDefinition(i.getId())
+                .filter(i -> format.removeWhiteSpaces(itemName)
+                        .contains(format.removeWhiteSpaces(client.getItemDefinition(i.getId())
                                 .getName())))
                 .collect(Collectors.toList());
     }

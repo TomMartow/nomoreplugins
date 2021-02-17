@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.scene;
 
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
@@ -6,11 +6,10 @@ import net.runelite.api.widgets.WidgetInfo;
 
 import javax.inject.Inject;
 
-public class Display
+public class Interface
 {
 
-    @Inject
-    Client client;
+    @Inject private Client client;
 
     public int getInventoryTabID()
     {

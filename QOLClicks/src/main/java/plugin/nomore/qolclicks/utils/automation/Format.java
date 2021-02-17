@@ -1,6 +1,6 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.automation;
 
-public class StringUtils
+public class Format
 {
 
     public String removeCharactersFromString(String string)

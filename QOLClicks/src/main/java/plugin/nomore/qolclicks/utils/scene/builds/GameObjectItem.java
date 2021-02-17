@@ -1,9 +1,8 @@
-package plugin.nomore.qolclicks.utils.builds;
+package plugin.nomore.qolclicks.utils.scene.builds;
 
 import lombok.Builder;
 import lombok.Data;
 import net.runelite.api.GameObject;
-import net.runelite.api.widgets.WidgetItem;
 
 @Builder
 @Data

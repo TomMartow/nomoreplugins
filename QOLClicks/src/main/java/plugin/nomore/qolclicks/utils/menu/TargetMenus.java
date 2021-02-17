@@ -1,20 +1,19 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.menu;
 
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.widgets.WidgetInfo;
-import plugin.nomore.qolclicks.utils.builds.InventoryItem;
+import plugin.nomore.qolclicks.utils.scene.builds.InventoryItem;
 
 import javax.inject.Inject;
 
-public class TargetMenues
+public class TargetMenus
 {
-    @Inject
-    Client client;
+    @Inject private Client client;
 
-    public MenuEntry getDropItem(InventoryItem inventoryItem)
+    public MenuEntry createDropItem(InventoryItem inventoryItem)
     {
         return new MenuEntry("Drop",
                 "<col=ff9040>" + inventoryItem.getName(),
@@ -25,7 +24,7 @@ public class TargetMenues
                 false);
     }
 
-    public MenuEntry getInteractWithGameObject(String option, GameObject objectToInteractWith)
+    public MenuEntry createInteractWithGameObject(String option, GameObject objectToInteractWith)
     {
         return new MenuEntry(
                 option,

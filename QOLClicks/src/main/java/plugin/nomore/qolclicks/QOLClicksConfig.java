@@ -249,6 +249,23 @@ public interface QOLClicksConfig extends Config
 	default int dropMaxTime() { return 1000; }
 
 	@ConfigTitleSection(
+			keyName = "selectionTitle",
+			name = "Miscellaneous Options",
+			description = "",
+			position = 9
+	)
+	default Title selectionTitle() { return new Title(); }
+
+	@ConfigItem(
+			keyName = "findClosest",
+			name = "Find closest",
+			description = "Instead of randomising the selection of an NPC / Object / Item, when this option is enabled you will always select the closest / first.",
+			position = 1,
+			titleSection = "selectionTitle"
+	)
+	default boolean findClosest() { return false; }
+
+	@ConfigTitleSection(
 			keyName = "debugTitle",
 			name = "Developer",
 			description = "",

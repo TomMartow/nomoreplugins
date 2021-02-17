@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils.builds;
+package plugin.nomore.qolclicks.utils.scene.builds;
 
 import lombok.Builder;
 import lombok.Data;

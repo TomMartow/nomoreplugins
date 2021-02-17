@@ -3,10 +3,8 @@ package plugin.nomore.qolclicks.utils.scene;
 import com.google.common.base.Strings;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.queries.GameObjectQuery;
-import plugin.nomore.qolclicks.utils.StringUtils;
+import plugin.nomore.qolclicks.utils.automation.Format;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -18,11 +16,8 @@ import java.util.stream.Collectors;
 public class Objects
 {
 
-    @Inject
-    Client client;
-
-    @Inject
-    StringUtils strings;
+    @Inject Client client;
+    @Inject Format format;
 
     public List<GameObject> getGameObjects()
     {
@@ -192,8 +187,8 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(s -> strings.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(strings.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
+                        .anyMatch(s -> format.removeWhiteSpaces(s)
+                                .equalsIgnoreCase(format.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
                                         .getName()))))
                 .collect(Collectors.toList());
     }
@@ -248,8 +243,8 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(s -> strings.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(strings.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
+                        .anyMatch(s -> format.removeWhiteSpaces(s)
+                                .equalsIgnoreCase(format.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
                                         .getName()))))
                 .sorted(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
@@ -292,8 +287,8 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(s -> strings.removeWhiteSpaces(s)
-                                .equalsIgnoreCase(strings.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
+                        .anyMatch(s -> format.removeWhiteSpaces(s)
+                                .equalsIgnoreCase(format.removeWhiteSpaces(client.getObjectDefinition(gameObject.getId())
                                         .getName())))).min(Comparator.comparing(entityType -> entityType
                         .getLocalLocation()
                         .distanceTo(client.getLocalPlayer()

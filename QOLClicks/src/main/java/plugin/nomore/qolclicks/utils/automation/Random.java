@@ -1,14 +1,15 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicks.utils.automation;
 
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetItem;
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Cursor
+public class Random
 {
 
     @Inject
@@ -26,7 +27,6 @@ public class Cursor
 
     public Point getRandomPointWithinBounds(Rectangle rect)
     {
-
         if (rect == null)
         {
             return null;
@@ -69,6 +69,19 @@ public class Cursor
         int width = client.getCanvasWidth();
         int height = client.getCanvasHeight();
         return new Point(ThreadLocalRandom.current().nextInt(x, x + width), ThreadLocalRandom.current().nextInt(y, y + height));
+    }
+
+    public Point getRandomPoint(@NotNull Rectangle rect)
+    {
+        final int x = getRandomIntBetweenRange((int) rect.getX(), (int) rect.getX() + (int) rect.getWidth());
+        final int y = getRandomIntBetweenRange((int) rect.getY(), (int) rect.getY() + (int) rect.getHeight());
+
+        return new Point(x, y);
+    }
+
+    public int getRandomIntBetweenRange(int min, int max)
+    {
+        return (int) ((Math.random() * ((max - min) + 1)) + min);
     }
 
 }
