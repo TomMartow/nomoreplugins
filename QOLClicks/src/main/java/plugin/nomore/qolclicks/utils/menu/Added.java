@@ -66,4 +66,23 @@ public class Added
         plugin.insertMenuEntry(e, true);
     }
 
+    public void useItemOnGameObject(String option, WidgetItem itemClicked, GameObject objectToUseItemOn, MenuEntry e)
+    {
+        if (client == null || e.isForceLeftClick())
+        {
+            return;
+        }
+        if (itemClicked == null)
+        {
+
+        }
+        if (objectToUseItemOn == null)
+        {
+            return;
+        }
+        e.setOption(option);
+        e.setTarget("<col=ffff00>" + client.getObjectDefinition(objectToUseItemOn.getId()).getName());
+        plugin.insertMenuEntry(e, true);
+    }
+
 }

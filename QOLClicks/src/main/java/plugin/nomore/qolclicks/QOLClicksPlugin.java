@@ -35,14 +35,16 @@ import net.runelite.api.Point;
 import net.runelite.api.events.*;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
-import plugin.nomore.qolclicks.utils.automation.Format;
-import plugin.nomore.qolclicks.utils.automation.Mouse;
+import plugin.nomore.qolclicks.utils.automation.*;
 import plugin.nomore.qolclicks.utils.automation.Random;
 import plugin.nomore.qolclicks.utils.debugging.Debug;
 import plugin.nomore.qolclicks.utils.menu.Added;
@@ -71,7 +73,10 @@ public class QOLClicksPlugin extends Plugin
 {
 
 	@Inject private Client client;
+	@Inject private ClientThread clientThread;
 	@Inject private QOLClicksConfig config;
+	@Inject private Keybinds keybinds;
+	@Inject private KeyManager keyManager;
 	@Inject private Clicked clicked;
 	@Inject private Added added;
 	@Inject private Opened opened;
@@ -83,6 +88,7 @@ public class QOLClicksPlugin extends Plugin
 	@Inject private TargetMenus targetMenus;
 	@Inject private Debug debug;
 	@Inject private Mouse mouse;
+	@Inject private Automation automation;
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
@@ -115,12 +121,14 @@ public class QOLClicksPlugin extends Plugin
 				npcList.add(npc);
 			}
 		});
+		keyManager.registerKeyListener(keybinds);
 	}
 
 	@Override
 	protected void shutDown()
 	{
 		log.info("QOL Clicks: finished.");
+		keyManager.unregisterKeyListener(keybinds);
 	}
 
 	@Subscribe
@@ -243,7 +251,7 @@ public class QOLClicksPlugin extends Plugin
 						0,
 						0,
 						false));
-				mouse.clickC(client.getCanvas().getBounds());
+				mouse.clickR(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -369,7 +377,7 @@ public class QOLClicksPlugin extends Plugin
 						0,
 						0,
 						false));
-				mouse.clickC(client.getCanvas().getBounds());
+				mouse.clickR(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -409,7 +417,7 @@ public class QOLClicksPlugin extends Plugin
 						0,
 						0,
 						false));
-				mouse.clickC(client.getCanvas().getBounds());
+				mouse.clickR(client.getCanvas().getBounds());
 			}).start();
 			e.consume();
 			return;
@@ -450,29 +458,7 @@ public class QOLClicksPlugin extends Plugin
 		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
 				&& e.getOption().equals("Drop-Matching"))
 		{
-			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configMatchingTextBoxStrings = string.string(config.dropMatchingTextBox()).split(",");
-			for (WidgetItem item : inventory.getItems())
-			{
-				if (item != null)
-				{
-					if (Arrays.stream(configMatchingTextBoxStrings)
-							.anyMatch(cIN
-									-> string.string(client.getItemDefinition(item.getId()).getName())
-									.equalsIgnoreCase(cIN)))
-					{
-						dropList.add(InventoryItem.builder()
-								.item(item)
-								.name(client.getItemDefinition(item.getId()).getName())
-								.build());
-					}
-					else
-					{
-						dropList.add(null);
-					}
-				}
-			}
-			inventory.dropItems(inventory.sortDropListOrder(dropList));
+			automation.dropMatching();
 			e.consume();
 			return;
 		}
@@ -480,29 +466,7 @@ public class QOLClicksPlugin extends Plugin
 		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
 				&& e.getOption().equals("Drop-Except"))
 		{
-			List<InventoryItem> dropList = new ArrayList<>();
-			String[] configExceptTextBoxStrings = string.string(config.dropExceptTextBox()).split(",");
-			for (WidgetItem item : inventory.getItems())
-			{
-				if (item != null)
-				{
-					if (Arrays.stream(configExceptTextBoxStrings)
-						.noneMatch(cIN
-								-> string.string(client.getItemDefinition(item.getId()).getName())
-								.equalsIgnoreCase(cIN)))
-					{
-						dropList.add(InventoryItem.builder()
-								.item(item)
-								.name(client.getItemDefinition(item.getId()).getName())
-								.build());
-					}
-					else
-					{
-						dropList.add(null);
-					}
-				}
-			}
-			inventory.dropItems(inventory.sortDropListOrder(dropList));
+			automation.dropExcept();
 			e.consume();
 			return;
 		}
@@ -518,7 +482,9 @@ public class QOLClicksPlugin extends Plugin
 		if (e.getOption().equals("Open")
 				&& e.getTarget().contains("Bank"))
 		{
-			List<GameObject> gameObjectList = objects.getGameObjectsWithNameContaining("Bank chest", "Bank booth");
+
+			List<GameObject> gameObjectList = objects.getGameObjectsMatching("Bank booth", "Bank chest");
+
 			if (gameObjectList.size() == 0)
 			{
 				return;
@@ -546,12 +512,12 @@ public class QOLClicksPlugin extends Plugin
 			new Thread(() ->
 			{
 				setTargetMenu(new MenuEntry(
-						Arrays.stream(gameObjectItem.getActions()).findFirst().orElse("Bank"),
+						gameObjectItem.getActions()[1],
 						"<col=ffff>" + gameObjectItem.getName(),
-						object.getId(),
-						MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId(),
-						object.getSceneMinLocation().getX(),
-						object.getSceneMinLocation().getY(),
+						gameObjectItem.getObject().getId(),
+						MenuOpcode.GAME_OBJECT_SECOND_OPTION.getId(),
+						gameObjectItem.getObject().getSceneMinLocation().getX(),
+						gameObjectItem.getObject().getSceneMinLocation().getY(),
 						false));
 				mouse.clickC(client.getCanvas().getBounds());
 			}).start();
@@ -605,17 +571,37 @@ public class QOLClicksPlugin extends Plugin
 			//   ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 			//
 
-			if (config.enableFire()
-					|| config.enableRange()
-					&& client.getItemDefinition(event.getIdentifier())
-					.getName()
-					.toLowerCase()
-					.contains("raw"))
+			if (client.getItemDefinition(event.getIdentifier())
+				.getName()
+				.toLowerCase()
+				.contains("raw")
+					&& (config.enableFire()
+					|| config.enableRange()))
 			{
-				added.interactWithNPC(
-						"Lure",
-						npcs.getClosestNpcWithMenuAction("Lure"),
-						event);
+				if (!config.enableRange() && config.enableFire())
+				{
+					added.useItemOnGameObject(
+							"Cook",
+							inventory.getItem(event.getIdentifier()),
+							objects.getClosestGameObjectMatching("Fire"),
+							event);
+				}
+				else if (config.enableRange() && !config.enableFire())
+				{
+					added.useItemOnGameObject(
+							"Cook",
+							inventory.getItem(event.getIdentifier()),
+							objects.getClosestGameObjectMatching("Range"),
+							event);
+				}
+				else if (config.enableRange() && config.enableFire())
+				{
+					added.useItemOnGameObject(
+							"Cook",
+							inventory.getItem(event.getIdentifier()),
+							objects.getMatchingGameObjectsSortedByClosest("Fire", "Range").get(0),
+							event);
+				}
 			}
 
 			//  ███████╗██╗███████╗██╗  ██╗██╗███╗   ██╗ ██████╗

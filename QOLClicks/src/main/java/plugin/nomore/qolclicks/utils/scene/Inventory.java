@@ -103,7 +103,7 @@ public class Inventory
             }
             catch (IndexOutOfBoundsException e)
             {
-                log.info("NO: " + dropOrder[i]);
+                //log.info("NO: " + dropOrder[i]);
             }
         }
         return sortedDropItems;

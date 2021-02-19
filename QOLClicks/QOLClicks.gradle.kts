@@ -25,7 +25,7 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "3.1.0"
+version = "3.1.1"
 
 project.extra["PluginName"] = "QOL CLicks"
 project.extra["PluginDescription"] = "QOL fixes that should be implemented."

@@ -206,10 +206,9 @@ public class Objects
                 .stream()
                 .filter(gameObject -> gameObject != null
                         && Arrays.stream(gameObjectNames)
-                        .anyMatch(gameObjectName -> client.getObjectDefinition(gameObject.getId())
-                                .getName()
-                                .toLowerCase()
-                                .contains(gameObjectName.toLowerCase())))
+                        .anyMatch(gameObjectName -> format.string(client.getObjectDefinition(gameObject.getId())
+                                .getName())
+                                .contains(format.string(gameObjectName))))
                 .collect(Collectors.toList());
     }
 

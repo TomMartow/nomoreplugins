@@ -205,10 +205,19 @@ public interface QOLClicksConfig extends Config
 	default String dropMatchingTextBox() { return "Bones,"; }
 
 	@ConfigItem(
+			keyName = "dropMatchingKeybind",
+			name = "  D-M Keybind",
+			description = "Drops the items above.",
+			position = 3,
+			section = "dropSection"
+	)
+	default Keybind dropMatchingKeybind() { return Keybind.NOT_SET; }
+
+	@ConfigItem(
 			keyName = "enableDropExcept",
 			name = "Drop-Except",
 			description = "Add a menu option \"Drop-Except\" to the inventory tab. When clicked, it will drop all items in your inventory that do not match the names in the \"Not matching\" text box.",
-			position = 3,
+			position = 4,
 			section = "dropSection"
 	)
 	default boolean enableDropExcept() { return false; }
@@ -217,10 +226,19 @@ public interface QOLClicksConfig extends Config
 			keyName = "itemsToDrop",
 			name = "  Ignore list",
 			description = "Add the name of the item that you wish to ignore here.",
-			position = 4,
+			position = 5,
 			section = "dropSection"
 	)
 	default String dropExceptTextBox() { return "Coins,"; }
+
+	@ConfigItem(
+			keyName = "dropExceptKeybind",
+			name = "  D-E Keybind",
+			description = "Drops everything except the items above.",
+			position = 6,
+			section = "dropSection"
+	)
+	default Keybind dropExceptKeybind() { return Keybind.NOT_SET; }
 
 	@ConfigTitleSection(
 			keyName = "automationTitle",
@@ -273,6 +291,15 @@ public interface QOLClicksConfig extends Config
 			titleSection = "selectionTitle"
 	)
 	default boolean findClosest() { return false; }
+
+	@ConfigItem(
+			keyName = "enableKeybinds",
+			name = "Enable keybinds",
+			description = "Enable the use of keybinds.",
+			position = 2,
+			titleSection = "selectionTitle"
+	)
+	default boolean enableKeybinds() { return false; }
 
 	@ConfigTitleSection(
 			keyName = "debugTitle",
