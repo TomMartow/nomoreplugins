@@ -45,24 +45,15 @@ import javax.inject.Inject;
 @PluginDescriptor(
 		name = "New Plugin",
 		description = "New Plugin Description",
-		tags = {"tag1", "tag2", "tag3"},
+		tags = {"npc", "indicator", "nomore"},
 		type = PluginType.UTILITY
 )
 @Slf4j
-@PluginDependency(NMPUtils.class)
 public class NewPluginPlugin extends Plugin
 {
 
 	@Inject
 	private Client client;
-
-	@Inject
-	private NMAUtils utils;
-
-	@Inject
-	private DebugAPI debug;
-
-	private int tickDelay = 2;
 
 	@Provides
 	NewAutomationPluginConfig provideConfig(ConfigManager configManager)
@@ -73,25 +64,13 @@ public class NewPluginPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		debug.log("Plugin started.");
+		log.info("Plugin started.");
 	}
 
 	@Override
 	protected void shutDown()
 	{
-		debug.log("Plugin finished.");
-	}
-
-	@Subscribe
-	private void on(GameTick gameTick)
-	{
-
-		if (!utils.runScript(tickDelay))
-		{
-			tickDelay--;
-			return;
-		}
-
+		log.info("Plugin finished.");
 	}
 
 }

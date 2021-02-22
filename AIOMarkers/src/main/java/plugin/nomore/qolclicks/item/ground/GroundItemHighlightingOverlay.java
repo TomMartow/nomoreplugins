@@ -28,10 +28,7 @@ package plugin.nomore.qolclicks.item.ground;
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.*;
-import plugin.nomore.qolclicks.AIOConfig;
-import plugin.nomore.qolclicks.AIOPlugin;
 import plugin.nomore.qolclicks.item.ground.builder.HighlightingObject;
-import plugin.nomore.nmputils.api.RenderAPI;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -40,10 +37,10 @@ import java.util.List;
 public class GroundItemHighlightingOverlay extends Overlay {
 
     @Inject
-    private RenderAPI render;
+    private Rendering render;
 
     @Inject
-    private AIOConfig config;
+    private GroundItem config;
 
     @Inject
     private AIOPlugin plugin;
