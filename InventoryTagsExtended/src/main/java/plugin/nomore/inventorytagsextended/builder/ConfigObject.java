@@ -11,5 +11,7 @@ public class ConfigObject
 {
     String name;
     int id;
+    int quantity;
+    int gePrice;
     Color color;
 }

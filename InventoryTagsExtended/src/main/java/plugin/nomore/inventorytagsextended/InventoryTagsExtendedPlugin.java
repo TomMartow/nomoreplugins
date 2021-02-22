@@ -50,6 +50,7 @@ import plugin.nomore.inventorytagsextended.utils.StringFormat;
 import javax.inject.Inject;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Extension
@@ -113,6 +114,10 @@ public class InventoryTagsExtendedPlugin extends Plugin
 	@Subscribe
 	private void on(GameTick event)
 	{
+		if (initialCheck)
+		{
+			return;
+		}
 		Widget clickHereToPlay = client.getWidget(378,87);
 		if (clickHereToPlay != null)
 		{
@@ -218,18 +223,21 @@ public class InventoryTagsExtendedPlugin extends Plugin
 		}
 		String itemName = highlightingObject.getName();
 		int itemId = item.getId();
+		int itemQuantity = item.getQuantity();
 		for (ConfigObject configObject : configObjects)
 		{
-			if (!joptsimple.internal.Strings.isNullOrEmpty(configObject.getName()))
+			if (!Strings.isNullOrEmpty(configObject.getName()))
 			{
 				if (configObject.getName()
-						.equalsIgnoreCase(stringFormat.rws(itemName)))
+						.equalsIgnoreCase(stringFormat.rws(itemName))
+						&& itemQuantity >= configObject.getQuantity())
 				{
 					highlightingObject.setColor(configObject.getColor());
 					inventoryItemsToHighlight.add(highlightingObject);
 				}
 			}
-			if (itemId == configObject.getId())
+			if (itemId == configObject.getId()
+					&& itemQuantity >= configObject.getQuantity())
 			{
 				highlightingObject.setColor(configObject.getColor());
 				inventoryItemsToHighlight.add(highlightingObject);
@@ -275,7 +283,7 @@ public class InventoryTagsExtendedPlugin extends Plugin
 		{
 			if (commaSplit.contains(":"))
 			{
-				String[] colonSplit;
+				String[] colonSplit = new String[0];
 				String[] colonToAdd = commaSplit.split(":");
 				if (colonToAdd.length == 0)
 				{
@@ -283,31 +291,35 @@ public class InventoryTagsExtendedPlugin extends Plugin
 				}
 				if (colonToAdd.length == 1)
 				{
-					colonSplit = new String[]{colonToAdd[0], ""};
+					colonSplit = new String[]{colonToAdd[0], "", "1"};
 				}
-				else
+				if (colonToAdd.length == 2)
 				{
-					colonSplit = new String[]{colonToAdd[0], colonToAdd[1]};
+					colonSplit = new String[]{colonToAdd[0], colonToAdd[1], "1"};
 				}
+				if (colonToAdd.length == 3)
+				{
+					colonSplit = new String[]{colonToAdd[0], colonToAdd[1], colonToAdd[2]};
+				}
+				log.info(colonSplit[0] + ", " + colonSplit[1] + ", " + colonSplit[2]);
 				if (stringFormat.containsNumbers(colonSplit[0]))
 				{
-					createConfigObject(null, checkInt(colonSplit[0]), colonSplit[1]);
+					createConfigObject(null, checkInt(colonSplit[0]), colonSplit[1], checkInt(colonSplit[2]));
 				}
 				else
 				{
-					createConfigObject(colonSplit[0], -1, colonSplit[1]);
+					createConfigObject(colonSplit[0], -1, colonSplit[1], checkInt(colonSplit[2]));
 				}
 			}
 			else
 			{
-				String[] fakeSplit = {commaSplit, null, null};
-				if (stringFormat.containsNumbers(fakeSplit[0]))
+				if (stringFormat.containsNumbers(commaSplit))
 				{
-					createConfigObject(null, checkInt(fakeSplit[0]), null);
+					createConfigObject(null, -1, null,1);
 				}
 				else
 				{
-					createConfigObject(fakeSplit[0], -1, null);
+					createConfigObject(commaSplit, -1, null,1);
 				}
 			}
 		}
@@ -332,42 +344,43 @@ public class InventoryTagsExtendedPlugin extends Plugin
 		return number;
 	}
 
-	private void createConfigObject(String configInventoryItemName, int configInventoryItemId, String configInventoryItemColor)
+	private void createConfigObject(String configName, int configId, String configColor, int configQuantity)
 	{
-		if (joptsimple.internal.Strings.isNullOrEmpty(configInventoryItemName))
+		if (Strings.isNullOrEmpty(configName))
 		{
-			configInventoryItemName = "null";
+			configName = "null";
 		}
-		if (joptsimple.internal.Strings.isNullOrEmpty(configInventoryItemColor))
+		if (Strings.isNullOrEmpty(configColor))
 		{
-			configInventoryItemColor = "null";
+			configColor = "null";
 		}
 		try
 		{
-			if (configInventoryItemColor.length() != 6)
+			if (configColor.length() != 6)
 			{
-				configInventoryItemColor = "00FF00";
+				configColor = "00FF00";
 			}
 		}
 		catch (ArrayIndexOutOfBoundsException e)
 		{
-			if (Strings.isNullOrEmpty(configInventoryItemColor))
+			if (Strings.isNullOrEmpty(configColor))
 			{
-				configInventoryItemColor = "00FF00";
+				configColor = "00FF00";
 			}
 		}
 		Color actualConfigColor = config.inventoryItemDefaultHighlightColor();
 		try
 		{
-			actualConfigColor = Color.decode("#" + configInventoryItemColor);
+			actualConfigColor = Color.decode("#" + configColor);
 		}
 		catch (NumberFormatException nfe)
 		{
-			System.out.println("Error decoding color for " + configInventoryItemColor);
+			System.out.println("Error decoding color for " + configColor);
 		}
 		ConfigObject configObject = ConfigObject.builder()
-				.name(configInventoryItemName)
-				.id(configInventoryItemId)
+				.name(configName)
+				.id(configId)
+				.quantity(configQuantity)
 				.color(actualConfigColor)
 				.build();
 		configObjects.add(configObject);

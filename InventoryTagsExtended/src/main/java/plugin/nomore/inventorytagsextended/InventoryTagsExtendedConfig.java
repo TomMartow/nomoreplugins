@@ -63,12 +63,12 @@ public interface InventoryTagsExtendedConfig extends Config
 
     @ConfigItem(
             keyName = "configInventoryItemTextField",
-            name = "  Item Name / ID:Hex Color",
+            name = "  Item Name / ID:Hex Color:Amount",
             description = "Example: \"Bones:00FF00,\".",
             position = 7,
             titleSection = "inventoryItemHighlightingTitle"
     )
-    default String inventoryItemConfigTextString() { return "Bones, 590"; }
+    default String inventoryItemConfigTextString() { return "Bones, Coins:000000:100, Ash:ffffff,"; }
 
     @ConfigTitleSection(
             keyName = "inventoryItemColorTitle",

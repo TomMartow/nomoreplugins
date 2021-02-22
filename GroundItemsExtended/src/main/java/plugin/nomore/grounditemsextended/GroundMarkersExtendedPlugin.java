@@ -147,7 +147,6 @@ public class GroundMarkersExtendedPlugin extends Plugin
 		}
 		String itemName = highlightingObject.getName();
 		int itemId = item.getId();
-		System.out.println(itemName + ", " + itemId);
 		for (ConfigObject configObject : configObjects)
 		{
 			if (!Strings.isNullOrEmpty(configObject.getName()))
@@ -158,14 +157,12 @@ public class GroundMarkersExtendedPlugin extends Plugin
 				{
 					highlightingObject.setColor(configObject.getColor());
 					groundItemsToHighlight.add(highlightingObject);
-					System.out.println(configObject.getName() + " matches " + stringFormat.rws(itemName));
 				}
 			}
 			if (itemId == configObject.getId())
 			{
 				highlightingObject.setColor(configObject.getColor());
 				groundItemsToHighlight.add(highlightingObject);
-				System.out.println(configObject.getId() + " matches " + itemId);
 			}
 		}
 	}
