@@ -27,9 +27,8 @@ rootProject.name = "NoMorePlugins"
 
 include(":NMPUtils")
 include(":InterfaceMarking")
-include(":InventoryItemIndicators")
 include(":MouseLogger")
-include(":MyCharacterIndicators")
+include(":PlayerStatesIndicators")
 include(":NoMoreAgility")
 include(":NoMoreWintertodt")
 include(":StatRandomiser")

@@ -25,14 +25,10 @@ import ProjectVersions.openosrsVersion
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.0.1"
+version = "1.0.0"
 
-project.extra["PluginName"] = "Inventory Item Indicators"
-project.extra["PluginDescription"] = "Display an indicator over inventory items."
-
-dependencies {
-    compileOnly(project(":NMPUtils"))
-}
+project.extra["PluginName"] = "Player States Indicators"
+project.extra["PluginDescription"] = "Displays indicators based on the players current state and skill levels."
 
 tasks {
     jar {
