@@ -32,23 +32,20 @@ import java.awt.Color;
 @ConfigGroup("interfaceindicators")
 public interface TheConfig extends Config
 {
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "firstTitle",
 			name = "First Title",
 			description = "",
 			position = 1
 	)
-	default Title firstTitle()
-	{
-		return new Title();
-	}
+	String firstTitle = "firstTitle";
 
 	@ConfigItem(
 			keyName = "configType",
 			name = "Configuration Options",
 			description = "",
 			position = 2,
-			titleSection = "firstTitle"
+			title = "firstTitle"
 	)
 	default Options options() { return Options.BANK; }
 
@@ -57,7 +54,7 @@ public interface TheConfig extends Config
 			name = "Open",
 			description = "Displays the an indicator if the bank interface is open.",
 			position = 3,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -69,7 +66,7 @@ public interface TheConfig extends Config
 			name = "Indicator Location",
 			description = "Indicator location, format to use: x:y:width:height e.g 100:100:10:10",
 			position = 4,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -81,7 +78,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 5,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -93,7 +90,7 @@ public interface TheConfig extends Config
 			name = "Close Button",
 			description = "Displays the an indicator over the bank close button.",
 			position = 6,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -105,7 +102,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 7,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -117,7 +114,7 @@ public interface TheConfig extends Config
 			name = "Withdraw / Deposit Item Button",
 			description = "Displays the an indicator over the withdraw / deposit item button.",
 			position = 8,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -129,7 +126,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 9,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -141,7 +138,7 @@ public interface TheConfig extends Config
 			name = "Withdraw / Deposit Note Button",
 			description = "Displays the an indicator over the withdraw / deposit note button.",
 			position = 10,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -153,7 +150,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 11,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -165,7 +162,7 @@ public interface TheConfig extends Config
 			name = "Quantity 1 Button",
 			description = "Displays the an indicator over the quantity 1 button.",
 			position = 12,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -177,7 +174,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 13,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -189,7 +186,7 @@ public interface TheConfig extends Config
 			name = "Quantity 5 Button",
 			description = "Displays the an indicator over the quantity 5 button.",
 			position = 14,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -201,7 +198,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 15,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -213,7 +210,7 @@ public interface TheConfig extends Config
 			name = "Quantity 10 Button",
 			description = "Displays the an indicator over the quantity 10 button.",
 			position = 16,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -225,7 +222,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 17,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -237,7 +234,7 @@ public interface TheConfig extends Config
 			name = "Quantity X Button",
 			description = "Displays the an indicator over the quantity X button.",
 			position = 18,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -249,7 +246,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 19,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -261,7 +258,7 @@ public interface TheConfig extends Config
 			name = "Quantity All Button",
 			description = "Displays the an indicator over the quantity All button.",
 			position = 20,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -273,7 +270,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 21,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -285,7 +282,7 @@ public interface TheConfig extends Config
 			name = "Deposit All Items Button",
 			description = "Displays the an indicator over the deposit all items button.",
 			position = 22,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -297,7 +294,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 23,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -309,7 +306,7 @@ public interface TheConfig extends Config
 			name = "Deposit All Equipment Button",
 			description = "Displays the an indicator over the deposit all equipment button.",
 			position = 24,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -321,7 +318,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 25,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -337,7 +334,7 @@ public interface TheConfig extends Config
 			name = "Deposit",
 			description = "Displays the an indicator if the deposit inventory interface is open.",
 			position = 100,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -349,7 +346,7 @@ public interface TheConfig extends Config
 			name = "Indicator location",
 			description = "Indicator location, format to use: x:y:width:height e.g 100:100:10:10",
 			position = 100,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -361,7 +358,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 100,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "BANK"
@@ -373,7 +370,7 @@ public interface TheConfig extends Config
 			name = "Make / Create",
 			description = "Displays the an indicator if the deposit inventory interface is open.",
 			position = 100,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "CHATBOX"
@@ -385,7 +382,7 @@ public interface TheConfig extends Config
 			name = "Indicator location",
 			description = "Indicator location, format to use: x:y:width:height e.g 100:100:10:10",
 			position = 100,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "CHATBOX"
@@ -397,7 +394,7 @@ public interface TheConfig extends Config
 			name = "Indicator Color",
 			description = "Indicator Color.",
 			position = 100,
-			titleSection = "firstTitle",
+			title = "firstTitle",
 			hidden = true,
 			unhide = "configType",
 			unhideValue = "CHATBOX"

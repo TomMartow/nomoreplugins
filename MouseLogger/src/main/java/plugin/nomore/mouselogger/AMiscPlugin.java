@@ -35,7 +35,6 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -47,8 +46,7 @@ import java.util.Date;
 @PluginDescriptor(
 	name = "Mouse Logger",
 	description = "Logs all things mouse.",
-	tags = {"ahk", "script", "mouse", "logging", "nomoreahk", "misc"},
-	type = PluginType.MISCELLANEOUS
+	tags = {"ahk", "script", "mouse", "logging", "nomoreahk", "misc"}
 )
 @Slf4j
 public class AMiscPlugin extends Plugin {
@@ -101,18 +99,17 @@ public class AMiscPlugin extends Plugin {
 		{
 			return;
 		}
-		if (Arrays.stream(cancelLogging).anyMatch(event.getOption()::contains))
+		if (Arrays.stream(cancelLogging).anyMatch(event.getMenuOption()::contains))
 		{
 			return;
 		}
 		System.out.println(
 				"\n" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:S").format(new Date())
-				+ "\nOption: " + event.getOption()
-				+ "\nTarget: " + event.getTarget()
-				+ "\nIdentifier: " + event.getIdentifier()
-				+ "\nOpcode: " + event.getMenuOpcode()
-				+ "\nParam0: " + event.getParam0()
-				+ "\nParam1: " + event.getParam1()
-				+ "\nforceLeftClick: " + event.isForceLeftClick());
+				+ "\nOption: " + event.getMenuOption()
+				+ "\nTarget: " + event.getMenuTarget()
+				+ "\nIdentifier: " + event.getId()
+				+ "\nOpcode: " + event.getMenuAction()
+				+ "\nParam0: " + event.getActionParam()
+				+ "\nParam1: " + event.getWidgetId());
 	}
 }

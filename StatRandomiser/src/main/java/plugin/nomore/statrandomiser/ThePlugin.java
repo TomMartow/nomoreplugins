@@ -37,7 +37,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import org.pf4j.Extension;
 
 import java.util.*;
@@ -46,8 +45,7 @@ import java.util.*;
 @PluginDescriptor(
 	name = "Stat Randomiser",
 	description = "Randomises the players skill levels (client side only).",
-	tags = {"stat", "level", "nomore"},
-	type = PluginType.UTILITY
+	tags = {"stat", "level", "nomore"}
 )
 @Slf4j
 public class ThePlugin extends Plugin {

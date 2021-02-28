@@ -34,7 +34,7 @@ public class InventoryTagsExtendedOverlay extends WidgetItemOverlay
     }
 
     @Override
-    protected void renderItemOverlay(Graphics2D graphics, int i, WidgetItem widgetItem)
+    public void renderItemOverlay(Graphics2D graphics, int i, WidgetItem widgetItem)
     {
         renderInventoryItem(graphics);
     }

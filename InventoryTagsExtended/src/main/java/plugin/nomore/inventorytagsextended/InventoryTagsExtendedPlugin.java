@@ -25,8 +25,8 @@
  */
 package plugin.nomore.inventorytagsextended;
 
+import com.google.common.base.Strings;
 import com.google.inject.Provides;
-import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.*;
@@ -40,7 +40,6 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 import plugin.nomore.inventorytagsextended.builder.ConfigObject;
@@ -57,8 +56,7 @@ import java.util.List;
 @PluginDescriptor(
 		name = "Ex: Inventory Tags",
 		description = "Inventory Tags, but with more options.",
-		tags = {"inventory", "tags", "nomore"},
-		type = PluginType.UTILITY
+		tags = {"inventory", "tags", "nomore"}
 )
 @Slf4j
 public class InventoryTagsExtendedPlugin extends Plugin
@@ -247,7 +245,7 @@ public class InventoryTagsExtendedPlugin extends Plugin
 
 	private HighlightingObject createHighlightingObject(WidgetItem item)
 	{
-		ItemDefinition def = itemManager.getItemDefinition(item.getId());
+		ItemComposition def = itemManager.getItemComposition(item.getId());
 		return HighlightingObject.builder()
 				.name(def.getName())
 				.id(item.getId())
@@ -274,7 +272,7 @@ public class InventoryTagsExtendedPlugin extends Plugin
 	private void getConfigTextField()
 	{
 		String configTextString = stringFormat.rws(config.inventoryItemConfigTextString());
-		if (joptsimple.internal.Strings.isNullOrEmpty(configTextString))
+		if (Strings.isNullOrEmpty(configTextString))
 		{
 			return;
 		}

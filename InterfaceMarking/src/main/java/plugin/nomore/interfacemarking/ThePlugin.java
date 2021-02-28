@@ -34,7 +34,6 @@ import net.runelite.api.*;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -42,8 +41,7 @@ import org.pf4j.Extension;
 @PluginDescriptor(
 	name = "Interface Marking",
 	description = "Display's indicators over interface widgets.",
-	tags = {"interface", "widget"},
-	type = PluginType.UTILITY
+	tags = {"interface", "widget"}
 )
 @Slf4j
 public class ThePlugin extends Plugin {

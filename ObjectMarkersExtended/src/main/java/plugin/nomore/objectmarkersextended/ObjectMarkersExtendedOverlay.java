@@ -90,14 +90,6 @@ public class ObjectMarkersExtendedOverlay extends Overlay
                     render.fill(graphics, object.getClickbox(), color);
                     showMouseOverlay(graphics, object, color);
                     break;
-                case TILE_OUTLINE:
-                    render.outline(graphics, object.getCanvasTilePoly(), color);
-                    showMouseOverlay(graphics, object, color);
-                    break;
-                case TILE_FILLED:
-                    render.fill(graphics, object.getCanvasTilePoly(), color);
-                    showMouseOverlay(graphics, object, color);
-                    break;
             }
 
         }

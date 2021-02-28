@@ -15,7 +15,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -27,9 +26,7 @@ import java.util.List;
 @Extension
 @PluginDescriptor(
 		name = "NMPUtils",
-		description = "Plugin required for numerous plugins created by NoMore.",
-		type = PluginType.UTILITY
-		//hidden = true
+		description = "Plugin required for numerous plugins created by NoMore."
 )
 @Slf4j
 @SuppressWarnings("unused")

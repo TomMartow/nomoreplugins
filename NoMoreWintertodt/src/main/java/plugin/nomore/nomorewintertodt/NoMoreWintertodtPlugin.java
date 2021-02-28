@@ -40,7 +40,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -51,8 +50,7 @@ import static net.runelite.api.ObjectID.BRAZIER_29313;
 @PluginDescriptor(
 	name = "NoMore Wintertodt",
 	description = "Displays markers over Wintertodt related objects and npcs.",
-	tags = {"wintertodt", "ahk", "nomoreahk"},
-	type = PluginType.UTILITY
+	tags = {"wintertodt", "ahk", "nomoreahk"}
 )
 @Slf4j
 public class NoMoreWintertodtPlugin extends Plugin {

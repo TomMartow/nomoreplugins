@@ -32,23 +32,20 @@ import java.awt.*;
 public interface NPCHighlightingExtendedConfig extends Config
 {
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "npcHighlightTitle",
             name = "Overlay Options",
             description = "",
             position = 11
     )
-    default Title npcHighlightTitle()
-    {
-        return new Title();
-    }
+    String npcHighlightTitle = "npcHighlightTitle";
 
     @ConfigItem(
             keyName = "npcRenderStyle",
             name = "  Render style",
             description = "The type of marker.",
             position = 14,
-            titleSection = "npcHighlightTitle"
+            title = "npcHighlightTitle"
     )
     default NPCRenderStyle npcRenderStyle() { return NPCRenderStyle.BOX; }
 
@@ -60,7 +57,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             hidden = true,
             unhide = "npcRenderStyle",
             unhideValue = "BOX",
-            titleSection = "npcHighlightTitle"
+            title = "npcHighlightTitle"
     )
     default int npcIndicatorSize() { return 4; }
 
@@ -69,27 +66,24 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Name / ID:Color",
             description = "Example: \"Goblin:00FF00,\".",
             position = 16,
-            titleSection = "npcHighlightTitle"
+            title = "npcHighlightTitle"
     )
     default String npcConfigTextString() { return "Banker,\nMan:00ffff"; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "npcColorTitle",
             name = "Indicator Interaction Color Options",
             description = "",
             position = 18
     )
-    default Title npcColorTitle()
-    {
-        return new Title();
-    }
+    String npcColorTitle = "npcColorTitle";
 
     @ConfigItem(
             keyName = "npcDefaultHighlightColor",
             name = "  Default Marker color",
             description = "The default color for the NPC indicator.",
             position = 20,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default Color npcDefaultHighlightColor() { return Color.GREEN; }
 
@@ -98,7 +92,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Enable NPC -> Player Indicator",
             description = "Enable the override of the default NPC highlighting color should the NPC be attacking your player.",
             position = 21,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default boolean npcEnableNPCDefaultColorOverrideWithNPCInteractingWithPlayer() { return false; }
 
@@ -107,7 +101,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  NPC -> Player color",
             description = "The color of the indicator.",
             position = 22,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default Color npcInteractingWithPlayerColor() { return Color.YELLOW; }
 
@@ -116,7 +110,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Enable Players -> NPC Indicator",
             description = "Enable the override of the default NPC highlighting color should another player be attacking an NPC that is currently marked.",
             position = 23,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default boolean npcEnableNPCDefaultColorOverrideWithPlayersInteractingWithPlayer() { return false; }
 
@@ -125,7 +119,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Players -> NPC color",
             description = "The color of the indicator.",
             position = 24,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default Color npcPlayersInteractingWithNPCColor() { return Color.RED; }
 
@@ -134,7 +128,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Enable Menu Highlighting",
             description = "Enable the highlighting of the NPC's name context menu.",
             position = 25,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default boolean npcEnableHighlightingMenuItemForMarkedNPCS() { return false; }
 
@@ -143,27 +137,24 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Menu Item Color",
             description = "The color of the menu item.",
             position = 26,
-            titleSection = "npcColorTitle"
+            title = "npcColorTitle"
     )
     default Color npcMenuItemColorForMarkedNPCS() { return Color.MAGENTA; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "npcMiscOptionsTitle",
             name = "Miscellaneous Options",
             description = "",
             position = 28
     )
-    default Title npcMiscOptionsTitle()
-    {
-        return new Title();
-    }
+    String npcMiscOptionsTitle = "npcMiscOptionsTitle";
 
     @ConfigItem(
             keyName = "npcLineOfSight",
             name = "  Only show NPC's in line of sight",
             description = "Only show NPC's your player (tile: diagonally or straight) can \"see\"",
             position = 30,
-            titleSection = "npcMiscOptionsTitle"
+            title = "npcMiscOptionsTitle"
     )
     default boolean npcLineOfSight() { return false; }
 
@@ -172,7 +163,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  Mouse hovering indicator",
             description = "If enabled will display an indicator if hovering over the npc.",
             position = 31,
-            titleSection = "npcMiscOptionsTitle"
+            title = "npcMiscOptionsTitle"
     )
     default boolean npcDisplayMouseHoveringIndicator() { return false; }
 
@@ -181,7 +172,7 @@ public interface NPCHighlightingExtendedConfig extends Config
             name = "  X:Y:Width:Height indicator location",
             description = "If enabled will display an indicator if hovering over the npc.",
             position = 32,
-            titleSection = "npcMiscOptionsTitle"
+            title = "npcMiscOptionsTitle"
     )
     default String npcMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
     

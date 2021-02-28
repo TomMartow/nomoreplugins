@@ -1,7 +1,5 @@
 package plugin.nomore.inventorytagsextended.utils;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class StringFormat
 {
 
@@ -20,6 +18,6 @@ public class StringFormat
         return string.toLowerCase().replaceAll("\\s+", "");
     }
 
-    public boolean containsNumbers(String string) { return StringUtils.containsAny(string, "[0-9]+"); }
+    public boolean containsNumbers(String string) { return string.matches("[0-9]+"); }
 
 }

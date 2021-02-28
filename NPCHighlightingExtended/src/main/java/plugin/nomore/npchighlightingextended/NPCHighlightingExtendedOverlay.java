@@ -86,7 +86,7 @@ public class NPCHighlightingExtendedOverlay extends Overlay
                     showMouseOverlay(graphics, npc, color);
                     break;
                 case TILE_OUTLINE:
-                    render.outline(graphics, npc.getCanvasTilePoly(), getNPCColor(npc, player, color));
+                    render.outline(graphics, npc.getConvexHull().getBounds(), client.getMouseCanvasPosition(), getNPCColor(npc, player, color));
                     showMouseOverlay(graphics, npc, color);
                     break;
                 case TILE_FILLED:

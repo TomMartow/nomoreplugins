@@ -114,24 +114,6 @@ public class GroundMarkersExtendedOverlay extends Overlay
                     render.fill(graphics, fill, color);
                     showMouseOverlay(graphics, fill, color);
                     break;
-                case TILE_OUTLINE:
-                    Polygon tileOutline = Perspective.getCanvasTilePoly(client, localPoint, 0);
-                    if (tileOutline == null)
-                    {
-                        return;
-                    }
-                    OverlayUtil.renderOutlinePolygon(graphics, tileOutline, color);
-                    showMouseOverlay(graphics, tileOutline, color);
-                    break;
-                case TILE_FILLED:
-                    Polygon tileFilled = Perspective.getCanvasTilePoly(client, localPoint, 0);
-                    if (tileFilled == null)
-                    {
-                        return;
-                    }
-                    OverlayUtil.renderFilledPolygon(graphics, tileFilled, color);
-                    showMouseOverlay(graphics, tileFilled, color);
-                    break;
             }
         }
     }

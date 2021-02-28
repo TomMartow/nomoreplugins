@@ -25,8 +25,8 @@
  */
 package plugin.nomore.objectmarkersextended;
 
+import com.google.common.base.Strings;
 import com.google.inject.Provides;
-import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.*;
@@ -40,7 +40,6 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 import plugin.nomore.objectmarkersextended.utils.StringFormat;
@@ -56,8 +55,7 @@ import java.util.ArrayList;
 @PluginDescriptor(
 		name = "Ex: Object Markers",
 		description = "Object Markers, but with more options.",
-		tags = {"object", "marker", "nomore"},
-		type = PluginType.UTILITY
+		tags = {"object", "marker", "nomore"}
 )
 @Slf4j
 public class ObjectMarkersExtendedPlugin extends Plugin
@@ -354,7 +352,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 
 	private HighlightingObject createHighlightingObject(TileObject object, Tile tile)
 	{
-		ObjectDefinition cDef = client.getObjectDefinition(object.getId());
+		ObjectComposition cDef = client.getObjectDefinition(object.getId());
 		if (cDef == null)
 		{
 			return null;
@@ -385,7 +383,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 	private void getConfigTextField()
 	{
 		String configTextString = stringFormat.rws(config.configObjectTextField());
-		if (joptsimple.internal.Strings.isNullOrEmpty(configTextString))
+		if (Strings.isNullOrEmpty(configTextString))
 		{
 			return;
 		}
@@ -435,7 +433,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 	private int checkInt(String stringNum)
 	{
 		String charRemoved = stringFormat.removeCharactersFromString(stringNum);
-		if (joptsimple.internal.Strings.isNullOrEmpty(charRemoved))
+		if (Strings.isNullOrEmpty(charRemoved))
 		{
 			return -1;
 		}
@@ -453,11 +451,11 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 
 	private void createConfigObject(String configObjectName, int configObjectId, String configObjectColor)
 	{
-		if (joptsimple.internal.Strings.isNullOrEmpty(configObjectName))
+		if (Strings.isNullOrEmpty(configObjectName))
 		{
 			configObjectName = "null";
 		}
-		if (joptsimple.internal.Strings.isNullOrEmpty(configObjectColor))
+		if (Strings.isNullOrEmpty(configObjectColor))
 		{
 			configObjectColor = "null";
 		}

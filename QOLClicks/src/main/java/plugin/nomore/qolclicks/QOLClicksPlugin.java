@@ -41,7 +41,6 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import org.pf4j.Extension;
 import plugin.nomore.qolclicks.newformat.Menu;
 import plugin.nomore.qolclicks.utils.automation.*;
@@ -65,8 +64,7 @@ import java.util.List;
 @PluginDescriptor(
 		name = "QOL Clicks",
 		description = "QOL fixes that should be implemented.",
-		tags = {"click", "nomore", "qol"},
-		type = PluginType.UTILITY
+		tags = {"click", "nomore", "qol"}
 )
 @Slf4j
 public class QOLClicksPlugin extends Plugin
@@ -148,7 +146,7 @@ public class QOLClicksPlugin extends Plugin
 			}
 		}
 
-		if (e.getFirstEntry().getMenuOpcode() == MenuOpcode.CC_OP
+		if (e.getFirstEntry().getMenuAction() == MenuAction.CC_OP
 				&& e.getFirstEntry().getOption().equalsIgnoreCase("Inventory"))
 		{
 			if (config.enableBanking())
@@ -162,7 +160,6 @@ public class QOLClicksPlugin extends Plugin
 	private void on(MenuOptionClicked e)
 	{
 		menu.optionClicked(e);
-		MenuEntry originalEntry = e.clone();
 
 		//  ███████╗██╗██████╗ ███████╗███╗   ███╗ █████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗
 		//  ██╔════╝██║██╔══██╗██╔════╝████╗ ████║██╔══██╗██║ ██╔╝██║████╗  ██║██╔════╝
@@ -172,11 +169,11 @@ public class QOLClicksPlugin extends Plugin
 		//  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 		//
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Burn"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Burn"))
 		{
 			clicked.useItemOnItem(
-					inventory.getItemInSlotIfMatches(e.getIdentifier(), e.getParam0()),
+					inventory.getItemInSlotIfMatches(e.getId(), e.getActionParam()),
 					inventory.getItem("Tinderbox"),
 					e);
 		}
@@ -189,27 +186,27 @@ public class QOLClicksPlugin extends Plugin
 		//   ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 		//
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Cook"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Cook"))
 		{
 			if (!config.enableRange() && config.enableFire())
 			{
 				clicked.useItemOnGameObject(
-						inventory.getItem(e.getIdentifier()),
+						inventory.getItem(e.getId()),
 						objects.getClosestGameObjectMatching("Fire"),
 						e);
 			}
 			else if (config.enableRange() && !config.enableFire())
 			{
 				clicked.useItemOnGameObject(
-						inventory.getItem(e.getIdentifier()),
+						inventory.getItem(e.getId()),
 						objects.getClosestGameObjectMatching("Range"),
 						e);
 			}
 			else if (config.enableRange() && config.enableFire())
 			{
 				clicked.useItemOnGameObject(
-						inventory.getItem(e.getIdentifier()),
+						inventory.getItem(e.getId()),
 						objects.getMatchingGameObjectsSortedByClosest("Fire", "Range").get(0),
 						e);
 			}
@@ -223,8 +220,8 @@ public class QOLClicksPlugin extends Plugin
 		//  ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 		//
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Use-rod"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Use-rod"))
 		{
 			List<NPC> npcList = npcs.getNpcsMatchingId(1542);
 			if (npcList.size() == 0)
@@ -253,7 +250,7 @@ public class QOLClicksPlugin extends Plugin
 						"Use-rod",
 						"<col=ffff00>" + name,
 						npc.getIndex(),
-						MenuOpcode.NPC_FIRST_OPTION.getId(),
+						MenuAction.NPC_FIRST_OPTION.getId(),
 						0,
 						0,
 						false));
@@ -263,8 +260,8 @@ public class QOLClicksPlugin extends Plugin
 			return;
 		}
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Cut"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Cut"))
 		{
 			WidgetItem fish = inventory.getLastItem(11330, 11328);
 			if (fish == null)
@@ -349,8 +346,8 @@ public class QOLClicksPlugin extends Plugin
 			}
 		}
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Cage"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Cage"))
 		{
 			List<NPC> npcList = npcs.getNpcsWithMenuAction("Cage");
 			if (npcList.size() == 0)
@@ -379,7 +376,7 @@ public class QOLClicksPlugin extends Plugin
 						"Cage",
 						"<col=ffff00>" + name,
 						npc.getIndex(),
-						MenuOpcode.NPC_FIRST_OPTION.getId(),
+						MenuAction.NPC_FIRST_OPTION.getId(),
 						0,
 						0,
 						false));
@@ -389,8 +386,8 @@ public class QOLClicksPlugin extends Plugin
 			return;
 		}
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Lure"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Lure"))
 		{
 			List<NPC> npcList = npcs.getNpcsWithMenuAction("Lure");
 			if (npcList.size() == 0)
@@ -419,7 +416,7 @@ public class QOLClicksPlugin extends Plugin
 						"Lure",
 						"<col=ffff00>" + name,
 						npc.getIndex(),
-						MenuOpcode.NPC_FIRST_OPTION.getId(),
+						MenuAction.NPC_FIRST_OPTION.getId(),
 						0,
 						0,
 						false));
@@ -439,7 +436,7 @@ public class QOLClicksPlugin extends Plugin
 
 		if (config.enableUnnoteBones())
 		{
-			ItemDefinition def = client.getItemDefinition(e.getIdentifier());
+			ItemDefinition def = client.getItemDefinition(e.getId());
 			if (def.isStackable()
 					&& def.getName()
 					.toLowerCase()
@@ -447,7 +444,7 @@ public class QOLClicksPlugin extends Plugin
 			{
 				clicked.useItemOnNPC(
 						"Unnote",
-						inventory.getItem(e.getIdentifier()),
+						inventory.getItem(e.getId()),
 						npcs.getClosestMatchingName("Phials"),
 						e);
 			}
@@ -461,16 +458,16 @@ public class QOLClicksPlugin extends Plugin
 		//  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝     ╚═╝╚═╝  ╚═══╝ ╚═════╝
 		//
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Drop-Matching"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Drop-Matching"))
 		{
 			automation.dropMatching();
 			e.consume();
 			return;
 		}
 
-		if (e.getMenuOpcode() == MenuOpcode.ITEM_USE
-				&& e.getOption().equals("Drop-Except"))
+		if (e.getMenuAction() == MenuAction.ITEM_USE
+				&& e.getMenuOption().equals("Drop-Except"))
 		{
 			automation.dropExcept();
 			e.consume();
@@ -485,7 +482,7 @@ public class QOLClicksPlugin extends Plugin
 		//  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 		//
 
-		if (e.getOption().equals("Open")
+		if (e.getMenuOption().equals("Open")
 				&& e.getTarget().contains("Bank"))
 		{
 
@@ -521,7 +518,7 @@ public class QOLClicksPlugin extends Plugin
 						gameObjectItem.getActions()[1],
 						"<col=ffff>" + gameObjectItem.getName(),
 						gameObjectItem.getObject().getId(),
-						MenuOpcode.GAME_OBJECT_SECOND_OPTION.getId(),
+						MenuAction.GAME_OBJECT_SECOND_OPTION.getId(),
 						gameObjectItem.getObject().getSceneMinLocation().getX(),
 						gameObjectItem.getObject().getSceneMinLocation().getY(),
 						false));
@@ -547,7 +544,7 @@ public class QOLClicksPlugin extends Plugin
 	{
 		menu.entryAdded(e);
 
-		if (e.getOpcode() == MenuOpcode.ITEM_USE.getId())
+		if (e.getOpcode() == MenuAction.ITEM_USE.getId())
 		{
 
 			//  ███████╗██╗██████╗ ███████╗███╗   ███╗ █████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗
@@ -559,14 +556,14 @@ public class QOLClicksPlugin extends Plugin
 			//
 
 			if (config.enableFiremaking()
-					&& client.getItemDefinition(e.getIdentifier())
+					&& client.getItemDefinition(e.getId())
 					.getName()
 					.toLowerCase()
 					.contains("logs"))
 			{
 				added.useItemOnItem(
 						"Burn",
-						inventory.getItem(e.getIdentifier()),
+						inventory.getItem(e.getId()),
 						inventory.getItem("Tinderbox"),
 						e);
 			}
@@ -579,7 +576,7 @@ public class QOLClicksPlugin extends Plugin
 			//   ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 			//
 
-			if (client.getItemDefinition(e.getIdentifier())
+			if (client.getItemDefinition(e.getId())
 				.getName()
 				.toLowerCase()
 				.contains("raw")
@@ -590,7 +587,7 @@ public class QOLClicksPlugin extends Plugin
 				{
 					added.useItemOnGameObject(
 							"Cook",
-							inventory.getItem(e.getIdentifier()),
+							inventory.getItem(e.getId()),
 							objects.getClosestGameObjectMatching("Fire"),
 							e);
 				}
@@ -598,7 +595,7 @@ public class QOLClicksPlugin extends Plugin
 				{
 					added.useItemOnGameObject(
 							"Cook",
-							inventory.getItem(e.getIdentifier()),
+							inventory.getItem(e.getId()),
 							objects.getClosestGameObjectMatching("Range"),
 							e);
 				}
@@ -606,7 +603,7 @@ public class QOLClicksPlugin extends Plugin
 				{
 					added.useItemOnGameObject(
 							"Cook",
-							inventory.getItem(e.getIdentifier()),
+							inventory.getItem(e.getId()),
 							objects.getMatchingGameObjectsSortedByClosest("Fire", "Range").get(0),
 							e);
 				}
@@ -621,7 +618,7 @@ public class QOLClicksPlugin extends Plugin
 			//
 
 			if (config.enableBarbarianRod()
-					&& client.getItemDefinition(e.getIdentifier())
+					&& client.getItemDefinition(e.getId())
 					.getName()
 					.equalsIgnoreCase("Barbarian rod"))
 			{
@@ -632,7 +629,7 @@ public class QOLClicksPlugin extends Plugin
 			}
 
 			if (config.enableCutOffcuts()
-					&& client.getItemDefinition(e.getIdentifier())
+					&& client.getItemDefinition(e.getId())
 					.getName()
 					.equalsIgnoreCase("Knife"))
 			{
@@ -649,7 +646,7 @@ public class QOLClicksPlugin extends Plugin
 			}
 
 			if (config.enableLobsterPot()
-					&& client.getItemDefinition(e.getIdentifier())
+					&& client.getItemDefinition(e.getId())
 					.getName()
 					.equalsIgnoreCase("Lobster pot"))
 			{
@@ -660,7 +657,7 @@ public class QOLClicksPlugin extends Plugin
 			}
 
 			if (config.enableFishingRod()
-					&& client.getItemDefinition(e.getIdentifier())
+					&& client.getItemDefinition(e.getId())
 					.getName()
 					.equalsIgnoreCase("Fly fishing rod"))
 			{
@@ -680,7 +677,7 @@ public class QOLClicksPlugin extends Plugin
 
 			if (config.enableUnnoteBones())
 			{
-				ItemDefinition def = client.getItemDefinition(e.getIdentifier());
+				ItemDefinition def = client.getItemDefinition(e.getId());
 				if (def.isStackable()
 						&& def.getName()
 						.toLowerCase()
@@ -688,7 +685,7 @@ public class QOLClicksPlugin extends Plugin
 				{
 					added.useItemOnNPC(
 							"Unnote",
-							inventory.getItem(e.getIdentifier()),
+							inventory.getItem(e.getId()),
 							npcs.getClosestMatchingName("Phials"),
 							e);
 				}
@@ -729,10 +726,10 @@ public class QOLClicksPlugin extends Plugin
 	public void insertMenuEntry(MenuEntry e, boolean forceLeftClick)
 	{
 		client.insertMenuItem(
-				e.getOption(),
+				e.getMenuOption(),
 				e.getTarget(),
 				e.getOpcode(),
-				e.getIdentifier(),
+				e.getId(),
 				e.getParam0(),
 				e.getParam1(),
 				forceLeftClick

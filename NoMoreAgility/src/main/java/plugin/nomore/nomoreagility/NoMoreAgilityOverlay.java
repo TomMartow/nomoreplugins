@@ -520,7 +520,7 @@ public class NoMoreAgilityOverlay extends Overlay {
     public void renderFilledClickBox(Graphics2D graphics, Shape shapeClickBox) {
 
         if (shapeClickBox != null) {
-            OverlayUtil.renderFilledPolygon(graphics, shapeClickBox, config.obstacleColor());
+            OverlayUtil.renderHoverableArea(graphics, shapeClickBox, client.getMouseCanvasPosition(), config.obstacleColor(), null, null);
         }
 
     }
@@ -581,10 +581,10 @@ public class NoMoreAgilityOverlay extends Overlay {
                     case OFF:
                         break;
                     case CLICKBOX:
-                        OverlayUtil.renderClickBox(graphics, client.getMouseCanvasPosition(), poly, config.marksColor());
+                        OverlayUtil.renderHoverableArea(graphics, poly, client.getMouseCanvasPosition(), config.marksColor(), null, null);
                         break;
                     case FILL:
-                        OverlayUtil.renderFilledPolygon(graphics, poly, config.marksColor());
+                        OverlayUtil.renderPolygon(graphics, poly, config.marksColor());
                         break;
                     case BOX:
                         int x = (int) poly.getBounds().getCenterX() - config.marksBoxSize() / 2;

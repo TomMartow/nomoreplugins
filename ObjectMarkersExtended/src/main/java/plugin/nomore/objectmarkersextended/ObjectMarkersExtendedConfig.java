@@ -32,20 +32,20 @@ import java.awt.*;
 public interface ObjectMarkersExtendedConfig extends Config
 {
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "objectMarkerTitle",
             name = "Overlay Options",
             description = "",
             position = 2
     )
-    default Title objectMarkerTitle() { return new Title(); }
+    String objectMarkerTitle = "objectMarkerTitle";
 
     @ConfigItem(
             keyName = "objectRenderStyle",
             name = "Render style",
             description = "The type of marker.",
             position = 5,
-            titleSection = "objectMarkerTitle"
+            title = "objectMarkerTitle"
     )
     default ObjectRenderStyle objectRenderStyle() { return ObjectRenderStyle.BOX; }
 
@@ -57,7 +57,7 @@ public interface ObjectMarkersExtendedConfig extends Config
             hidden = true,
             unhide = "objectRenderStyle",
             unhideValue = "BOX",
-            titleSection = "objectMarkerTitle"
+            title = "objectMarkerTitle"
     )
     default int objectIndicatorSize() { return 4; }
 
@@ -66,41 +66,41 @@ public interface ObjectMarkersExtendedConfig extends Config
             name = "Name / ID:Hex Color",
             description = "Example: \"Bank booth:00FF00,\".",
             position = 7,
-            titleSection = "objectMarkerTitle"
+            title = "objectMarkerTitle"
     )
     default String configObjectTextField() { return "Bank booth, 10529"; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "objectColorTitle",
             name = "Color Options",
             description = "",
             position = 9
     )
-    default Title objectColorTitle() { return new Title(); }
+    String objectColorTitle = "objectColorTitle";
 
     @ConfigItem(
             keyName = "objectDefaultHighlightColor",
             name = "Default Marker color",
             description = "The default color for the Object indicator.",
             position = 11,
-            titleSection = "objectColorTitle"
+            title = "objectColorTitle"
     )
     default Color objectDefaultHighlightColor() { return Color.GREEN; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "objectMiscOptionsTitle",
             name = "Miscellaneous Options",
             description = "",
             position = 13
     )
-    default Title objectMiscOptionsTitle() { return new Title(); }
+    String objectMiscOptionsTitle = "objectMiscOptionsTitle";
 
     @ConfigItem(
             keyName = "objectLineOfSight",
             name = "Only show Objects in line of sight",
             description = "Only show Objects your player (tile: diagonally or straight) can \"see\"",
             position = 15,
-            titleSection = "objectMiscOptionsTitle"
+            title = "objectMiscOptionsTitle"
     )
     default boolean objectLineOfSight() { return false; }
 
@@ -109,7 +109,7 @@ public interface ObjectMarkersExtendedConfig extends Config
             name = "Mouse hovering indicator",
             description = "If enabled will display an indicator if hovering over the object.",
             position = 16,
-            titleSection = "objectMiscOptionsTitle"
+            title = "objectMiscOptionsTitle"
     )
     default boolean objectDisplayMouseHoveringIndicator() { return false; }
 
@@ -118,7 +118,7 @@ public interface ObjectMarkersExtendedConfig extends Config
             name = "X:Y:Width:Height indicator location",
             description = "If enabled will display an indicator if hovering over the object.",
             position = 17,
-            titleSection = "objectMiscOptionsTitle"
+            title = "objectMiscOptionsTitle"
     )
     default String objectMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
     

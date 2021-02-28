@@ -32,20 +32,20 @@ import java.awt.*;
 public interface InventoryTagsExtendedConfig extends Config
 {
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "inventoryItemHighlightingTitle",
             name = "Overlay Options",
             description = "",
             position = 2
     )
-    default Title inventoryItemHighlightingTitle() { return new Title(); }
+    String inventoryItemHighlightingTitle = "inventoryItemHighlightingTitle";
 
     @ConfigItem(
             keyName = "inventoryItemRenderStyle",
             name = "  Render style",
             description = "The type of marker.",
             position = 5,
-            titleSection = "inventoryItemHighlightingTitle"
+            title = "inventoryItemHighlightingTitle"
     )
     default ItemRenderStyle inventoryItemRenderStyle() { return ItemRenderStyle.BOX; }
 
@@ -57,7 +57,7 @@ public interface InventoryTagsExtendedConfig extends Config
             hidden = true,
             unhide = "inventoryItemRenderStyle",
             unhideValue = "BOX",
-            titleSection = "inventoryItemHighlightingTitle"
+            title = "inventoryItemHighlightingTitle"
     )
     default int inventoryItemIndicatorSize() { return 4; }
 
@@ -66,41 +66,41 @@ public interface InventoryTagsExtendedConfig extends Config
             name = "  Item Name / ID:Hex Color:Amount",
             description = "Example: \"Bones:00FF00,\".",
             position = 7,
-            titleSection = "inventoryItemHighlightingTitle"
+            title = "inventoryItemHighlightingTitle"
     )
     default String inventoryItemConfigTextString() { return "Bones, Coins:000000:100, Ash:ffffff,"; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "inventoryItemColorTitle",
             name = "Color Options",
             description = "",
             position = 9
     )
-    default Title inventoryItemColorTitle() { return new Title(); }
+    String inventoryItemColorTitle = "inventoryItemColorTitle";
 
     @ConfigItem(
             keyName = "inventoryItemDefaultHighlightColor",
             name = "  Default Marker color",
             description = "The default color for the Object indicator.",
             position = 11,
-            titleSection = "inventoryItemColorTitle"
+            title = "inventoryItemColorTitle"
     )
     default Color inventoryItemDefaultHighlightColor() { return Color.GREEN; }
 
-    @ConfigItem(
+    @ConfigTitle(
             keyName = "inventoryItemMiscOptionsTitle",
             name = "Miscellaneous Options",
             description = "",
             position = 13
     )
-    default Title inventoryItemMiscOptionsTitle() { return new Title(); }
+    String inventoryItemMiscOptionsTitle = "inventoryItemMiscOptionsTitle";
 
     @ConfigItem(
             keyName = "inventoryItemDisplayMouseHoveringIndicator",
             name = "  Mouse hovering indicator",
             description = "If enabled will display an indicator if hovering over the inventoryItem.",
             position = 15,
-            titleSection = "inventoryItemMiscOptionsTitle"
+            title = "inventoryItemMiscOptionsTitle"
     )
     default boolean inventoryItemDisplayMouseHoveringIndicator() { return false; }
 
@@ -109,7 +109,7 @@ public interface InventoryTagsExtendedConfig extends Config
             name = "  X:Y:Width:Height indicator location",
             description = "If enabled will display an indicator if hovering over the inventoryItem.",
             position = 16,
-            titleSection = "inventoryItemMiscOptionsTitle"
+            title = "inventoryItemMiscOptionsTitle"
     )
     default String inventoryItemMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
     

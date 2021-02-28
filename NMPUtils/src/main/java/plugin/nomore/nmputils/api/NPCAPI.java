@@ -1,8 +1,8 @@
 package plugin.nomore.nmputils.api;
 
 import net.runelite.api.Client;
+import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.NPC;
 
 import javax.inject.Inject;
@@ -194,7 +194,7 @@ public class NPCAPI
         }
         return new MenuEntry("", "",
                 npc.getIndex(),
-                MenuOpcode.NPC_SECOND_OPTION.getId(),
+                MenuAction.NPC_SECOND_OPTION.getId(),
                 0,
                 0,
                 false);
@@ -208,7 +208,7 @@ public class NPCAPI
         }
         return new MenuEntry("", "",
                 npc.getIndex(),
-                MenuOpcode.NPC_SECOND_OPTION.getId(),
+                MenuAction.NPC_SECOND_OPTION.getId(),
                 0,
                 0,
                 false);

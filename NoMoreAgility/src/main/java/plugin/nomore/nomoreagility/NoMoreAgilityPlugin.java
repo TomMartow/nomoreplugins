@@ -34,7 +34,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -46,8 +45,7 @@ import java.util.*;
 @PluginDescriptor(
 	name = "NoMore Agility",
 	description = "A plugin that marks the next agility obstacle in the course.",
-	tags = {"agility", "marker", "obstacle"},
-	type = PluginType.SKILLING
+	tags = {"agility", "marker", "obstacle"}
 )
 @Slf4j
 public class NoMoreAgilityPlugin extends Plugin {

@@ -2,6 +2,7 @@ package plugin.nomore.qolclicks.utils.menu;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicks.QOLClicksPlugin;
@@ -18,21 +19,20 @@ public class Clicked
     @Inject private Clicked clicked;
     @Inject private Objects objects;
 
-    public void dropItem(WidgetItem itemClicked, MenuEntry e)
+    public void dropItem(WidgetItem itemClicked, MenuOptionClicked e)
     {
         if (itemClicked == null)
         {
             return;
         }
-        e.setOption("Drop");
-        e.setTarget("<col=ff9040>" + client.getItemDefinition(itemClicked.getId()).getName());
-        e.setIdentifier(itemClicked.getId());
-        e.setOpcode(MenuOpcode.ITEM_DROP.getId());
-        e.setParam0(itemClicked.getIndex());
-        e.setForceLeftClick(false);
+        e.setMenuOption("Drop");
+        e.setMenuTarget("<col=ff9040>" + client.getItemDefinition(itemClicked.getId()).getName());
+        e.setId(itemClicked.getId());
+        e.setMenuAction(MenuAction.ITEM_FOURTH_OPTION);
+        e.setActionParam(itemClicked.getIndex());
     }
 
-    public void useItemOnItem(WidgetItem itemClicked, WidgetItem itemToBeUsedOn, MenuEntry e)
+    public void useItemOnItem(WidgetItem itemClicked, WidgetItem itemToBeUsedOn, MenuOptionClicked e)
     {
         if (itemClicked == null)
         {
@@ -43,44 +43,53 @@ public class Clicked
             return;
         }
         plugin.setSelected(WidgetInfo.INVENTORY, itemToBeUsedOn.getIndex(), itemToBeUsedOn.getId());
-        e.setOption("Use");
-        e.setTarget(
+        e.setMenuOption("Use");
+        e.setMenuTarget(
                 "<col=ff9040>"
                 + client.getItemDefinition(itemClicked.getId()).getName()
                 + "<col=ffffff> -> <col=ff9040>"
                 + client.getItemDefinition(itemToBeUsedOn.getId()).getName());
-        e.setIdentifier(itemClicked.getId());
-        e.setOpcode(MenuOpcode.ITEM_USE_ON_WIDGET_ITEM.getId());
-        e.setForceLeftClick(false);
+        e.setId(itemClicked.getId());
+        e.setMenuAction(MenuAction.ITEM_USE_ON_WIDGET_ITEM);
     }
 
-    public void interactWithNpc(NPC npcToInteractWith, MenuEntry event)
+    public void interactWithNpc(NPC npcToInteractWith, MenuOptionClicked event)
     {
         if (npcToInteractWith == null)
         {
             return;
         }
-        event.setOption("Use-rod");
-        event.setTarget("<col=ffff00>" + client.getNpcDefinition(npcToInteractWith.getId()).getName());
-        event.setIdentifier(npcToInteractWith.getIndex());
-        event.setOpcode(MenuOpcode.NPC_FIRST_OPTION.getId());
-        event.setParam0(0);
-        event.setParam1(0);
+        event.setMenuOption("Use-rod");
+        event.setMenuTarget("<col=ffff00>" + client.getNpcDefinition(npcToInteractWith.getId()).getName());
+        event.setId(npcToInteractWith.getIndex());
+        event.setMenuAction(MenuAction.NPC_FIRST_OPTION);
+        event.setActionParam(0);
         event.setForceLeftClick(false);
+        MenuEntry menuEntry = new MenuEntry(
+                option,
+                target,
+                objectToInteractWith.getId(),
+                MenuAction.GAME_OBJECT_SECOND_OPTION.getId(),
+                objectToInteractWith.getSceneMinLocation().getX(),
+                objectToInteractWith.getSceneMinLocation().getY(),
+                false);
+        event.setMenuEntry(menuEntry);
     }
 
-    public void interactWithGameObject(String option, String target, GameObject objectToInteractWith, MenuEntry event)
+    public void interactWithGameObject(String option, String target, GameObject objectToInteractWith, MenuOptionClicked event)
     {
-        event.setOption(option);
-        event.setTarget(target);
-        event.setIdentifier(objectToInteractWith.getId());
-        event.setOpcode(MenuOpcode.GAME_OBJECT_SECOND_OPTION.getId());
-        event.setParam0(objectToInteractWith.getSceneMinLocation().getX());
-        event.setParam1(objectToInteractWith.getSceneMinLocation().getY());
-        event.setForceLeftClick(false);
+        MenuEntry menuEntry = new MenuEntry(
+                option,
+                target,
+                objectToInteractWith.getId(),
+                MenuAction.GAME_OBJECT_SECOND_OPTION.getId(),
+                objectToInteractWith.getSceneMinLocation().getX(),
+                objectToInteractWith.getSceneMinLocation().getY(),
+                false);
+        event.setMenuEntry(menuEntry);
     }
 
-    public void useItemOnGameObject(WidgetItem itemClicked, GameObject objectToUseItemOn, MenuEntry event)
+    public void useItemOnGameObject(WidgetItem itemClicked, GameObject objectToUseItemOn, MenuOptionClicked event)
     {
         if (itemClicked == null)
         {
@@ -91,22 +100,21 @@ public class Clicked
             return;
         }
         plugin.setSelected(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
-        event.setOption("Use");
-        event.setTarget(
+        event.setMenuOption("Use");
+        event.setMenuTarget(
                 "<col=ff9040>"
                 + client.getItemDefinition(itemClicked.getId()).getName()
                 + "<col=ffffff> -> <col=ffff>"
                 + client.getObjectDefinition(objectToUseItemOn.getId()).getName());
-        event.setIdentifier(objectToUseItemOn.getId());
-        event.setOpcode(MenuOpcode.ITEM_USE_ON_GAME_OBJECT.getId());
-        event.setParam0(objectToUseItemOn.getSceneMinLocation().getX());
+        event.setId(objectToUseItemOn.getId());
+        event.setMenuAction(MenuAction.ITEM_USE_ON_GAME_OBJECT);
+        event.setActionParam(objectToUseItemOn.getSceneMinLocation().getX());
         event.setParam1(objectToUseItemOn.getSceneMinLocation().getY());
-        event.setForceLeftClick(false);
     }
 
-    public void useItemOnNPC(String option, WidgetItem itemClicked, NPC npcToUseItemOn, MenuEntry e)
+    public void useItemOnNPC(String option, WidgetItem itemClicked, NPC npcToUseItemOn, MenuOptionClicked e)
     {
-        if (client == null || e.isForceLeftClick())
+        if (client == null)
         {
             return;
         }
@@ -119,13 +127,12 @@ public class Clicked
             return;
         }
         plugin.setSelected(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
-        e.setOption(option);
-        e.setTarget("<col=ff9040>" + client.getItemDefinition(itemClicked.getId()).getName() + "<col=ffffff> -> <col=ffff00>" + client.getNpcDefinition(npcToUseItemOn.getId()).getName());
-        e.setIdentifier(npcToUseItemOn.getIndex());
-        e.setOpcode(MenuOpcode.ITEM_USE_ON_NPC.getId());
-        e.setParam0(0);
+        e.setMenuOption(option);
+        e.setMenuTarget("<col=ff9040>" + client.getItemDefinition(itemClicked.getId()).getName() + "<col=ffffff> -> <col=ffff00>" + client.getNpcDefinition(npcToUseItemOn.getId()).getName());
+        e.setId(npcToUseItemOn.getIndex());
+        e.setMenuAction(MenuAction.ITEM_USE_ON_NPC);
+        e.setActionParam(0);
         e.setParam1(0);
-        e.setForceLeftClick(false);
     }
 
 }

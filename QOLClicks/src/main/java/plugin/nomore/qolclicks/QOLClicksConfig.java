@@ -36,10 +36,9 @@ public interface QOLClicksConfig extends Config
 			keyName = "cookingSection",
 			name = "Cooking",
 			description = "",
-			position = 2,
-			titleSection = "mainTitle"
+			position = 2
 	)
-	default boolean cookingSection() { return false; }
+	String cookingSection = "cookingSection";
 
 	@ConfigItem(
 			keyName = "enableFire",
@@ -65,7 +64,7 @@ public interface QOLClicksConfig extends Config
 			description = "",
 			position = 3
 	)
-	default boolean fishingSection() { return false; }
+	String fishingSection = "fishingSection";
 
 	@ConfigItem(
 			keyName = "enableBarbarianRod",
@@ -133,7 +132,7 @@ public interface QOLClicksConfig extends Config
 			description = "",
 			position = 4
 	)
-	default boolean firemakingSection() { return false; }
+	String firemakingSection = "firemakingSection";
 
 	@ConfigItem(
 			keyName = "enableFiremaking",
@@ -150,7 +149,7 @@ public interface QOLClicksConfig extends Config
 			description = "",
 			position = 5
 	)
-	default boolean prayerSection() { return false; }
+	String prayerSection = "prayerSection";
 
 	@ConfigItem(
 			keyName = "enableUnnoteBones",
@@ -167,7 +166,7 @@ public interface QOLClicksConfig extends Config
 			description = "",
 			position = 6
 	)
-	default boolean bankingSection() { return false; }
+	String bankingSection = "bankingSection";
 
 	@ConfigItem(
 			keyName = "enableBanking",
@@ -184,7 +183,7 @@ public interface QOLClicksConfig extends Config
 			description = "",
 			position = 7
 	)
-	default boolean dropSection() { return false; }
+	String dropSection = "dropSection";
 
 	@ConfigItem(
 			keyName = "enableDropMatching",
@@ -240,20 +239,20 @@ public interface QOLClicksConfig extends Config
 	)
 	default Keybind dropExceptKeybind() { return Keybind.NOT_SET; }
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "automationTitle",
 			name = "Automation",
 			description = "The minimum amount of time it will take to drop an item.",
 			position = 8
 	)
-	default Title automationTitle() { return new Title(); }
+	String automationTitle = "automationTitle";
 
 	@ConfigItem(
 			keyName = "dropAllMinTime",
 			name = "Min time (millis)",
 			description = "The minimum amount of time it will take to drop an item.",
 			position = 1,
-			titleSection = "automationTitle"
+			title = "automationTitle"
 	)
 	default int dropMinTime() { return 250; }
 
@@ -262,7 +261,7 @@ public interface QOLClicksConfig extends Config
 			name = "Max time (millis)",
 			description = "The maximum amount of time it will take to drop an item.",
 			position = 2,
-			titleSection = "automationTitle"
+			title = "automationTitle"
 	)
 	default int dropMaxTime() { return 1000; }
 
@@ -271,24 +270,24 @@ public interface QOLClicksConfig extends Config
 			name = "Drop order",
 			description = "The order that the items in the inventory will be dropped.",
 			position = 3,
-			titleSection = "automationTitle"
+			title = "automationTitle"
 	)
 	default String dropOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "selectionTitle",
 			name = "Miscellaneous Options",
 			description = "",
 			position = 9
 	)
-	default Title selectionTitle() { return new Title(); }
+	String selectionTitle = "";
 
 	@ConfigItem(
 			keyName = "findClosest",
 			name = "Find closest",
 			description = "Instead of randomising the selection of an NPC / Object / Item, when this option is enabled you will always select the closest / first.",
 			position = 1,
-			titleSection = "selectionTitle"
+			title = "selectionTitle"
 	)
 	default boolean findClosest() { return false; }
 
@@ -297,24 +296,24 @@ public interface QOLClicksConfig extends Config
 			name = "Enable keybinds",
 			description = "Enable the use of keybinds.",
 			position = 2,
-			titleSection = "selectionTitle"
+			title = "selectionTitle"
 	)
 	default boolean enableKeybinds() { return false; }
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "debugTitle",
 			name = "Developer",
 			description = "",
 			position = 100
 	)
-	default Title debugTitle() { return new Title(); }
+	String debugTitle = "debugTitle";
 
 	@ConfigItem(
 			keyName = "enableDebugMessages",
 			name = "Debug Messages",
 			description = "Enable debug messages (dev only).",
 			position = 101,
-			titleSection = "debugTitle"
+			title = "debugTitle"
 	)
 	default boolean enableDebugging() { return false; }
 
@@ -326,7 +325,7 @@ public interface QOLClicksConfig extends Config
 			unhide = "enableDebugMessages",
 			unhideValue = "true",
 			position = 102,
-			titleSection = "debugTitle"
+			title = "debugTitle"
 	)
 	default boolean enableWriteToClipboard() { return false; }
 

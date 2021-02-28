@@ -78,7 +78,7 @@ public class NoMoreWintertodtOverlay extends Overlay
 		for (NPC npc : plugin.getPyromancerNPC())
 		{
 			if (npc.getWorldLocation().getPlane() == client.getPlane()
-					&& Arrays.asList(npc.getDefinition().getActions()).contains("Help"))
+					&& Arrays.asList(npc.getComposition().getActions()).contains("Help"))
 			{
 				Shape npcShape = npc.getConvexHull();
 				if (npcShape != null)
@@ -228,7 +228,7 @@ public class NoMoreWintertodtOverlay extends Overlay
 	{
 		if (shapeClickBox != null)
 		{
-			OverlayUtil.renderFilledPolygon(graphics, shapeClickBox, color);
+			OverlayUtil.renderPolygon(graphics, shapeClickBox, color);
 		}
 	}
 

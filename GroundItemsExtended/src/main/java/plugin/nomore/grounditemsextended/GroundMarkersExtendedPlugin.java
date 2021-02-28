@@ -25,8 +25,8 @@
  */
 package plugin.nomore.grounditemsextended;
 
+import com.google.common.base.Strings;
 import com.google.inject.Provides;
-import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.*;
@@ -37,7 +37,6 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 import plugin.nomore.grounditemsextended.builder.ConfigObject;
@@ -53,8 +52,7 @@ import java.util.List;
 @PluginDescriptor(
 		name = "Ex: Ground Items",
 		description = "Ground Items, but with more options.",
-		tags = {"ground", "items", "loot", "nomore"},
-		type = PluginType.UTILITY
+		tags = {"ground", "items", "loot", "nomore"}
 )
 @Slf4j
 public class GroundMarkersExtendedPlugin extends Plugin
@@ -169,7 +167,7 @@ public class GroundMarkersExtendedPlugin extends Plugin
 
 	private HighlightingObject createHighlightingObject(TileItem item, Tile tile)
 	{
-		ItemDefinition def = itemManager.getItemDefinition(item.getId());
+		ItemComposition def = itemManager.getItemComposition(item.getId());
 		return HighlightingObject.builder()
 				.name(def.getName())
 				.id(item.getId())

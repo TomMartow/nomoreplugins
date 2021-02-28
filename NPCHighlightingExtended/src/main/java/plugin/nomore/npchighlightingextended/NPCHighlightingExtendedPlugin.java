@@ -36,7 +36,6 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 import plugin.nomore.npchighlightingextended.builder.ConfigObject;
@@ -52,8 +51,7 @@ import java.util.List;
 @PluginDescriptor(
 		name = "Ex: NPC Highlighting",
 		description = "NPC Highlighting, but with more options.",
-		tags = {"npc", "highlighting", "nomore"},
-		type = PluginType.UTILITY
+		tags = {"npc", "highlighting", "nomore"}
 )
 @Slf4j
 public class NPCHighlightingExtendedPlugin extends Plugin
@@ -191,7 +189,7 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 
 	private HighlightingObject createHighlightingObject(NPC npc)
 	{
-		NPCDefinition cDef = client.getNpcDefinition(npc.getId());
+		NPCComposition cDef = client.getNpcDefinition(npc.getId());
 		if (cDef == null)
 		{
 			return null;

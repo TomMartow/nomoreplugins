@@ -45,7 +45,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 1
 	)
-	default boolean idleSection() { return false; }
+	String idleSection = "idleSection";
 	
 	@ConfigItem(
 			keyName = "enableIdle",
@@ -97,7 +97,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 2
 	)
-	default boolean hpSection() { return false; }
+	String hpSection = "hpSection";
 	
 	@ConfigItem(
 			keyName = "enableHP",
@@ -152,7 +152,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 3
 	)
-	default boolean attackSection() { return false; }
+	String attackSection = "attackSection";
 	
 	@ConfigItem(
 			keyName = "enableAttack",
@@ -207,7 +207,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 4
 	)
-	default boolean strengthSection() { return false; }
+	String strengthSection = "strengthSection";
 
 	@ConfigItem(
 			keyName = "enableStrength",
@@ -262,7 +262,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 5
 	)
-	default boolean defenceSection() { return false; }
+	String defenceSection = "defenceSection";
 
 	@ConfigItem(
 			keyName = "enableDefence",
@@ -317,7 +317,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 6
 	)
-	default boolean rangeSection() { return false; }
+	String rangeSection = "rangeSection";
 
 	@ConfigItem(
 			keyName = "enableRange",
@@ -372,7 +372,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 7
 	)
-	default boolean prayerSection() { return false; }
+	String prayerSection = "prayerSection";
 
 	@ConfigItem(
 			keyName = "enablePrayer",
@@ -427,7 +427,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 8
 	)
-	default boolean magicSection() { return false; }
+	String magicSection = "magicSection";
 
 	@ConfigItem(
 			keyName = "enableMagic",
@@ -482,7 +482,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 9
 	)
-	default boolean specialSection() { return false; }
+	String specialSection = "specialSection";
 
 	@ConfigItem(
 			keyName = "enableSpecial",
@@ -544,7 +544,7 @@ public interface PlayerStatesConfig extends Config {
 			description = "",
 			position = 10
 	)
-	default boolean runEnergySection() { return false; }
+	String runEnergySection = "runEnergySection";
 
 	@ConfigItem(
 			keyName = "enableRunEnergy",

@@ -1,7 +1,7 @@
 package plugin.nomore.inventorytagsextended.utils;
 
-import net.runelite.api.*;
 import net.runelite.api.Point;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.widgets.WidgetItem;
@@ -37,16 +37,18 @@ public class Rendering
         {
             return;
         }
-        OverlayUtil.renderClickBox(graphics, mousePos, convexHull, color);
+        OverlayUtil.renderHoverableArea(graphics, convexHull, mousePos, color, color.darker(), color.brighter());
+
+
     }
 
-    public void outline(Graphics2D graphics, Shape bounds, Color color)
+    public void outline(Graphics2D graphics, Shape bounds, Point mousePos, Color color)
     {
         if (bounds == null)
         {
             return;
         }
-        OverlayUtil.renderOutlinePolygon(graphics, bounds, color);
+        OverlayUtil.renderHoverableArea(graphics, bounds, mousePos, null, color, null);
     }
 
     public void fill(Graphics2D graphics, Shape convexHull, Color color)

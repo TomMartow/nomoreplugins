@@ -7,23 +7,20 @@ import java.awt.*;
 @ConfigGroup("NoMoreAgility")
 public interface NoMoreAgilityConfig extends Config {
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "obstacleTitle",
             name = "Obstacles",
             description = "",
             position = 1
     )
-    default Title obstacleTitle()
-    {
-        return new Title();
-    }
+    String obstacleTitle = "obstacleTitle";
 
     @ConfigItem(
             position = 2,
             keyName = "obstacleHighlightStyle",
             name = "Highlight style",
             description = "How the obstacle will render.",
-            titleSection = "obstacleTitle"
+            title = "obstacleTitle"
     )
     default EnumObstacles obstacleRenderStyle()
     {
@@ -35,7 +32,7 @@ public interface NoMoreAgilityConfig extends Config {
             keyName = "obstacleColor",
             name = "Highlight color",
             description = "Highlight color",
-            titleSection = "obstacleTitle"
+            title = "obstacleTitle"
     )
     default Color obstacleColor()
     {
@@ -50,7 +47,7 @@ public interface NoMoreAgilityConfig extends Config {
             hidden = true,
             unhide = "obstacleHighlightStyle",
             unhideValue = "BOX",
-            titleSection = "obstacleTitle"
+            title = "obstacleTitle"
     )
     default int obstacleBoxSize()
     {
@@ -59,23 +56,20 @@ public interface NoMoreAgilityConfig extends Config {
 
     // MARK OF GRACE
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "marksTitle",
             name = "Marks of Grace",
             description = "",
             position = 5
     )
-    default Title marksTitle()
-    {
-        return new Title();
-    }
+    String marksTitle = "marksTitle";
 
     @ConfigItem(
             position = 6,
             keyName = "marksHighlightStyle",
             name = "Highlight style",
             description = "How the marks of grace will render.",
-            titleSection = "marksTitle"
+            title = "marksTitle"
     )
     default EnumMarks marksRenderStyle()
     {
@@ -87,7 +81,7 @@ public interface NoMoreAgilityConfig extends Config {
             keyName = "marksColor",
             name = "Highlight color",
             description = "Highlight color",
-            titleSection = "marksTitle"
+            title = "marksTitle"
     )
     default Color marksColor()
     {
@@ -102,7 +96,7 @@ public interface NoMoreAgilityConfig extends Config {
             hidden = true,
             unhide = "marksHighlightStyle",
             unhideValue = "BOX",
-            titleSection = "marksTitle"
+            title = "marksTitle"
     )
     default int marksBoxSize()
     {
@@ -114,7 +108,7 @@ public interface NoMoreAgilityConfig extends Config {
             keyName = "markDistance",
             name = "Mark distance",
             description = "Display a overlay over the mark of grace when within x amount of tiles.",
-            titleSection = "marksTitle"
+            title = "marksTitle"
     )
     default int markDistance()
     {

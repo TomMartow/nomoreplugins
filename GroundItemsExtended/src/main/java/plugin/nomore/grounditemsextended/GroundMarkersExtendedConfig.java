@@ -32,20 +32,21 @@ import java.awt.*;
 public interface GroundMarkersExtendedConfig extends Config
 {
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "groundItemHighlightingTitle",
             name = "Overlay Options",
             description = "",
             position = 1
     )
-    default Title groundItemHighlightingTitle() { return new Title(); }
+    String groundItemHighlightingTitle = "Overlay Options";
+
 
     @ConfigItem(
             keyName = "groundItemRenderStyle",
             name = "  Render style",
             description = "The type of marker.",
             position = 5,
-            titleSection = "groundItemHighlightingTitle"
+            title = "groundItemHighlightingTitle"
     )
     default GroundItemRenderStyle groundItemRenderStyle() { return GroundItemRenderStyle.BOX; }
 
@@ -57,7 +58,7 @@ public interface GroundMarkersExtendedConfig extends Config
             hidden = true,
             unhide = "groundItemRenderStyle",
             unhideValue = "BOX",
-            titleSection = "groundItemHighlightingTitle"
+            title = "groundItemHighlightingTitle"
     )
     default int groundItemIndicatorSize() { return 4; }
 
@@ -66,41 +67,41 @@ public interface GroundMarkersExtendedConfig extends Config
             name = "  Name / ID:Hex Color",
             description = "Example: \"Bones:00FF00,\".",
             position = 7,
-            titleSection = "groundItemHighlightingTitle"
+            title = "groundItemHighlightingTitle"
     )
     default String groundItemConfigTextString() { return "Bones, 590"; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "groundItemColorTitle",
             name = "Color Options",
             description = "",
             position = 9
     )
-    default Title groundItemColorTitle() { return new Title(); }
+    String groundItemColorTitle = "Color Options";
 
     @ConfigItem(
             keyName = "groundItemDefaultHighlightColor",
             name = "  Default Marker color",
             description = "The default color for the ground item indicator.",
             position = 11,
-            titleSection = "groundItemColorTitle"
+            title = "groundItemColorTitle"
     )
     default Color groundItemDefaultHighlightColor() { return Color.GREEN; }
 
-    @ConfigTitleSection(
+    @ConfigTitle(
             keyName = "groundItemMiscOptionsTitle",
             name = "Miscellaneous Options",
             description = "",
             position = 13
     )
-    default Title groundItemMiscOptionsTitle() { return new Title(); }
+    String groundItemMiscOptionsTitle = "Color Options";
 
     @ConfigItem(
             keyName = "groundItemLineOfSight",
             name = "  Only show Objects in line of sight",
             description = "Only show Objects your player (tile: diagonally or straight) can \"see\"",
             position = 15,
-            titleSection = "groundItemMiscOptionsTitle"
+            title = "groundItemMiscOptionsTitle"
     )
     default boolean groundItemLineOfSight() { return false; }
 
@@ -109,7 +110,7 @@ public interface GroundMarkersExtendedConfig extends Config
             name = "  Mouse hovering indicator",
             description = "If enabled will display an indicator if hovering over the groundItem.",
             position = 16,
-            titleSection = "groundItemMiscOptionsTitle"
+            title = "groundItemMiscOptionsTitle"
     )
     default boolean groundItemDisplayMouseHoveringIndicator() { return false; }
 
@@ -118,8 +119,8 @@ public interface GroundMarkersExtendedConfig extends Config
             name = "  X:Y:Width:Height indicator location",
             description = "If enabled will display an indicator if hovering over the groundItem.",
             position = 17,
-            titleSection = "groundItemMiscOptionsTitle"
+            title = "groundItemMiscOptionsTitle"
     )
     default String groundItemMouseHoveringIndicatorLocation() { return "10:10:10:10"; }
-    
+
 }

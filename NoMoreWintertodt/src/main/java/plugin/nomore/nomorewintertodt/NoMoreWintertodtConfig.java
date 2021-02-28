@@ -32,23 +32,20 @@ import java.awt.Color;
 @ConfigGroup("nomorewintertodt")
 public interface NoMoreWintertodtConfig extends Config
 {
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "overlaySettingsTitle",
 			name = "Overlay Settings",
 			description = "",
 			position = 1
 	)
-	default Title highlightStyleTitle()
-	{
-		return new Title();
-	}
+	String highlightStyleTitle = "overlaySettingsTitle";
 
 	@ConfigItem(
 			position = 2,
 			keyName = "objectHighlightStyle",
 			name = "Highlight style",
 			description = "Choose the rendering style for the objects.",
-			titleSection = "overlaySettingsTitle"
+			title = "overlaySettingsTitle"
 	)
 	default RenderStyle renderStyle() { return RenderStyle.CLICKBOX; }
 
@@ -57,38 +54,32 @@ public interface NoMoreWintertodtConfig extends Config
 			keyName = "locationOverlay",
 			name = "Overlay side",
 			description = "Displays the overlays on the chosen side.",
-			titleSection = "overlaySettingsTitle"
+			title = "overlaySettingsTitle"
 	)
 	default Location locationSide() { return Location.EAST; }
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "objectsTitle",
 			name = "Individual Settings",
 			description = "",
 			position = 4
 	)
-	default Title objectsTitle()
-	{
-		return new Title();
-	}
+	String objectsTitle = "objectsTitle";
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "brumaRootTitle",
 			name = "Bruma Root",
 			description = "",
 			position = 5
 	)
-	default Title brumaRootTitle()
-	{
-		return new Title();
-	}
+	String brumaRootTitle = "brumaRootTitle";
 
 	@ConfigItem(
 			keyName = "displayBruma",
 			name = "Display overlay",
 			description = "Display the overlay.",
 			position = 6,
-			titleSection = "brumaRootTitle"
+			title = "brumaRootTitle"
 	)
 	default boolean displayBruma()
 	{
@@ -100,7 +91,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Overlay color",
 			description = "The color of the overlay.",
 			position = 7,
-			titleSection = "brumaRootTitle"
+			title = "brumaRootTitle"
 	)
 	default Color brumaColor()
 	{
@@ -112,7 +103,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Box size",
 			description = "The size of the box overlay.",
 			position = 8,
-			titleSection = "brumaRootTitle",
+			title = "brumaRootTitle",
 			hidden = true,
 			unhide = "objectHighlightStyle",
 			unhideValue = "BOX"
@@ -122,23 +113,20 @@ public interface NoMoreWintertodtConfig extends Config
 		return 4;
 	}
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "litBrazierTitle",
 			name = "Lit Brazier",
 			description = "",
 			position = 9
 	)
-	default Title litBrazierTitle()
-	{
-		return new Title();
-	}
+	String litBrazierTitle = "litBrazierTitle";
 	
 	@ConfigItem(
 			keyName = "displayLitBrazier",
 			name = "Display overlay",
 			description = "Display the overlay.",
 			position = 10,
-			titleSection = "litBrazierTitle"
+			title = "litBrazierTitle"
 	)
 	default boolean displayLitBrazier()
 	{
@@ -150,7 +138,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Overlay color",
 			description = "The overlay color.",
 			position = 11,
-			titleSection = "litBrazierTitle"
+			title = "litBrazierTitle"
 	)
 	default Color litBrazierColor() { return Color.GREEN; }
 
@@ -159,7 +147,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Box size",
 			description = "The size of the box overlay.",
 			position = 12,
-			titleSection = "litBrazierTitle",
+			title = "litBrazierTitle",
 			hidden = true,
 			unhide = "objectHighlightStyle",
 			unhideValue = "BOX"
@@ -169,23 +157,20 @@ public interface NoMoreWintertodtConfig extends Config
 		return 4;
 	}
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "unlitBrazierTitle",
 			name = "Unlit Brazier",
 			description = "",
 			position = 13
 	)
-	default Title unlitBrazierTitle()
-	{
-		return new Title();
-	}
+	String unlitBrazierTitle = "unlitBrazierTitle";
 
 	@ConfigItem(
 			keyName = "displayUnlitBrazier",
 			name = "Display overlay",
 			description = "Display the overlay.",
 			position = 14,
-			titleSection = "unlitBrazierTitle"
+			title = "unlitBrazierTitle"
 	)
 	default boolean displayUnlitBrazier()
 	{
@@ -197,7 +182,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Overlay color",
 			description = "The overlay color.",
 			position = 15,
-			titleSection = "unlitBrazierTitle"
+			title = "unlitBrazierTitle"
 	)
 	default Color unlitBrazierColor() { return Color.RED; }
 
@@ -206,7 +191,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Box size",
 			description = "The size of the box overlay.",
 			position = 16,
-			titleSection = "unlitBrazierTitle",
+			title = "unlitBrazierTitle",
 			hidden = true,
 			unhide = "objectHighlightStyle",
 			unhideValue = "BOX"
@@ -216,20 +201,20 @@ public interface NoMoreWintertodtConfig extends Config
 		return 4;
 	}
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "brokenBrazierTitle",
 			name = "Broken Brazier",
 			description = "",
 			position = 17
 	)
-	default Title brokenBrazierTitle() { return new Title(); }
+	String brokenBrazierTitle = "brokenBrazierTitle";
 
 	@ConfigItem(
 			keyName = "displayBrokenBrazier",
 			name = "Display overlay",
 			description = "Display the overlay.",
 			position = 18,
-			titleSection = "brokenBrazierTitle"
+			title = "brokenBrazierTitle"
 	)
 	default boolean displayBrokenBrazier() { return true; }
 
@@ -238,7 +223,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Overlay color",
 			description = "The overlay color.",
 			position = 19,
-			titleSection = "brokenBrazierTitle"
+			title = "brokenBrazierTitle"
 	)
 	default Color brokenBrazierColor() { return Color.ORANGE; }
 
@@ -247,7 +232,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Box size",
 			description = "The size of the box overlay.",
 			position = 20,
-			titleSection = "brokenBrazierTitle",
+			title = "brokenBrazierTitle",
 			hidden = true,
 			unhide = "objectHighlightStyle",
 			unhideValue = "BOX"
@@ -257,20 +242,20 @@ public interface NoMoreWintertodtConfig extends Config
 		return 4;
 	}
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "pyroTitle",
 			name = "Pyromancer",
 			description = "",
 			position = 21
 	)
-	default Title pyroTitle() { return new Title(); }
+	String pyroTitle = "pyroTitle";
 
 	@ConfigItem(
 			keyName = "displayPyro",
 			name = "Display overlay",
 			description = "Display the overlay.",
 			position = 22,
-			titleSection = "pyroTitle"
+			title = "pyroTitle"
 	)
 	default boolean displayPyroBrazier() { return true; }
 
@@ -279,7 +264,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Overlay color",
 			description = "The overlay color.",
 			position = 23,
-			titleSection = "pyroTitle"
+			title = "pyroTitle"
 	)
 	default Color pyroColor() { return Color.CYAN; }
 
@@ -288,7 +273,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Box size",
 			description = "The size of the box overlay.",
 			position = 24,
-			titleSection = "pyroTitle",
+			title = "pyroTitle",
 			hidden = true,
 			unhide = "objectHighlightStyle",
 			unhideValue = "BOX"
@@ -298,20 +283,20 @@ public interface NoMoreWintertodtConfig extends Config
 		return 4;
 	}
 
-	@ConfigTitleSection(
+	@ConfigTitle(
 			keyName = "miscTitle",
 			name = "Misc",
 			description = "",
 			position = 25
 	)
-	default Title miscTitle() { return new Title(); }
+	String miscTitle = "miscTitle";
 
 	@ConfigItem(
 			keyName = "displayMinigameStatus",
 			name = "Display minigame status",
 			description = "Display's a coloured overlay dependent on the minigame status.",
 			position = 26,
-			titleSection = "miscTitle"
+			title = "miscTitle"
 	)
 	default boolean displayMinigameStatus()
 	{
@@ -323,7 +308,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Wintertodt HUD",
 			description = "Hides the Wintertodt widgets.",
 			position = 27,
-			titleSection = "miscTitle"
+			title = "miscTitle"
 	)
 	default WidgetStyle wintertotdHUD()
 	{
@@ -335,7 +320,7 @@ public interface NoMoreWintertodtConfig extends Config
 			name = "Display points",
 			description = "Display's the points gained in the current game.",
 			position = 28,
-			titleSection = "miscTitle"
+			title = "miscTitle"
 	)
 	default boolean displayPoints()
 	{

@@ -34,15 +34,12 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
-import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
 
@@ -52,8 +49,7 @@ import java.time.LocalDateTime;
 @PluginDescriptor(
 		name = "Player States Indicators",
 		description = "Displays indicators based on the players current state and skill levels.",
-		tags = {"idle", "skills", "state", "nomore"},
-		type = PluginType.UTILITY
+		tags = {"idle", "skills", "state", "nomore"}
 )
 @Slf4j
 public class PlayerStatesPlugin extends Plugin {
