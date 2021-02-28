@@ -25,52 +25,121 @@
  */
 package plugin.nomore.interactionhud;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.events.GameTick;
+import net.runelite.api.MenuOpcode;
+import net.runelite.api.NPC;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.queries.NPCQuery;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
-import plugin.nomore.nmputils.NMPUtils;
-import plugin.nomore.nmputils.api.DebugAPI;
+import plugin.nomore.interactionhud.builds.BuiltNPC;
 
 import javax.inject.Inject;
+import java.awt.image.BufferedImage;
+import java.util.Set;
 
 @Extension
 @PluginDescriptor(
-		name = "New Plugin",
-		description = "New Plugin Description",
-		tags = {"tag1", "tag2", "tag3"},
+		name = "Interaction HUD",
+		description = "Display's a marker over what you are interacting with.",
+		tags = {"nomore", "interaction", "hud"},
 		type = PluginType.UTILITY
 )
 @Slf4j
-public class NewPluginPlugin extends Plugin
+public class InteractionHUDPlugin extends Plugin
 {
 
 	@Inject
 	private Client client;
 
+	@Inject
+	private OverlayManager overlayManager;
+
+	@Inject
+	private InteractionHUDOverlay overlay;
+
+	@Inject
+	private ItemManager itemManager;
+
 	@Provides
-	NewAutomationPluginConfig provideConfig(ConfigManager configManager)
+	InteractionHUDConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(NewAutomationPluginConfig.class);
+		return configManager.getConfig(InteractionHUDConfig.class);
 	}
+
+	Set<MenuOpcode> npcMenuOpcodes = ImmutableSet.of(
+			MenuOpcode.NPC_FIRST_OPTION,
+			MenuOpcode.NPC_SECOND_OPTION,
+			MenuOpcode.NPC_THIRD_OPTION,
+			MenuOpcode.NPC_FOURTH_OPTION,
+			MenuOpcode.NPC_FIFTH_OPTION,
+			MenuOpcode.EXAMINE_NPC
+	);
+
+	Set<String> fishingOptions = ImmutableSet.of(
+			"Use-rod",
+			"Cage",
+			"Lure"
+	);
+
+	@Getter(AccessLevel.PACKAGE)@Setter(AccessLevel.PACKAGE)
+	BuiltNPC builtNPC = null;
 
 	@Override
 	protected void startUp()
 	{
+		overlayManager.add(overlay);
 		log.info("Plugin started.");
 	}
 
 	@Override
 	protected void shutDown()
 	{
+		overlayManager.remove(overlay);
 		log.info("Plugin finished.");
+	}
+
+	@Subscribe
+	private void on(MenuOptionClicked event)
+	{
+		if (npcMenuOpcodes.contains(event.getMenuOpcode()))
+		{
+			if (fishingOptions.contains(event.getOption()))
+			{
+				setBuiltNPC(BuiltNPC.builder()
+						.npc(getNpc(event))
+						.systemTime(System.currentTimeMillis())
+						.build());
+			}
+		}
+	}
+
+	private NPC getNpc(MenuOptionClicked event)
+	{
+		return new NPCQuery()
+				.result(client)
+				.stream()
+				.filter(npc1 -> npc1 != null
+						&& npc1.getIndex() == event.getIdentifier())
+				.findFirst()
+				.orElse(null);
+	}
+
+	public BufferedImage getImage(int id)
+	{
+		return itemManager.getImage(id);
 	}
 
 }

@@ -103,11 +103,8 @@ public class UpOrDownPlugin extends Plugin
 	@Subscribe
 	private void on(GameStateChanged e)
 	{
-		switch (client.getGameState())
-		{
-			case LOADING:
-				elevationObjects.clear();
-				break;
+		if (client.getGameState() == GameState.LOADING) {
+			elevationObjects.clear();
 		}
 	}
 

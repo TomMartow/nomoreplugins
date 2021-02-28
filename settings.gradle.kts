@@ -38,6 +38,7 @@ include(":NPCHighlightingExtended")
 include(":GroundItemsExtended")
 include(":InventoryTagsExtended")
 include(":ObjectMarkersExtended")
+include(":InteractionHUD")
 
 for (project in rootProject.children) {
     project.apply {

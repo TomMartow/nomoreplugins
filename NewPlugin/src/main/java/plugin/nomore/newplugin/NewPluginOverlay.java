@@ -1,4 +1,4 @@
-package plugin.nomore.upordown;
+package plugin.nomore.interactionhud;
 
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;

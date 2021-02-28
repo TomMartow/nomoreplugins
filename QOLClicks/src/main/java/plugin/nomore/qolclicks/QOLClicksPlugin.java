@@ -42,8 +42,8 @@ import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
+import plugin.nomore.qolclicks.newformat.Menu;
 import plugin.nomore.qolclicks.utils.automation.*;
 import plugin.nomore.qolclicks.utils.automation.Random;
 import plugin.nomore.qolclicks.utils.debugging.Debug;
@@ -71,6 +71,10 @@ import java.util.List;
 @Slf4j
 public class QOLClicksPlugin extends Plugin
 {
+
+	//New
+	@Inject
+	private Menu menu;
 
 	@Inject private Client client;
 	@Inject private ClientThread clientThread;
@@ -134,6 +138,7 @@ public class QOLClicksPlugin extends Plugin
 	@Subscribe
 	private void on(MenuOpened e)
 	{
+		menu.opened(e);
 		if (e.getFirstEntry().getParam1() == WidgetInfo.INVENTORY.getId())
 		{
 			if (config.enableDropMatching()
@@ -156,6 +161,7 @@ public class QOLClicksPlugin extends Plugin
 	@Subscribe
 	private void on(MenuOptionClicked e)
 	{
+		menu.optionClicked(e);
 		MenuEntry originalEntry = e.clone();
 
 		//  ███████╗██╗██████╗ ███████╗███╗   ███╗ █████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗
@@ -537,9 +543,11 @@ public class QOLClicksPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void on(MenuEntryAdded event)
+	private void on(MenuEntryAdded e)
 	{
-		if (event.getOpcode() == MenuOpcode.ITEM_USE.getId())
+		menu.entryAdded(e);
+
+		if (e.getOpcode() == MenuOpcode.ITEM_USE.getId())
 		{
 
 			//  ███████╗██╗██████╗ ███████╗███╗   ███╗ █████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗
@@ -551,16 +559,16 @@ public class QOLClicksPlugin extends Plugin
 			//
 
 			if (config.enableFiremaking()
-					&& client.getItemDefinition(event.getIdentifier())
+					&& client.getItemDefinition(e.getIdentifier())
 					.getName()
 					.toLowerCase()
 					.contains("logs"))
 			{
 				added.useItemOnItem(
 						"Burn",
-						inventory.getItem(event.getIdentifier()),
+						inventory.getItem(e.getIdentifier()),
 						inventory.getItem("Tinderbox"),
-						event);
+						e);
 			}
 
 			//   ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗███╗   ██╗ ██████╗
@@ -571,7 +579,7 @@ public class QOLClicksPlugin extends Plugin
 			//   ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝
 			//
 
-			if (client.getItemDefinition(event.getIdentifier())
+			if (client.getItemDefinition(e.getIdentifier())
 				.getName()
 				.toLowerCase()
 				.contains("raw")
@@ -582,25 +590,25 @@ public class QOLClicksPlugin extends Plugin
 				{
 					added.useItemOnGameObject(
 							"Cook",
-							inventory.getItem(event.getIdentifier()),
+							inventory.getItem(e.getIdentifier()),
 							objects.getClosestGameObjectMatching("Fire"),
-							event);
+							e);
 				}
 				else if (config.enableRange() && !config.enableFire())
 				{
 					added.useItemOnGameObject(
 							"Cook",
-							inventory.getItem(event.getIdentifier()),
+							inventory.getItem(e.getIdentifier()),
 							objects.getClosestGameObjectMatching("Range"),
-							event);
+							e);
 				}
 				else if (config.enableRange() && config.enableFire())
 				{
 					added.useItemOnGameObject(
 							"Cook",
-							inventory.getItem(event.getIdentifier()),
+							inventory.getItem(e.getIdentifier()),
 							objects.getMatchingGameObjectsSortedByClosest("Fire", "Range").get(0),
-							event);
+							e);
 				}
 			}
 
@@ -613,18 +621,18 @@ public class QOLClicksPlugin extends Plugin
 			//
 
 			if (config.enableBarbarianRod()
-					&& client.getItemDefinition(event.getIdentifier())
+					&& client.getItemDefinition(e.getIdentifier())
 					.getName()
 					.equalsIgnoreCase("Barbarian rod"))
 			{
 				added.interactWithNPC(
 						"Use-rod",
 						npcs.getClosestNpcWithMenuAction("Use-rod"),
-						event);
+						e);
 			}
 
 			if (config.enableCutOffcuts()
-					&& client.getItemDefinition(event.getIdentifier())
+					&& client.getItemDefinition(e.getIdentifier())
 					.getName()
 					.equalsIgnoreCase("Knife"))
 			{
@@ -636,30 +644,30 @@ public class QOLClicksPlugin extends Plugin
 							"Cut",
 							inventory.getItem("Knife"),
 							inventory.getItem("Knife"),
-							event);
+							e);
 				}
 			}
 
 			if (config.enableLobsterPot()
-					&& client.getItemDefinition(event.getIdentifier())
+					&& client.getItemDefinition(e.getIdentifier())
 					.getName()
 					.equalsIgnoreCase("Lobster pot"))
 			{
 				added.interactWithNPC(
 						"Cage",
 						npcs.getClosestNpcWithMenuAction("Cage"),
-						event);
+						e);
 			}
 
 			if (config.enableFishingRod()
-					&& client.getItemDefinition(event.getIdentifier())
+					&& client.getItemDefinition(e.getIdentifier())
 					.getName()
 					.equalsIgnoreCase("Fly fishing rod"))
 			{
 				added.interactWithNPC(
 						"Lure",
 						npcs.getClosestNpcWithMenuAction("Lure"),
-						event);
+						e);
 			}
 
 			//  ██████╗ ██████╗  █████╗ ██╗   ██╗███████╗██████╗
@@ -672,7 +680,7 @@ public class QOLClicksPlugin extends Plugin
 
 			if (config.enableUnnoteBones())
 			{
-				ItemDefinition def = client.getItemDefinition(event.getIdentifier());
+				ItemDefinition def = client.getItemDefinition(e.getIdentifier());
 				if (def.isStackable()
 						&& def.getName()
 						.toLowerCase()
@@ -680,9 +688,9 @@ public class QOLClicksPlugin extends Plugin
 				{
 					added.useItemOnNPC(
 							"Unnote",
-							inventory.getItem(event.getIdentifier()),
+							inventory.getItem(e.getIdentifier()),
 							npcs.getClosestMatchingName("Phials"),
-							event);
+							e);
 				}
 
 			}
