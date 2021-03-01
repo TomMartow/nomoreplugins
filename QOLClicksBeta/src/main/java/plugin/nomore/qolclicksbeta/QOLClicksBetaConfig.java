@@ -24,10 +24,7 @@
  */
 package plugin.nomore.qolclicksbeta;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigTitle;
+import net.runelite.client.config.*;
 
 @ConfigGroup("qolclicksbeta")
 public interface QOLClicksBetaConfig extends Config
@@ -318,4 +315,91 @@ public interface QOLClicksBetaConfig extends Config
     )
     default String useItemOnObjectIds() { return "1519:590"; }
 
+//   █████╗ ██╗   ██╗████████╗ ██████╗ ███╗   ███╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+//  ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+//  ███████║██║   ██║   ██║   ██║   ██║██╔████╔██║███████║   ██║   ██║██║   ██║██╔██╗ ██║
+//  ██╔══██║██║   ██║   ██║   ██║   ██║██║╚██╔╝██║██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
+//  ██║  ██║╚██████╔╝   ██║   ╚██████╔╝██║ ╚═╝ ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
+//  ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+//
+
+    @ConfigTitle(
+            keyName = "automationTitle",
+            name = "Automation Options",
+            description = "",
+            position = 2
+    )
+    String automationTitle = "automationTitle";
+
+    @ConfigItem(
+            keyName = "droppingKeybind",
+            name = "Keybind",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            position = 3,
+            title = "automationTitle"
+    )
+    default Keybind dropKeybind() { return Keybind.NOT_SET; }
+
+    @ConfigItem(
+            keyName = "dropMatching",
+            name = "Drop matching",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            position = 4,
+            title = "automationTitle"
+    )
+    default boolean dropMatching() { return false; }
+
+    @ConfigItem(
+            keyName = "matchingList",
+            name = "Matching list",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            position = 5,
+            title = "automationTitle"
+    )
+    default String matchingList() { return "Bones"; }
+
+    @ConfigItem(
+            keyName = "dropExcept",
+            name = "Drop except",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            position = 6,
+            title = "automationTitle"
+    )
+    default boolean dropExcept() { return false; }
+
+    @ConfigItem(
+            keyName = "exceptList",
+            name = "Except list",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that don't match in the box below will be dropped.",
+            position = 7,
+            title = "automationTitle"
+    )
+    default String exceptList() { return "Bones"; }
+
+    @ConfigItem(
+            keyName = "listOrder",
+            name = "Order",
+            description = "The iteration order.",
+            position = 8,
+            title = "automationTitle"
+    )
+    default String listOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
+
+    @ConfigItem(
+            keyName = "minTime",
+            name = "Min (millis)",
+            description = "The minimum time between dropping.",
+            position = 9,
+            title = "automationTitle"
+    )
+    default String minTime() { return "250"; }
+
+    @ConfigItem(
+            keyName = "maxTime",
+            name = "Max (millis)",
+            description = "The maximum time between dropping.",
+            position = 10,
+            title = "automationTitle"
+    )
+    default String maxTime() { return "1000"; }
 }

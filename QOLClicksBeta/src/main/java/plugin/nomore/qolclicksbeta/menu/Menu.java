@@ -78,22 +78,6 @@ public class Menu
             gameObj.useItemOnGameObject(e);
         }
 
-        debugMessage(e);
-    }
-
-    private void debugMessage(MenuOptionClicked e)
-    {
-        if (e.getMenuAction() == MenuAction.WALK)
-        {
-            return;
-        }
-        System.out.println("Option: " + e.getMenuOption() + "\n" +
-                "Target: " + e.getMenuTarget() + "\n" +
-                "ID: " + e.getId() + "\n" +
-                "MenuAction: " + e.getMenuAction() + "\n" +
-                "ActionParam: " + e.getActionParam() + "\n" +
-                "WidgetID: " + e.getWidgetId() + "\n"
-        );
     }
 
 }

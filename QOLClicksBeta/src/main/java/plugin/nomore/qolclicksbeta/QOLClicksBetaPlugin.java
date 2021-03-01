@@ -28,17 +28,21 @@ package plugin.nomore.qolclicksbeta;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
+import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
 import plugin.nomore.qolclicksbeta.menu.Menu;
+import plugin.nomore.qolclicksbeta.utils.Automation;
 
 import javax.inject.Inject;
 
@@ -65,7 +69,13 @@ public class QOLClicksBetaPlugin extends Plugin
 	private QOLClicksBetaOverlay overlay;
 
 	@Inject
+	private KeyManager keyManager;
+
+	@Inject
 	private Menu menu;
+
+	@Inject
+	private Automation automation;
 
 	@Provides
 	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
@@ -73,23 +83,61 @@ public class QOLClicksBetaPlugin extends Plugin
 		return configManager.getConfig(QOLClicksBetaConfig.class);
 	}
 
+	private final HotkeyListener toggle = new HotkeyListener(() -> config.dropKeybind())
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			automation.setReadyToDrop(true);
+		}
+	};
+
 	@Override
 	protected void startUp()
 	{
+		keyManager.registerKeyListener(toggle);
 		overlayManager.add(overlay);
 	}
 
 	@Override
 	protected void shutDown()
 	{
+		keyManager.unregisterKeyListener(toggle);
 		overlayManager.remove(overlay);
+	}
+
+	@Subscribe
+	private void on(GameTick e)
+	{
+		if (automation.isBusy())
+		{
+			return;
+		}
+
+		if (automation.isReadyToDrop())
+		{
+			automation.dropItems();
+		}
 	}
 
 	@Subscribe
 	private void on(MenuOpened e) { menu.onOpen(e); }
 
 	@Subscribe
-	private void on(MenuOptionClicked e) { menu.onClicked(e);}
+	private void on(MenuOptionClicked e)
+	{
+		if (automation.getTargetMenu() == null)
+		{
+			menu.onClicked(e);
+		}
+		else
+		{
+			e.setMenuEntry(automation.getTargetMenu());
+			automation.setTargetMenu(null);
+		}
+
+		debugMessage(e);
+	}
 
 	@Subscribe
 	private void on(MenuEntryAdded e) { menu.onAdded(e); }
@@ -111,6 +159,23 @@ public class QOLClicksBetaPlugin extends Plugin
 				e.getParam0(),
 				e.getParam1(),
 				forceLeftClick
+		);
+	}
+
+	private void debugMessage(MenuOptionClicked e)
+	{
+		if (e.getMenuAction() == MenuAction.WALK)
+		{
+			return;
+		}
+		System.out.println(
+				"Point: " + automation.getClickedPoint() + "\n" +
+				"Option: " + e.getMenuOption() + "\n" +
+				"Target: " + e.getMenuTarget() + "\n" +
+				"ID: " + e.getId() + "\n" +
+				"MenuAction: " + e.getMenuAction() + "\n" +
+				"ActionParam: " + e.getActionParam() + "\n" +
+				"WidgetID: " + e.getWidgetId() + "\n"
 		);
 	}
 }
