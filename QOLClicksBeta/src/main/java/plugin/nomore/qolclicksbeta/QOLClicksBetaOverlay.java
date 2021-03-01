@@ -5,6 +5,7 @@ import net.runelite.client.ui.overlay.*;
 import net.runelite.client.util.ImageUtil;
 import plugin.nomore.qolclicksbeta.builds.BuiltNPC;
 import plugin.nomore.qolclicksbeta.builds.BuiltObject;
+import plugin.nomore.qolclicksbeta.highlighting.Arrow;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -23,52 +24,56 @@ public class QOLClicksBetaOverlay extends Overlay
     private QOLClicksBetaConfig config;
 
     @Inject
+    private Arrow arrow;
+
+    @Inject
     public QOLClicksBetaOverlay() {
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.LOW);
         setLayer(OverlayLayer.ABOVE_SCENE);
     }
 
-    static final BufferedImage arrow = ImageUtil.loadImageResource(QOLClicksBetaPlugin.class, "/arrow.png");
-    static final BufferedImage background = ImageUtil.loadImageResource(QOLClicksBetaPlugin.class, "/background1.png");
-    static final int backgroundHeight = 60;
-    static final int backgroundWidth = 45;
+    static final BufferedImage arrowIcon = ImageUtil.loadImageResource(QOLClicksBetaPlugin.class, "/arrow.png");
 
     @Override
     public Dimension render(Graphics2D graphics)
     {
-        if (plugin.getBuiltNPC() != null)
+        if (arrow.getBuiltNPC() != null)
         {
-            renderNPC(graphics, plugin.getBuiltNPC());
+            renderNPC(graphics, arrow.getBuiltNPC());
         }
-        if (plugin.getBuiltObject() != null)
+        if (arrow.getBuiltObject() != null)
         {
-            renderObject(graphics, plugin.getBuiltObject());
+            renderObject(graphics, arrow.getBuiltObject());
         }
         return null;
     }
 
     private void renderNPC(Graphics2D graphics, BuiltNPC builtNPC)
     {
-        if (System.currentTimeMillis() < builtNPC.getSystemTime() + 500)
+        long timeNow = System.currentTimeMillis();
+        long npcTime = builtNPC.getSystemTime();
+        if (timeNow < npcTime + 500 || (timeNow < npcTime + 1500 && timeNow > npcTime + 1000))
         {
-            renderIcon(graphics, builtNPC.getNpc().getConvexHull(), arrow, 0, -20);
+            renderIcon(graphics, builtNPC.getNpc().getConvexHull(), arrowIcon, 0, (int) - (builtNPC.getNpc().getModelHeight() * 0.5));
         }
-        else if (System.currentTimeMillis() < builtNPC.getSystemTime() + 1000)
+        if (timeNow > npcTime + 1500)
         {
-            renderIcon(graphics, builtNPC.getNpc().getConvexHull(), arrow, 0, -20);
+            arrow.setBuiltNPC(null);
         }
     }
 
     private void renderObject(Graphics2D graphics, BuiltObject builtObject)
     {
-        if (System.currentTimeMillis() < builtObject.getSystemTime() + 500)
+        long timeNow = System.currentTimeMillis();
+        long objectTime = builtObject.getSystemTime();
+        if (timeNow < objectTime + 500 || (timeNow < objectTime + 1500 && timeNow > objectTime + 1000))
         {
-            renderIcon(graphics, builtObject.getGameObject().getClickbox(), arrow, 0, -20);
+            renderIcon(graphics, builtObject.getGameObject().getClickbox(), arrowIcon, 0, -25);
         }
-        else if (System.currentTimeMillis() < builtObject.getSystemTime() + 1000)
+        if (timeNow > objectTime + 1500)
         {
-            renderIcon(graphics, builtObject.getGameObject().getClickbox(), arrow, 0, -20);
+            arrow.setBuiltObject(null);
         }
     }
 

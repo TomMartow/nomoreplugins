@@ -11,7 +11,6 @@ import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.queries.GameObjectQuery;
 import net.runelite.api.queries.NPCQuery;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.builds.BuiltNPC;
 import plugin.nomore.qolclicksbeta.builds.BuiltObject;
 
@@ -24,8 +23,13 @@ public class Arrow
     @Inject
     Client client;
 
-    @Inject
-    QOLClicksBetaPlugin plugin;
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PUBLIC)
+    static BuiltNPC builtNPC = null;
+
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PUBLIC)
+    static BuiltObject builtObject = null;
 
     Set<MenuAction> npcMenuActions = ImmutableSet.of(
             MenuAction.NPC_FIRST_OPTION,
@@ -53,14 +57,16 @@ public class Arrow
     {
         if (npcMenuActions.contains(event.getMenuAction()))
         {
-            plugin.setBuiltNPC(BuiltNPC.builder()
+            setBuiltObject(null);
+            setBuiltNPC(BuiltNPC.builder()
                     .npc(getNpc(event))
                     .systemTime(System.currentTimeMillis())
                     .build());
         }
         if (objectMenuActions.contains(event.getMenuAction()))
         {
-            plugin.setBuiltObject(BuiltObject.builder()
+            setBuiltNPC(null);
+            setBuiltObject(BuiltObject.builder()
                     .gameObject(getGameObject(event))
                     .systemTime(System.currentTimeMillis())
                     .build());

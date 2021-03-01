@@ -26,14 +26,11 @@
 package plugin.nomore.qolclicksbeta;
 
 import com.google.inject.Provides;
-import joptsimple.internal.Strings;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
+import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.queries.GameObjectQuery;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
@@ -41,9 +38,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import org.pf4j.Extension;
-import plugin.nomore.qolclicksbeta.builds.BuiltNPC;
-import plugin.nomore.qolclicksbeta.builds.BuiltObject;
-import plugin.nomore.qolclicksbeta.highlighting.Arrow;
+import plugin.nomore.qolclicksbeta.menu.Menu;
 
 import javax.inject.Inject;
 
@@ -67,23 +62,13 @@ public class QOLClicksBetaPlugin extends Plugin
 	private QOLClicksBetaOverlay overlay;
 
 	@Inject
-	private ItemManager itemManager;
-
-	@Inject
-	private Arrow arrow;
+	private Menu menu;
 
 	@Provides
 	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(QOLClicksBetaConfig.class);
 	}
-
-	@Getter(AccessLevel.PUBLIC)
-	@Setter(AccessLevel.PUBLIC)
-	BuiltNPC builtNPC = null;
-	@Getter(AccessLevel.PUBLIC)
-	@Setter(AccessLevel.PUBLIC)
-	BuiltObject builtObject = null;
 
 	@Override
 	protected void startUp()
@@ -98,37 +83,11 @@ public class QOLClicksBetaPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void on(MenuOptionClicked e)
-	{
-		arrow.draw(e);
+	private void on(MenuOpened e) { menu.onOpen(e); }
 
-		debugMessage(e);
-	}
+	@Subscribe
+	private void on(MenuOptionClicked e) { menu.onClicked(e); }
 
-	private void debugMessage(MenuOptionClicked e)
-	{
-		System.out.println("Option: " + e.getMenuOption() +
-				"Target: " + e.getMenuOption() +
-				"ID: " + e.getMenuOption() +
-				"MenuAction: " + e.getMenuOption() +
-				"ActionParam: " + e.getMenuOption() +
-				"WidgetID: " + e.getMenuOption()
-		);
-
-		GameObject gameObject = new GameObjectQuery()
-				.result(client)
-				.stream()
-				.filter(object -> object != null
-						&& object.getId() == e.getId())
-				.findFirst()
-				.orElse(null);
-		if (gameObject == null)
-		{
-			System.out.println("GameObject is null.");
-			return;
-		}
-		System.out.println("GameObject is not null.");
-		System.out.println(gameObject.getSceneMinLocation().getX() + ", " + gameObject.getSceneMinLocation().getY());
-	}
-
+	@Subscribe
+	private void on(MenuEntryAdded e) { menu.onAdded(e); }
 }

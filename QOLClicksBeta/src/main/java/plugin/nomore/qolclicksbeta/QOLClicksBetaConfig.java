@@ -27,25 +27,18 @@ package plugin.nomore.qolclicksbeta;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitle;
 
 @ConfigGroup("NewPlugin")
 public interface QOLClicksBetaConfig extends Config
 {
 
-    @ConfigItem(
-            keyName = "offsetX",
-            name = "Offset X",
+    @ConfigTitle(
+            keyName = "testTitle",
+            name = "Title",
             description = "",
             position = 1
     )
-    default String offsetX() { return "0"; }
-
-    @ConfigItem(
-            keyName = "offsetY",
-            name = "Offset Y",
-            description = "",
-            position = 1
-    )
-    default String offsetY() { return "0"; }
+    String testTitle = "testTitle";
 
 }
