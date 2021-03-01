@@ -67,24 +67,26 @@ public class Arrow
         }
     }
 
-    private NPC getNpc(MenuOptionClicked event)
+    private NPC getNpc(MenuOptionClicked e)
     {
         return new NPCQuery()
                 .result(client)
                 .stream()
                 .filter(npc1 -> npc1 != null
-                        && npc1.getIndex() == event.getId())
+                        && npc1.getIndex() == e.getId())
                 .findFirst()
                 .orElse(null);
     }
 
-    private GameObject getGameObject(MenuOptionClicked event)
+    private GameObject getGameObject(MenuOptionClicked e)
     {
         return new GameObjectQuery()
                 .result(client)
                 .stream()
                 .filter(object -> object != null
-                        && object.getId() == event.getId())
+                        && object.getId() == e.getId()
+                        && object.getSceneMinLocation().getX() == e.getActionParam()
+                        && object.getSceneMinLocation().getY() == e.getWidgetId())
                 .findFirst()
                 .orElse(null);
     }

@@ -110,8 +110,8 @@ subprojects {
             into("./build/deps/")
             from(configurations["runtimeClasspath"])
         }
-		
-		withType<Jar> {
+
+        withType<Jar> {
             doLast {
                 copy {
                     from("./build/libs/")

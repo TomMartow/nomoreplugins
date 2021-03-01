@@ -26,12 +26,14 @@
 package plugin.nomore.qolclicksbeta;
 
 import com.google.inject.Provides;
+import joptsimple.internal.Strings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.queries.GameObjectQuery;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
@@ -44,7 +46,6 @@ import plugin.nomore.qolclicksbeta.builds.BuiltObject;
 import plugin.nomore.qolclicksbeta.highlighting.Arrow;
 
 import javax.inject.Inject;
-import java.awt.image.BufferedImage;
 
 @Extension
 @PluginDescriptor(
@@ -88,25 +89,46 @@ public class QOLClicksBetaPlugin extends Plugin
 	protected void startUp()
 	{
 		overlayManager.add(overlay);
-		log.info("Plugin started.");
 	}
 
 	@Override
 	protected void shutDown()
 	{
 		overlayManager.remove(overlay);
-		log.info("Plugin finished.");
 	}
 
 	@Subscribe
-	private void on(MenuOptionClicked event)
+	private void on(MenuOptionClicked e)
 	{
-		arrow.draw(event);
+		arrow.draw(e);
+
+		debugMessage(e);
 	}
 
-	public BufferedImage getImage(int id)
+	private void debugMessage(MenuOptionClicked e)
 	{
-		return itemManager.getImage(id);
+		System.out.println("Option: " + e.getMenuOption() +
+				"Target: " + e.getMenuOption() +
+				"ID: " + e.getMenuOption() +
+				"MenuAction: " + e.getMenuOption() +
+				"ActionParam: " + e.getMenuOption() +
+				"WidgetID: " + e.getMenuOption()
+		);
+
+		GameObject gameObject = new GameObjectQuery()
+				.result(client)
+				.stream()
+				.filter(object -> object != null
+						&& object.getId() == e.getId())
+				.findFirst()
+				.orElse(null);
+		if (gameObject == null)
+		{
+			System.out.println("GameObject is null.");
+			return;
+		}
+		System.out.println("GameObject is not null.");
+		System.out.println(gameObject.getSceneMinLocation().getX() + ", " + gameObject.getSceneMinLocation().getY());
 	}
 
 }

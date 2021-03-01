@@ -4,6 +4,7 @@ import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.*;
 import net.runelite.client.util.ImageUtil;
 import plugin.nomore.qolclicksbeta.builds.BuiltNPC;
+import plugin.nomore.qolclicksbeta.builds.BuiltObject;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -40,6 +41,10 @@ public class QOLClicksBetaOverlay extends Overlay
         {
             renderNPC(graphics, plugin.getBuiltNPC());
         }
+        if (plugin.getBuiltObject() != null)
+        {
+            renderObject(graphics, plugin.getBuiltObject());
+        }
         return null;
     }
 
@@ -52,6 +57,18 @@ public class QOLClicksBetaOverlay extends Overlay
         else if (System.currentTimeMillis() < builtNPC.getSystemTime() + 1000)
         {
             renderIcon(graphics, builtNPC.getNpc().getConvexHull(), arrow, 0, -20);
+        }
+    }
+
+    private void renderObject(Graphics2D graphics, BuiltObject builtObject)
+    {
+        if (System.currentTimeMillis() < builtObject.getSystemTime() + 500)
+        {
+            renderIcon(graphics, builtObject.getGameObject().getClickbox(), arrow, 0, -20);
+        }
+        else if (System.currentTimeMillis() < builtObject.getSystemTime() + 1000)
+        {
+            renderIcon(graphics, builtObject.getGameObject().getClickbox(), arrow, 0, -20);
         }
     }
 
