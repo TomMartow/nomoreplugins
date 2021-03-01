@@ -31,9 +31,9 @@ import net.runelite.api.*;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -54,6 +54,9 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	@Inject
 	private Client client;
+
+	@Inject
+	private QOLClicksBetaConfig config;
 
 	@Inject
 	private OverlayManager overlayManager;
@@ -86,8 +89,28 @@ public class QOLClicksBetaPlugin extends Plugin
 	private void on(MenuOpened e) { menu.onOpen(e); }
 
 	@Subscribe
-	private void on(MenuOptionClicked e) { menu.onClicked(e); }
+	private void on(MenuOptionClicked e) { menu.onClicked(e);}
 
 	@Subscribe
 	private void on(MenuEntryAdded e) { menu.onAdded(e); }
+
+	public void setSelected(WidgetInfo widgetInfo, int itemIndex, int itemId)
+	{
+		client.setSelectedItemWidget(widgetInfo.getId());
+		client.setSelectedItemSlot(itemIndex);
+		client.setSelectedItemID(itemId);
+	}
+
+	public void insertMenuEntry(MenuEntry e, boolean forceLeftClick)
+	{
+		client.insertMenuItem(
+				e.getOption(),
+				e.getTarget(),
+				e.getOpcode(),
+				e.getId(),
+				e.getParam0(),
+				e.getParam1(),
+				forceLeftClick
+		);
+	}
 }

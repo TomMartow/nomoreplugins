@@ -29,16 +29,293 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigTitle;
 
-@ConfigGroup("NewPlugin")
+@ConfigGroup("qolclicksbeta")
 public interface QOLClicksBetaConfig extends Config
 {
 
     @ConfigTitle(
-            keyName = "testTitle",
-            name = "Title",
+            keyName = "configOptionsTitle",
+            name = "Configuration Options",
             description = "",
             position = 1
     )
-    String testTitle = "testTitle";
+    String configOptionsTitle = "configOptionsTitle";
+
+    @ConfigItem(
+            keyName = "configEnum",
+            name = "Show options for",
+            description = "",
+            position = 2,
+            title = "configOptionsTitle"
+    )
+    default ConfigOptions configOptions() { return ConfigOptions.INV_ITEM_ON_ITEM; }
+
+//  ██╗████████╗███████╗███╗   ███╗
+//  ██║╚══██╔══╝██╔════╝████╗ ████║
+//  ██║   ██║   █████╗  ██╔████╔██║
+//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
+//  ██║   ██║   ███████╗██║ ╚═╝ ██║
+//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
+//
+//   ██████╗ ███╗   ██╗
+//  ██╔═══██╗████╗  ██║
+//  ██║   ██║██╔██╗ ██║
+//  ██║   ██║██║╚██╗██║
+//  ╚██████╔╝██║ ╚████║
+//   ╚═════╝ ╚═╝  ╚═══╝
+//
+//  ██╗████████╗███████╗███╗   ███╗
+//  ██║╚══██╔══╝██╔════╝████╗ ████║
+//  ██║   ██║   █████╗  ██╔████╔██║
+//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
+//  ██║   ██║   ███████╗██║ ╚═╝ ██║
+//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
+//
+
+    @ConfigItem(
+            keyName = "enableItemOnItem",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "INV_ITEM_ON_ITEM"
+    )
+    default boolean enableItemOnItem() { return false; }
+
+    @ConfigItem(
+            keyName = "itemOnItemTarget",
+            name = "Clicked Item ID : Selected Item ID",
+            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"Selected item\" with the item you want to be selected.",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "INV_ITEM_ON_ITEM"
+    )
+    default String itemOnItemIds() { return "1519:590"; }
+
+//  ██╗   ██╗███████╗███████╗
+//  ██║   ██║██╔════╝██╔════╝
+//  ██║   ██║███████╗█████╗
+//  ██║   ██║╚════██║██╔══╝
+//  ╚██████╔╝███████║███████╗
+//   ╚═════╝ ╚══════╝╚══════╝
+//
+//  ██╗████████╗███████╗███╗   ███╗
+//  ██║╚══██╔══╝██╔════╝████╗ ████║
+//  ██║   ██║   █████╗  ██╔████╔██║
+//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
+//  ██║   ██║   ███████╗██║ ╚═╝ ██║
+//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
+//
+//   ██████╗ ███╗   ██╗
+//  ██╔═══██╗████╗  ██║
+//  ██║   ██║██╔██╗ ██║
+//  ██║   ██║██║╚██╗██║
+//  ╚██████╔╝██║ ╚████║
+//   ╚═════╝ ╚═╝  ╚═══╝
+//
+//  ███╗   ██╗██████╗  ██████╗
+//  ████╗  ██║██╔══██╗██╔════╝
+//  ██╔██╗ ██║██████╔╝██║
+//  ██║╚██╗██║██╔═══╝ ██║
+//  ██║ ╚████║██║     ╚██████╗
+//  ╚═╝  ╚═══╝╚═╝      ╚═════╝
+//
+
+    @ConfigItem(
+            keyName = "enableItemOnNpc",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_USE_ITEM_ON"
+    )
+    default boolean enableItemOnNpc() { return false; }
+
+    @ConfigItem(
+            keyName = "useItemOnNpcIds",
+            name = "Clicked Item ID : NPC ID",
+            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"NPC ID\" with the npc you want to use the item on.",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_USE_ITEM_ON"
+    )
+    default String useItemOnNpcIds() { return "1519:590"; }
+    
+//  ███╗   ██╗██████╗  ██████╗                      
+//  ████╗  ██║██╔══██╗██╔════╝                      
+//  ██╔██╗ ██║██████╔╝██║                           
+//  ██║╚██╗██║██╔═══╝ ██║                           
+//  ██║ ╚████║██║     ╚██████╗                      
+//  ╚═╝  ╚═══╝╚═╝      ╚═════╝                      
+//                                                  
+//  ███████╗██╗██████╗ ███████╗████████╗            
+//  ██╔════╝██║██╔══██╗██╔════╝╚══██╔══╝            
+//  █████╗  ██║██████╔╝███████╗   ██║               
+//  ██╔══╝  ██║██╔══██╗╚════██║   ██║               
+//  ██║     ██║██║  ██║███████║   ██║               
+//  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝               
+//                                                  
+//   ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗
+//  ██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
+//  ██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║
+//  ██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║
+//  ╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║
+//   ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+//      
+    
+    @ConfigItem(
+            keyName = "enableNPCFirstOption",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_FIRST_OPTION"
+    )
+    default boolean enableNPCFirstOption() { return false; }
+
+    @ConfigItem(
+            keyName = "npcOption",
+            name = "Option",
+            description = "",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_FIRST_OPTION"
+    )
+    default String npcOption() { return "Use-rod"; }
+
+    @ConfigItem(
+            keyName = "npcFirstOptionTarget",
+            name = "Clicked Item ID : NPC ID",
+            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"NPC ID\" with the npc you want to interact with.",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_FIRST_OPTION"
+    )
+    default String npcFirstOptionIds() { return "11323:1542"; }
+
+//   ██████╗  █████╗ ███╗   ███╗███████╗ ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗
+//  ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
+//  ██║  ███╗███████║██╔████╔██║█████╗  ██║   ██║██████╔╝     ██║█████╗  ██║        ██║   
+//  ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║   
+//  ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║   
+//   ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   
+//                                                                                        
+//  ███████╗██╗██████╗ ███████╗████████╗                                                  
+//  ██╔════╝██║██╔══██╗██╔════╝╚══██╔══╝                                                  
+//  █████╗  ██║██████╔╝███████╗   ██║                                                     
+//  ██╔══╝  ██║██╔══██╗╚════██║   ██║                                                     
+//  ██║     ██║██║  ██║███████║   ██║                                                     
+//  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝                                                     
+//                                                                                        
+//   ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗                                      
+//  ██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║                                      
+//  ██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║                                      
+//  ██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║                                      
+//  ╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║                                      
+//   ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝                                      
+//                                                                                        
+
+    @ConfigItem(
+            keyName = "enableGameObjectFirstOption",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "OBJECT_FIRST_OPTION"
+    )
+    default boolean enableGameObjectFirstOption() { return false; }
+
+    @ConfigItem(
+            keyName = "gameObjectOption",
+            name = "Option",
+            description = "",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "OBJECT_FIRST_OPTION"
+    )
+    default String gameObjectOption() { return "Chop down"; }
+
+    @ConfigItem(
+            keyName = "gameObjectFirstOptionTarget",
+            name = "Clicked Item ID : GameObject ID",
+            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"GameObject ID\" with the game object you want to interact with.",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "OBJECT_FIRST_OPTION"
+    )
+    default String gameObjectFirstOptionIds() { return "1353:3511"; }
+
+//  ██╗   ██╗███████╗███████╗
+//  ██║   ██║██╔════╝██╔════╝
+//  ██║   ██║███████╗█████╗
+//  ██║   ██║╚════██║██╔══╝
+//  ╚██████╔╝███████║███████╗
+//   ╚═════╝ ╚══════╝╚══════╝
+//
+//  ██╗████████╗███████╗███╗   ███╗
+//  ██║╚══██╔══╝██╔════╝████╗ ████║
+//  ██║   ██║   █████╗  ██╔████╔██║
+//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
+//  ██║   ██║   ███████╗██║ ╚═╝ ██║
+//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
+//
+//   ██████╗ ███╗   ██╗
+//  ██╔═══██╗████╗  ██║
+//  ██║   ██║██╔██╗ ██║
+//  ██║   ██║██║╚██╗██║
+//  ╚██████╔╝██║ ╚████║
+//   ╚═════╝ ╚═╝  ╚═══╝
+//
+//   ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗
+//  ██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
+//  ██║   ██║██████╔╝     ██║█████╗  ██║        ██║
+//  ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║
+//  ╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║
+//   ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
+//
+
+    @ConfigItem(
+            keyName = "enableItemOnObject",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "OBJECT_USE_ITEM_ON"
+    )
+    default boolean enableItemOnObject() { return false; }
+
+    @ConfigItem(
+            keyName = "useItemOnObjectIds",
+            name = "Clicked Item ID : NPC ID",
+            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"Object ID\" with the object you want to use the item on.",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "OBJECT_USE_ITEM_ON"
+    )
+    default String useItemOnObjectIds() { return "1519:590"; }
 
 }
