@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils.scene.builds;
+package plugin.nomore.qolclicksbeta.builds;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,8 +6,8 @@ import net.runelite.api.widgets.WidgetItem;
 
 @Builder
 @Data
-public class InventoryItem
+public class BuiltInventoryItem
 {
-    WidgetItem item;
+    WidgetItem widgetItem;
     String name;
 }
