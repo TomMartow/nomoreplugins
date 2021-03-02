@@ -10,9 +10,9 @@ import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import org.jetbrains.annotations.NotNull;
-import plugin.nomore.qolclicks.QOLClicksConfig;
 import plugin.nomore.qolclicks.builds.BuiltInventoryItem;
 import plugin.nomore.qolclicks.menu.inventory.Inventory;
+import plugin.nomore.qolclicks.QOLClicksConfig;
 
 import javax.inject.Inject;
 import java.awt.*;

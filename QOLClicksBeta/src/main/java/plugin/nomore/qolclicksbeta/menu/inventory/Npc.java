@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.menu.inventory;
+package plugin.nomore.qolclicksbeta.menu.inventory;
 
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
@@ -8,9 +8,9 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.queries.NPCQuery;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicks.QOLClicksBetaConfig;
-import plugin.nomore.qolclicks.QOLClicksBetaPlugin;
-import plugin.nomore.qolclicks.utils.Utils;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
+import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
 

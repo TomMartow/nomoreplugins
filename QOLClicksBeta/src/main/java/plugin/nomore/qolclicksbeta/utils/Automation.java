@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.utils;
+package plugin.nomore.qolclicksbeta.utils;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,9 +10,9 @@ import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import org.jetbrains.annotations.NotNull;
-import plugin.nomore.qolclicks.QOLClicksBetaConfig;
-import plugin.nomore.qolclicks.builds.BuiltInventoryItem;
-import plugin.nomore.qolclicks.menu.inventory.Inventory;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.builds.BuiltInventoryItem;
+import plugin.nomore.qolclicksbeta.menu.inventory.Inventory;
 
 import javax.inject.Inject;
 import java.awt.*;

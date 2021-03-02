@@ -1,11 +1,11 @@
-package plugin.nomore.qolclicks;
+package plugin.nomore.qolclicksbeta;
 
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.*;
 import net.runelite.client.util.ImageUtil;
-import plugin.nomore.qolclicks.builds.BuiltNPC;
-import plugin.nomore.qolclicks.builds.BuiltObject;
-import plugin.nomore.qolclicks.highlighting.Arrow;
+import plugin.nomore.qolclicksbeta.builds.BuiltNPC;
+import plugin.nomore.qolclicksbeta.builds.BuiltObject;
+import plugin.nomore.qolclicksbeta.highlighting.Arrow;
 
 import javax.inject.Inject;
 import java.awt.*;

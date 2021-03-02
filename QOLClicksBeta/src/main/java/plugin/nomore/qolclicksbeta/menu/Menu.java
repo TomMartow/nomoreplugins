@@ -1,15 +1,15 @@
-package plugin.nomore.qolclicks.menu;
+package plugin.nomore.qolclicksbeta.menu;
 
 import net.runelite.api.MenuAction;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
-import plugin.nomore.qolclicks.QOLClicksBetaConfig;
-import plugin.nomore.qolclicks.highlighting.Arrow;
-import plugin.nomore.qolclicks.menu.inventory.GameObj;
-import plugin.nomore.qolclicks.menu.inventory.Inventory;
-import plugin.nomore.qolclicks.menu.inventory.Npc;
-import plugin.nomore.qolclicks.utils.Utils;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.highlighting.Arrow;
+import plugin.nomore.qolclicksbeta.menu.inventory.GameObj;
+import plugin.nomore.qolclicksbeta.menu.inventory.Inventory;
+import plugin.nomore.qolclicksbeta.menu.inventory.Npc;
+import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -46,8 +46,6 @@ public class Menu
 
     public void onClicked(MenuOptionClicked e)
     {
-        arrow.draw(e);
-
         if (e.getMenuAction() == MenuAction.ITEM_USE
                 && config.enableItemOnItem())
         {
@@ -78,6 +76,7 @@ public class Menu
             gameObj.useItemOnGameObject(e);
         }
 
+        arrow.draw(e);
     }
 
 }

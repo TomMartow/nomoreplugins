@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks;
+package plugin.nomore.qolclicksbeta;
 
 public enum ConfigOptions
 {

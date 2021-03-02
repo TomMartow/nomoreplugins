@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.qolclicks;
+package plugin.nomore.qolclicksbeta;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +41,8 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
-import plugin.nomore.qolclicks.menu.Menu;
-import plugin.nomore.qolclicks.utils.Automation;
+import plugin.nomore.qolclicksbeta.menu.Menu;
+import plugin.nomore.qolclicksbeta.utils.Automation;
 
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks;
+package plugin.nomore.qolclicksbeta;
 
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;

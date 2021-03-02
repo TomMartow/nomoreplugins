@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.highlighting;
+package plugin.nomore.qolclicksbeta.highlighting;
 
 import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
@@ -11,8 +11,8 @@ import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.queries.GameObjectQuery;
 import net.runelite.api.queries.NPCQuery;
-import plugin.nomore.qolclicks.builds.BuiltNPC;
-import plugin.nomore.qolclicks.builds.BuiltObject;
+import plugin.nomore.qolclicksbeta.builds.BuiltNPC;
+import plugin.nomore.qolclicksbeta.builds.BuiltObject;
 
 import javax.inject.Inject;
 import java.util.Set;

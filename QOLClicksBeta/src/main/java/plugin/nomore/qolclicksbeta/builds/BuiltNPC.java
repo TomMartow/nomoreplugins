@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.builds;
+package plugin.nomore.qolclicksbeta.builds;
 
 import lombok.Builder;
 import lombok.Data;
