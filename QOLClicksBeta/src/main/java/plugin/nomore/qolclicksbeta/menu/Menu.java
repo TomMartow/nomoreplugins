@@ -75,8 +75,6 @@ public class Menu
         {
             gameObj.useItemOnGameObject(e);
         }
-
-        arrow.draw(e);
     }
 
 }

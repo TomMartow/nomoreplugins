@@ -26,6 +26,9 @@
 package plugin.nomore.qolclicksbeta;
 
 import com.google.inject.Provides;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
@@ -41,6 +44,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
+import plugin.nomore.qolclicksbeta.highlighting.Arrow;
 import plugin.nomore.qolclicksbeta.menu.Menu;
 import plugin.nomore.qolclicksbeta.utils.Automation;
 
@@ -77,11 +81,18 @@ public class QOLClicksBetaPlugin extends Plugin
 	@Inject
 	private Automation automation;
 
+	@Inject
+	private Arrow arrow;
+
 	@Provides
 	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(QOLClicksBetaConfig.class);
 	}
+
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
+	boolean isQOLClick = false;
 
 	private final HotkeyListener toggle = new HotkeyListener(() -> config.dropKeybind())
 	{
@@ -136,6 +147,11 @@ public class QOLClicksBetaPlugin extends Plugin
 			automation.setTargetMenu(null);
 		}
 
+		if (isQOLClick)
+		{
+			arrow.draw(e);
+		}
+
 		debugMessage(e);
 	}
 
@@ -170,6 +186,7 @@ public class QOLClicksBetaPlugin extends Plugin
 		}
 		System.out.println(
 				"Point: " + automation.getClickedPoint() + "\n" +
+				"isQOLClick: " + isQOLClick() + "\n" +
 				"Option: " + e.getMenuOption() + "\n" +
 				"Target: " + e.getMenuTarget() + "\n" +
 				"ID: " + e.getId() + "\n" +

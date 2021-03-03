@@ -58,6 +58,7 @@ public class Npc
         );
 
         e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 
     public void useItemOnNPC(MenuOptionClicked e)
@@ -90,6 +91,7 @@ public class Npc
         );
 
         e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 
     public NPC getClosestNpc(int... ids)

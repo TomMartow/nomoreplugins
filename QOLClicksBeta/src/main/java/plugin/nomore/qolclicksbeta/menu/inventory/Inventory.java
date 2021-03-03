@@ -60,6 +60,7 @@ public class Inventory
         );
 
         e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 
     public WidgetItem getFirstItem(int id)

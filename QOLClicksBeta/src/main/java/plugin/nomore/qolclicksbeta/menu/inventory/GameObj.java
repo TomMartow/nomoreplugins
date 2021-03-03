@@ -55,6 +55,7 @@ public class GameObj
         );
 
         e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 
     public void useItemOnGameObject(MenuOptionClicked e)
@@ -87,6 +88,7 @@ public class GameObj
         );
 
         e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 
     public GameObject getClosestGameObject(int... ids)
