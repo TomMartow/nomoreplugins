@@ -126,7 +126,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "enableItemOnNpc",
             name = "Enable",
             description = "",
-            position = 3,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -138,7 +138,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "useItemOnNpcIds",
             name = "Clicked Item ID : NPC ID",
             description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"NPC ID\" with the npc you want to use the item on.",
-            position = 4,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -172,7 +172,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "enableNPCFirstOption",
             name = "Enable",
             description = "",
-            position = 3,
+            position = 7,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -184,7 +184,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "npcOption",
             name = "Option",
             description = "",
-            position = 4,
+            position = 8,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -196,7 +196,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "npcFirstOptionTarget",
             name = "Clicked Item ID : NPC ID",
             description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"NPC ID\" with the npc you want to interact with.",
-            position = 5,
+            position = 9,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -230,7 +230,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "enableGameObjectFirstOption",
             name = "Enable",
             description = "",
-            position = 3,
+            position = 10,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -242,7 +242,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "gameObjectOption",
             name = "Option",
             description = "",
-            position = 4,
+            position = 11,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -254,7 +254,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "gameObjectFirstOptionTarget",
             name = "Clicked Item ID : GameObject ID",
             description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"GameObject ID\" with the game object you want to interact with.",
-            position = 5,
+            position = 12,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -295,7 +295,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "enableItemOnObject",
             name = "Enable",
             description = "",
-            position = 3,
+            position = 13,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -307,7 +307,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "useItemOnObjectIds",
             name = "Clicked Item ID : NPC ID",
             description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"Object ID\" with the object you want to use the item on.",
-            position = 4,
+            position = 14,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -327,7 +327,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "automationTitle",
             name = "Automation Options",
             description = "",
-            position = 2
+            position = 15
     )
     String automationTitle = "automationTitle";
 
@@ -335,7 +335,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "droppingKeybind",
             name = "Keybind",
             description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 3,
+            position = 16,
             title = "automationTitle"
     )
     default Keybind dropKeybind() { return Keybind.NOT_SET; }
@@ -344,7 +344,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "dropMatching",
             name = "Drop matching",
             description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 4,
+            position = 17,
             title = "automationTitle"
     )
     default boolean dropMatching() { return false; }
@@ -353,7 +353,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "matchingList",
             name = "Matching list",
             description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 5,
+            position = 18,
             title = "automationTitle"
     )
     default String matchingList() { return "Bones"; }
@@ -362,7 +362,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "dropExcept",
             name = "Drop except",
             description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 6,
+            position = 19,
             title = "automationTitle"
     )
     default boolean dropExcept() { return false; }
@@ -371,7 +371,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "exceptList",
             name = "Except list",
             description = "If enabled, when the drop-matching hotkey is pressed, all items that don't match in the box below will be dropped.",
-            position = 7,
+            position = 20,
             title = "automationTitle"
     )
     default String exceptList() { return "Bones"; }
@@ -380,7 +380,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "listOrder",
             name = "Order",
             description = "The iteration order.",
-            position = 8,
+            position = 21,
             title = "automationTitle"
     )
     default String listOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
@@ -389,7 +389,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "minTime",
             name = "Min (millis)",
             description = "The minimum time between dropping.",
-            position = 9,
+            position = 22,
             title = "automationTitle"
     )
     default String minTime() { return "250"; }
@@ -398,8 +398,33 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "maxTime",
             name = "Max (millis)",
             description = "The maximum time between dropping.",
-            position = 10,
+            position = 23,
             title = "automationTitle"
     )
     default String maxTime() { return "1000"; }
+
+//  ███╗   ███╗██╗███████╗ ██████╗
+//  ████╗ ████║██║██╔════╝██╔════╝
+//  ██╔████╔██║██║███████╗██║
+//  ██║╚██╔╝██║██║╚════██║██║
+//  ██║ ╚═╝ ██║██║███████║╚██████╗
+//  ╚═╝     ╚═╝╚═╝╚══════╝ ╚═════╝
+//
+
+    @ConfigTitle(
+            keyName = "miscTitle",
+            name = "Miscellaneous Options",
+            description = "",
+            position = 24
+    )
+    String miscTitle = "miscTitle";
+
+    @ConfigItem(
+            keyName = "displayQOLClickOverlay",
+            name = "Display qol click overlay",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            position = 25,
+            title = "miscTitle"
+    )
+    default boolean displayQOLClickOverlay() { return true; }
 }

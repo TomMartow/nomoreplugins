@@ -147,9 +147,11 @@ public class QOLClicksBetaPlugin extends Plugin
 			automation.setTargetMenu(null);
 		}
 
-		if (isQOLClick)
+		if (isQOLClick
+				&& config.displayQOLClickOverlay())
 		{
 			arrow.draw(e);
+			setQOLClick(false);
 		}
 
 		debugMessage(e);
