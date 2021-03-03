@@ -12,7 +12,7 @@ import net.runelite.api.widgets.WidgetItem;
 import org.jetbrains.annotations.NotNull;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.builds.BuiltInventoryItem;
-import plugin.nomore.qolclicksbeta.menu.inventory.Inventory;
+import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 
 import javax.inject.Inject;
 import java.awt.*;

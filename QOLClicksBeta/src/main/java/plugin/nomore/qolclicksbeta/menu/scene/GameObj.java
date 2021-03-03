@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicksbeta.menu.inventory;
+package plugin.nomore.qolclicksbeta.menu.scene;
 
 import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;

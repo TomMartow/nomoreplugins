@@ -45,7 +45,7 @@ public interface QOLClicksBetaConfig extends Config
             position = 2,
             title = "configOptionsTitle"
     )
-    default ConfigOptions configOptions() { return ConfigOptions.INV_ITEM_ON_ITEM; }
+    default ConfigOptions configOptions() { return ConfigOptions.ITEM_USE_ON_WIDGET_ITEM; }
 
 //  ██╗████████╗███████╗███╗   ███╗
 //  ██║╚══██╔══╝██╔════╝████╗ ████║
@@ -77,7 +77,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "INV_ITEM_ON_ITEM"
+            unhideValue = "ITEM_USE_ON_WIDGET_ITEM"
     )
     default boolean enableItemOnItem() { return false; }
 
@@ -89,7 +89,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "INV_ITEM_ON_ITEM"
+            unhideValue = "ITEM_USE_ON_WIDGET_ITEM"
     )
     default String itemOnItemIds() { return "1519:590"; }
 
@@ -130,7 +130,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "NPC_USE_ITEM_ON"
+            unhideValue = "ITEM_USE_ON_NPC"
     )
     default boolean enableItemOnNpc() { return false; }
 
@@ -142,7 +142,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "NPC_USE_ITEM_ON"
+            unhideValue = "ITEM_USE_ON_NPC"
     )
     default String useItemOnNpcIds() { return "1519:590"; }
     
@@ -234,7 +234,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "OBJECT_FIRST_OPTION"
+            unhideValue = "GAME_OBJECT_FIRST_OPTION"
     )
     default boolean enableGameObjectFirstOption() { return false; }
 
@@ -246,7 +246,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "OBJECT_FIRST_OPTION"
+            unhideValue = "GAME_OBJECT_FIRST_OPTION"
     )
     default String gameObjectOption() { return "Chop down"; }
 
@@ -258,7 +258,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "OBJECT_FIRST_OPTION"
+            unhideValue = "GAME_OBJECT_FIRST_OPTION"
     )
     default String gameObjectFirstOptionIds() { return "1353:3511"; }
 
@@ -299,7 +299,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "OBJECT_USE_ITEM_ON"
+            unhideValue = "ITEM_USE_ON_GAME_OBJECT"
     )
     default boolean enableItemOnObject() { return false; }
 
@@ -311,7 +311,7 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "OBJECT_USE_ITEM_ON"
+            unhideValue = "ITEM_USE_ON_GAME_OBJECT"
     )
     default String useItemOnObjectIds() { return "1519:590"; }
 
@@ -422,7 +422,7 @@ public interface QOLClicksBetaConfig extends Config
     @ConfigItem(
             keyName = "displayQOLClickOverlay",
             name = "Display qol click overlay",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            description = "If enabled, will display an overlay over an NPC / Object that you're interacting with.",
             position = 25,
             title = "miscTitle"
     )

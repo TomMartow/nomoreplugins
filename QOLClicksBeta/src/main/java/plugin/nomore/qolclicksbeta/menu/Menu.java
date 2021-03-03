@@ -6,9 +6,9 @@ import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.highlighting.Arrow;
-import plugin.nomore.qolclicksbeta.menu.inventory.GameObj;
-import plugin.nomore.qolclicksbeta.menu.inventory.Inventory;
-import plugin.nomore.qolclicksbeta.menu.inventory.Npc;
+import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
+import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
+import plugin.nomore.qolclicksbeta.menu.scene.Npc;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
