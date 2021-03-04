@@ -42,8 +42,8 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING()));
-        GameObject gameObject = gameObj.getClosestGameObject(utils.getConfigArg(1, config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING()));
+        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigInt(0, config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING()));
+        GameObject gameObject = gameObj.getClosestGameObject(utils.getConfigInt(1, config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING()));
 
         if (itemClicked == null || gameObject == null)
         {
@@ -55,7 +55,7 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
             return;
         }
 
-        plugin.setSelected(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
+        plugin.setSelectedItem(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
 
         MenuEntry menuEntry = new MenuEntry(
                 "Use",

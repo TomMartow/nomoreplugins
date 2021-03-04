@@ -24,7 +24,9 @@
  */
 package plugin.nomore.qolclicksbeta;
 
+
 import net.runelite.client.config.*;
+import plugin.nomore.qolclicksbeta.menu.scene.spells.*;
 
 @ConfigGroup("qolclicksbeta")
 public interface QOLClicksBetaConfig extends Config
@@ -851,9 +853,9 @@ public interface QOLClicksBetaConfig extends Config
     )
     default String INV_SPELL_CAST_ON_WIDGET_EXPLAINATION()
     {
-        return "In the text box below, input the Item ID you want to cast a spell on, followed by \":\", followed by the Spell ID." +
-                "\n\nFormat - ItemID:SpellID" +
-                "\n\nWhen you click on the item matching the Item ID, a spell will be cast on the item that matches the Spell ID.";
+        return "In the text box below, input the Item ID you want to cast a spell on." +
+                "\n\nFormat - ItemID,ItemID,ItemID" +
+                "\n\nWhen you click on the item matching the Item ID, the spell selected will be cast on the item.";
     }
 
     @ConfigItem(
@@ -870,7 +872,7 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_SPELL_CAST_ON_WIDGET_CONFIG_STRING",
-            name = "Item ID : Spell ID",
+            name = "Item ID",
             description = "",
             position = 5,
             title = "configOptionsTitle",
@@ -879,6 +881,18 @@ public interface QOLClicksBetaConfig extends Config
             unhideValue = "Click Item -> Cast Spell on Item"
     )
     default String INV_SPELL_CAST_ON_WIDGET_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_WIDGET_SPELL",
+            name = "Spell",
+            description = "",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Item"
+    )
+    default Skilling INV_SPELL_CAST_ON_WIDGET_SPELL() { return Skilling.HIGH_ALCH; }
 
     //INV_SPELL_CAST_ON_NPC
     //

@@ -35,6 +35,7 @@ import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -163,21 +164,19 @@ public class QOLClicksBetaPlugin extends Plugin
 	@Subscribe
 	private void on(MenuEntryAdded e) { menu.onAdded(e); }
 
-	public void setSelected(WidgetInfo widgetInfo, int itemIndex, int itemId)
+	public void setSelectedItem(WidgetInfo widgetInfo, int itemIndex, int itemId)
 	{
 		client.setSelectedItemWidget(widgetInfo.getId());
 		client.setSelectedItemSlot(itemIndex);
 		client.setSelectedItemID(itemId);
 	}
 
-	public void setSelected()
+	public void setSelectSpell(WidgetInfo info)
 	{
-		/*
-		client.setSelectedSpellWidget();
-		client.setSelectedSpellName();
-		client.setSelectedSpellChildIndex();
-
-		 */
+		final Widget widget = client.getWidget(info);
+		client.setSelectedSpellName("<col=00ff00>" + widget.getName() + "</col>");
+		client.setSelectedSpellWidget(widget.getId());
+		client.setSelectedSpellChildIndex(-1);
 	}
 
 	public void insertMenuEntry(MenuEntry e, boolean forceLeftClick)

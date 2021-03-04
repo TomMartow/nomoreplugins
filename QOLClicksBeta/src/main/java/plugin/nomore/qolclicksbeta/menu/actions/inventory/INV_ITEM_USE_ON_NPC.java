@@ -5,7 +5,6 @@ import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
@@ -42,8 +41,8 @@ public class INV_ITEM_USE_ON_NPC
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()), e.getActionParam());
-        NPC npcToUseItemOn = npc.getClosestNpc(utils.getConfigArg(1, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()));
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigInt(0, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()), e.getActionParam());
+        NPC npcToUseItemOn = npc.getClosestNpc(utils.getConfigInt(1, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()));
         if (itemClicked == null
                 || npcToUseItemOn == null)
         {

@@ -41,8 +41,8 @@ public class INV_ITEM_USE_ON_WIDGET_ITEM
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING()));
-        WidgetItem selectedItem = inventory.getFirstItem(utils.getConfigArg(1, config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING()));
+        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigInt(0, config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING()));
+        WidgetItem selectedItem = inventory.getFirstItem(utils.getConfigInt(1, config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING()));
 
         if (itemClicked == null || selectedItem == null)
         {
@@ -54,7 +54,7 @@ public class INV_ITEM_USE_ON_WIDGET_ITEM
             return;
         }
 
-        plugin.setSelected(WidgetInfo.INVENTORY, selectedItem.getIndex(), selectedItem.getId());
+        plugin.setSelectedItem(WidgetInfo.INVENTORY, selectedItem.getIndex(), selectedItem.getId());
 
         MenuEntry menuEntry = new MenuEntry(
                 "Use",

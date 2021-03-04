@@ -41,8 +41,8 @@ public class INV_GAME_OBJECT_FIFTH_OPTION
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING()), e.getActionParam());
-        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigArg(1, config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING()));
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigInt(0, config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING()), e.getActionParam());
+        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigInt(1, config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING()));
         if (itemClicked == null
                 || gameObjectToInteractWith == null)
         {

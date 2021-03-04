@@ -2,7 +2,6 @@ package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
 import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
@@ -39,8 +38,8 @@ public class INV_GAME_OBJECT_FIRST_OPTION
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING()), e.getActionParam());
-        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigArg(1, config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING()));
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigInt(0, config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING()), e.getActionParam());
+        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigInt(1, config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING()));
         if (itemClicked == null
                 || gameObjectToInteractWith == null)
         {
