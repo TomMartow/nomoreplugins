@@ -49,6 +49,9 @@ import plugin.nomore.qolclicksbeta.menu.actions.Menu;
 import plugin.nomore.qolclicksbeta.utils.Automation;
 
 import javax.inject.Inject;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 
 @Extension
 @PluginDescriptor(
@@ -167,6 +170,16 @@ public class QOLClicksBetaPlugin extends Plugin
 		client.setSelectedItemID(itemId);
 	}
 
+	public void setSelected()
+	{
+		/*
+		client.setSelectedSpellWidget();
+		client.setSelectedSpellName();
+		client.setSelectedSpellChildIndex();
+
+		 */
+	}
+
 	public void insertMenuEntry(MenuEntry e, boolean forceLeftClick)
 	{
 		client.insertMenuItem(
@@ -182,7 +195,8 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	private void debugMessage(MenuOptionClicked e)
 	{
-		if (e.getMenuAction() == MenuAction.WALK)
+		if (!config.enableDebug() || e.getMenuAction() == MenuAction.WALK
+				|| e.getMenuOption().equalsIgnoreCase("Cancel"))
 		{
 			return;
 		}
@@ -196,5 +210,23 @@ public class QOLClicksBetaPlugin extends Plugin
 				"ActionParam: " + e.getActionParam() + "\n" +
 				"WidgetID: " + e.getWidgetId() + "\n"
 		);
+
+		if (!config.enableClipboard())
+		{
+			return;
+		}
+
+		String myString =
+				"Point: " + automation.getClickedPoint() + "\n" +
+				"isQOLClick: " + isQOLClick() + "\n" +
+				"Option: " + e.getMenuOption() + "\n" +
+				"Target: " + e.getMenuTarget() + "\n" +
+				"ID: " + e.getId() + "\n" +
+				"MenuAction: " + e.getMenuAction() + "\n" +
+				"ActionParam: " + e.getActionParam() + "\n" +
+				"WidgetID: " + e.getWidgetId() + "\n";
+		StringSelection stringSelection = new StringSelection(myString);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(stringSelection, null);
 	}
 }

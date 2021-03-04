@@ -34,7 +34,7 @@ subprojects {
     group = "com.openosrs.externals"
 
     project.extra["PluginProvider"] = "NoMore"
-    project.extra["ProjectSupportUrl"] = "https://discord.gg/7W9aBCb"
+    project.extra["ProjectSupportUrl"] = "https://discord.gg/Ruc5fxpmTp"
     project.extra["PluginLicense"] = "3-Clause BSD License"
 
     repositories {
@@ -104,6 +104,7 @@ subprojects {
             from(configurations["runtimeClasspath"])
         }
 
+        /*
         withType<Jar> {
             doLast {
                 copy {
@@ -112,6 +113,8 @@ subprojects {
                 }
             }
         }
+
+         */
 
         withType<AbstractArchiveTask> {
             isPreserveFileTimestamps = false

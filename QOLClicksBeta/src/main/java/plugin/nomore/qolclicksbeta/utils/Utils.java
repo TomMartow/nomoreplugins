@@ -22,22 +22,33 @@ public class Utils
 
     public int getConfigArg(int configIteration, String configString)
     {
+        String[] splitString = configString.split(":");
+        String[] sortedString = new String[3];
         if (Strings.isNullOrEmpty(configString))
         {
-            return -1;
+            sortedString[0] = "0";
+            sortedString[1] = "0";
+            sortedString[2] = "0";
         }
-        String[] splitString = configString.split(":");
-        String[] sortedString = new String[2];
         if (splitString.length == 1)
         {
             sortedString[0] = splitString[0];
             sortedString[1] = "0";
+            sortedString[2] = "0";
         }
-        else
+        if (splitString.length == 2)
         {
             sortedString[0] = splitString[0];
             sortedString[1] = splitString[1];
+            sortedString[2] = "0";
         }
+        if (splitString.length == 3)
+        {
+            sortedString[0] = splitString[0];
+            sortedString[1] = splitString[1];
+            sortedString[2] = splitString[2];
+        }
+        System.out.println(sortedString[0] + " : " + sortedString[1] + " : " + sortedString[2]);
         return Integer.parseInt(sortedString[configIteration]);
     }
 }

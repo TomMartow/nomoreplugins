@@ -3,6 +3,7 @@ package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
@@ -41,31 +42,28 @@ public class INV_NPC_FIRST_OPTION
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.INV_NPC_FIRST_OPTION_CONFIG_STRING()));
-        WidgetItem selectedItem = inventory.getFirstItem(utils.getConfigArg(1, config.INV_NPC_FIRST_OPTION_CONFIG_STRING()));
-
-        if (itemClicked == null || selectedItem == null)
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_NPC_FIRST_OPTION_CONFIG_STRING()), e.getActionParam());
+        NPC npcToUseItemOn = npc.getClosestNpc(utils.getConfigArg(1, config.INV_NPC_FIRST_OPTION_CONFIG_STRING()));
+        if (itemClicked == null
+                || npcToUseItemOn == null)
         {
             return;
         }
 
-        if (e.getId() != itemClicked.getId() && e.getActionParam() != itemClicked.getIndex())
+        if (itemClicked.getId() != e.getId()
+                || itemClicked.getIndex() != e.getActionParam())
         {
             return;
         }
-
-        plugin.setSelected(WidgetInfo.INVENTORY, selectedItem.getIndex(), selectedItem.getId());
 
         MenuEntry menuEntry = new MenuEntry(
-                "Use",
+                config.INV_NPC_FIRST_OPTION_MENU_OPTION(),
                 "<col=ff9040>"
-                        + client.getItemDefinition(itemClicked.getId()).getName()
-                        + "<col=ffffff> -> <col=ff9040>"
-                        + client.getItemDefinition(selectedItem.getId()).getName(),
-                itemClicked.getId(),
-                MenuAction.ITEM_USE_ON_WIDGET_ITEM.getId(),
-                itemClicked.getIndex(),
-                WidgetInfo.INVENTORY.getId(),
+                        + client.getNpcDefinition(npcToUseItemOn.getId()).getName(),
+                npcToUseItemOn.getIndex(),
+                MenuAction.NPC_FIRST_OPTION.getId(),
+                0,
+                0,
                 false
         );
 

@@ -1,6 +1,9 @@
 package plugin.nomore.qolclicksbeta;
 
-public enum tet {
+public enum ConfigOptions
+{
+
+    // Click item in inventory to perform action.
 
     INV_ITEM_USE("Click Item -> Drop Item"),
     INV_ITEM_USE_ON_NPC("Click Item -> Use on NPC"),
@@ -20,19 +23,18 @@ public enum tet {
     INV_SPELL_CAST_ON_NPC("Click Item -> Cast Spell on NPC"),
     INV_SPELL_CAST_ON_GAME_OBJECT("Click Item -> Cast Spell on Game Object"),
     INV_SPELL_CAST_ON_GROUND_ITEM("Click Item -> Cast Spell on Ground Item"),
-    INV_SPELL_CAST_ON_PLAYER("Click Item -> Cast Spell on Player"),
 
-// Click npc to perform action.
+    // Click npc to perform action.
 
     NPC_ITEM_USE_ON_NPC("Click NPC -> Use Item on NPC"),
     NPC_SPELL_CAST_ON_NPC("Click NPC -> Cast Spell on NPC"),
 
-// Click game object to perform action
+    // Click game object to perform action
 
     GAME_OBJECT_ITEM_USE_ON_GAME_OBJECT("Click Game Object -> Use Item on Object"),
     NPC_SPELL_CAST_ON_GAME_OBJECT("Click Game Object -> Cast Spell on Game Object"),
 
-// Misc
+    // Misc
 
     SPELL_CAST_ON_WIDGET("Click Spell ->"),
     SPELL_CAST_ON_NPC(""),
@@ -51,9 +53,13 @@ public enum tet {
     WIDGET_TYPE_5(""),
     WIDGET_TYPE_6("");
 
-    private final String name;
+    public final String enumString;
 
-    tet(String name) {
-        this.name = name;
+    ConfigOptions(String enumString) {
+        this.enumString = enumString;
+    }
+
+    public String toString() {
+        return this.enumString;
     }
 }

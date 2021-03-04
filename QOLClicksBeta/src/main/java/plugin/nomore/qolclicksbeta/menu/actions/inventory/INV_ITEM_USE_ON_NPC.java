@@ -42,14 +42,19 @@ public class INV_ITEM_USE_ON_NPC
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()));
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()), e.getActionParam());
         NPC npcToUseItemOn = npc.getClosestNpc(utils.getConfigArg(1, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()));
-        if (itemClicked == null || npcToUseItemOn == null)
+        if (itemClicked == null
+                || npcToUseItemOn == null)
         {
             return;
         }
 
-        plugin.setSelected(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
+        if (itemClicked.getId() != e.getId()
+                || itemClicked.getIndex() != e.getActionParam())
+        {
+            return;
+        }
 
         MenuEntry menuEntry = new MenuEntry(
                 "Use",

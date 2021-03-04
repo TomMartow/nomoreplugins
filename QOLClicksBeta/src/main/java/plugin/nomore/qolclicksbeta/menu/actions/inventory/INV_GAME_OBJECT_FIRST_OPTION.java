@@ -1,9 +1,6 @@
 package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
-import net.runelite.api.Client;
-import net.runelite.api.GameObject;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
@@ -42,30 +39,28 @@ public class INV_GAME_OBJECT_FIRST_OPTION
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING()));
-        GameObject gameObjectToUseItemOn = gameObj.getClosestGameObject(utils.getConfigArg(1, config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING()));
-        if (itemClicked == null || gameObjectToUseItemOn == null)
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING()), e.getActionParam());
+        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigArg(1, config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING()));
+        if (itemClicked == null
+                || gameObjectToInteractWith == null)
         {
             return;
         }
 
-        if (e.getId() != itemClicked.getId() && e.getActionParam() != itemClicked.getIndex())
+        if (itemClicked.getId() != e.getId()
+                || itemClicked.getIndex() != e.getActionParam())
         {
             return;
         }
-
-        plugin.setSelected(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
 
         MenuEntry menuEntry = new MenuEntry(
-                "Use",
+                config.INV_GAME_OBJECT_FIRST_OPTION_MENU_OPTION(),
                 "<col=ff9040>"
-                        + client.getItemDefinition(itemClicked.getId()).getName()
-                        + "<col=ffffff> -> <col=ffff00>"
-                        + client.getNpcDefinition(gameObjectToUseItemOn.getId()).getName(),
-                gameObjectToUseItemOn.getId(),
-                MenuAction.ITEM_USE_ON_GAME_OBJECT.getId(),
-                gameObjectToUseItemOn.getSceneMinLocation().getX(),
-                gameObjectToUseItemOn.getSceneMinLocation().getY(),
+                        + client.getObjectDefinition(gameObjectToInteractWith.getId()).getName(),
+                gameObjectToInteractWith.getId(),
+                MenuAction.GAME_OBJECT_FIRST_OPTION.getId(),
+                gameObjectToInteractWith.getSceneMinLocation().getX(),
+                gameObjectToInteractWith.getSceneMinLocation().getY(),
                 false
         );
 

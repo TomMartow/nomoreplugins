@@ -29,6 +29,15 @@ public class Inventory
                 .last();
     }
 
+    public WidgetItem getItemInSlot(int id, int index)
+    {
+        return new InventoryWidgetItemQuery()
+                .idEquals(id)
+                .indexEquals(index)
+                .result(client)
+                .first();
+    }
+
     public List<WidgetItem> getItems()
     {
         return new InventoryWidgetItemQuery()

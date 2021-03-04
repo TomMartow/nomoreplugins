@@ -1,7 +1,11 @@
 package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
 import net.runelite.api.Client;
+import net.runelite.api.GameObject;
+import net.runelite.api.MenuAction;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
@@ -37,5 +41,32 @@ public class INV_GAME_OBJECT_FIFTH_OPTION
 
     public void check(MenuOptionClicked e)
     {
+        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigArg(0, config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING()), e.getActionParam());
+        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigArg(1, config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING()));
+        if (itemClicked == null
+                || gameObjectToInteractWith == null)
+        {
+            return;
+        }
+
+        if (itemClicked.getId() != e.getId()
+                || itemClicked.getIndex() != e.getActionParam())
+        {
+            return;
+        }
+
+        MenuEntry menuEntry = new MenuEntry(
+                config.INV_GAME_OBJECT_FIFTH_OPTION_MENU_OPTION(),
+                "<col=ff9040>"
+                        + client.getObjectDefinition(gameObjectToInteractWith.getId()).getName(),
+                gameObjectToInteractWith.getId(),
+                MenuAction.GAME_OBJECT_FIFTH_OPTION.getId(),
+                gameObjectToInteractWith.getSceneMinLocation().getX(),
+                gameObjectToInteractWith.getSceneMinLocation().getY(),
+                false
+        );
+
+        e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 }

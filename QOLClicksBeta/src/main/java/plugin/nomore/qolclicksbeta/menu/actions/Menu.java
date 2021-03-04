@@ -31,7 +31,6 @@ public class Menu
     @Inject INV_SPELL_CAST_ON_NPC inv_spell_cast_on_npc;
     @Inject INV_SPELL_CAST_ON_GAME_OBJECT inv_spell_cast_on_game_object;
     @Inject INV_SPELL_CAST_ON_GROUND_ITEM inv_spell_cast_on_ground_item;
-    @Inject INV_SPELL_CAST_ON_PLAYER inv_spell_cast_on_player;
 
     public void onOpen(MenuOpened e)
     {
@@ -66,7 +65,6 @@ public class Menu
             if (config.ENABLE_INV_SPELL_CAST_ON_NPC()) { inv_spell_cast_on_npc.check(e); }
             if (config.ENABLE_INV_SPELL_CAST_ON_GAME_OBJECT()) { inv_spell_cast_on_game_object.check(e); }
             if (config.ENABLE_INV_SPELL_CAST_ON_GROUND_ITEM()) { inv_spell_cast_on_ground_item.check(e); }
-            if (config.ENABLE_INV_SPELL_CAST_ON_PLAYER()) { inv_spell_cast_on_player.check(e); }
         }
 
     }
