@@ -9,7 +9,6 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import org.jetbrains.annotations.NotNull;
 import plugin.nomore.qolclicks.builds.BuiltInventoryItem;
 import plugin.nomore.qolclicks.menu.inventory.Inventory;
 import plugin.nomore.qolclicks.QOLClicksConfig;
@@ -231,7 +230,7 @@ public class Automation
         return new Point(ThreadLocalRandom.current().nextInt(x, x + width), ThreadLocalRandom.current().nextInt(y, y + height));
     }
 
-    public Point getRandomPoint(@NotNull Rectangle rect)
+    public Point getRandomPoint(Rectangle rect)
     {
         final int x = getRandomIntBetweenRange((int) rect.getX(), (int) rect.getX() + (int) rect.getWidth());
         final int y = getRandomIntBetweenRange((int) rect.getY(), (int) rect.getY() + (int) rect.getHeight());
@@ -281,7 +280,7 @@ public class Automation
         mouseEvent(500, p);
     }
 
-    private void mouseEvent(int id, @NotNull Point point)
+    private void mouseEvent(int id, Point point)
     {
         MouseEvent e = new MouseEvent(
                 client.getCanvas(), id,
