@@ -34,6 +34,7 @@ public class Npc
 
     public void interactWithNPC(MenuOptionClicked e)
     {
+        /*
         WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.npcFirstOptionIds()));
         NPC npcToInteractWith = getClosestNpc(utils.getConfigArg(1, config.npcFirstOptionIds()));
 
@@ -59,39 +60,13 @@ public class Npc
 
         e.setMenuEntry(menuEntry);
         plugin.setQOLClick(true);
+
+         */
     }
 
     public void useItemOnNPC(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.useItemOnNpcIds()));
-        NPC npcToUseItemOn = getClosestNpc(utils.getConfigArg(1, config.useItemOnNpcIds()));
-        if (itemClicked == null || npcToUseItemOn == null)
-        {
-            return;
-        }
 
-        if (e.getId() != itemClicked.getId() && e.getActionParam() != itemClicked.getIndex())
-        {
-            return;
-        }
-
-        plugin.setSelected(WidgetInfo.INVENTORY, itemClicked.getIndex(), itemClicked.getId());
-
-        MenuEntry menuEntry = new MenuEntry(
-                "Use",
-                "<col=ff9040>"
-                        + client.getItemDefinition(itemClicked.getId()).getName()
-                        + "<col=ffffff> -> <col=ffff00>"
-                        + client.getNpcDefinition(npcToUseItemOn.getId()).getName(),
-                npcToUseItemOn.getIndex(),
-                MenuAction.ITEM_USE_ON_NPC.getId(),
-                0,
-                0,
-                false
-        );
-
-        e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
     }
 
     public NPC getClosestNpc(int... ids)

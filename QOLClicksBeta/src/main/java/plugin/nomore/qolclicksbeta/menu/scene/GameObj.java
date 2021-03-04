@@ -31,6 +31,7 @@ public class GameObj
 
     public void interactWithGameObject(MenuOptionClicked e)
     {
+        /*
         WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.gameObjectFirstOptionIds()));
         GameObject gameObjectToInteractWith = getClosestGameObject(utils.getConfigArg(1, config.gameObjectFirstOptionIds()));
 
@@ -56,10 +57,13 @@ public class GameObj
 
         e.setMenuEntry(menuEntry);
         plugin.setQOLClick(true);
+
+         */
     }
 
     public void useItemOnGameObject(MenuOptionClicked e)
     {
+        /*
         WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigArg(0, config.useItemOnObjectIds()));
         GameObject gameObjectToUseItemOn = getClosestGameObject(utils.getConfigArg(1, config.useItemOnObjectIds()));
         if (itemClicked == null || gameObjectToUseItemOn == null)
@@ -89,6 +93,8 @@ public class GameObj
 
         e.setMenuEntry(menuEntry);
         plugin.setQOLClick(true);
+
+         */
     }
 
     public GameObject getClosestGameObject(int... ids)

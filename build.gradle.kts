@@ -104,7 +104,6 @@ subprojects {
             from(configurations["runtimeClasspath"])
         }
 
-        /*
         withType<Jar> {
             doLast {
                 copy {
@@ -113,8 +112,6 @@ subprojects {
                 }
             }
         }
-
-         */
 
         withType<AbstractArchiveTask> {
             isPreserveFileTimestamps = false

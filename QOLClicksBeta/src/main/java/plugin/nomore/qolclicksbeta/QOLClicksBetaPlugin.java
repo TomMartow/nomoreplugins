@@ -45,7 +45,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
 import plugin.nomore.qolclicksbeta.highlighting.Arrow;
-import plugin.nomore.qolclicksbeta.menu.Menu;
+import plugin.nomore.qolclicksbeta.menu.actions.Menu;
 import plugin.nomore.qolclicksbeta.utils.Automation;
 
 import javax.inject.Inject;
