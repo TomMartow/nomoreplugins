@@ -190,7 +190,7 @@ public class QOLClicksBetaPlugin extends Plugin
 					new Thread(() ->
 					{
 						try {
-							Thread.sleep(50);
+							Thread.sleep(200);
 						} catch (InterruptedException interruptedException) {
 							interruptedException.printStackTrace();
 						}
