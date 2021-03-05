@@ -31,7 +31,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
-import net.runelite.api.Point;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -49,6 +48,7 @@ import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
 import plugin.nomore.qolclicksbeta.highlighting.Arrow;
 import plugin.nomore.qolclicksbeta.menu.actions.Menu;
+import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.utils.Automation;
 
 import javax.inject.Inject;
@@ -93,6 +93,9 @@ public class QOLClicksBetaPlugin extends Plugin
 	@Inject
 	private Arrow arrow;
 
+	@Inject
+	private Inventory inventory;
+
 	@Provides
 	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
 	{
@@ -109,7 +112,7 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
-	boolean openInventory = false;
+	boolean openedSpellbook = false;
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
@@ -150,6 +153,15 @@ public class QOLClicksBetaPlugin extends Plugin
 		{
 			automation.dropItems();
 		}
+
+		if (isOpenedSpellbook())
+		{
+			if (!inventory.isOpen())
+			{
+				client.runScript(915, 3);
+				setOpenedSpellbook(false);
+			}
+		}
 	}
 
 	@Subscribe
@@ -183,26 +195,6 @@ public class QOLClicksBetaPlugin extends Plugin
 		{
 			arrow.draw(e);
 			setQolClick(false);
-		}
-
-		if (openInventory)
-		{
-			if (client != null)
-			{
-				if (client.getGameState() == GameState.LOGGED_IN)
-				{
-					new Thread(() ->
-					{
-						try {
-							Thread.sleep(200);
-						} catch (InterruptedException interruptedException) {
-							interruptedException.printStackTrace();
-						}
-						clientThread.invoke(() -> client.runScript(915, 3));
-					}).start();
-				}
-			}
-			setOpenInventory(false);
 		}
 
 		debugMessage(e);

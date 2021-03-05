@@ -2,6 +2,8 @@ package plugin.nomore.qolclicksbeta.menu.scene;
 
 import net.runelite.api.Client;
 import net.runelite.api.queries.InventoryWidgetItemQuery;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 
 import javax.inject.Inject;
@@ -43,6 +45,38 @@ public class Inventory
         return new InventoryWidgetItemQuery()
                 .result(client)
                 .list;
+    }
+
+    public boolean isOpen()
+    {
+        if (client.getWidget(WidgetInfo.INVENTORY) == null)
+        {
+            return false;
+        }
+        return !client.getWidget(WidgetInfo.INVENTORY).isHidden();
+    }
+
+    public boolean isFull()
+    {
+        return getEmptySlots() <= 0;
+    }
+
+    public boolean isEmpty()
+    {
+        return getEmptySlots() >= 28;
+    }
+
+    public int getEmptySlots()
+    {
+        Widget inventoryWidget = client.getWidget(WidgetInfo.INVENTORY);
+        if (inventoryWidget != null)
+        {
+            return 28 - inventoryWidget.getWidgetItems().size();
+        }
+        else
+        {
+            return -1;
+        }
     }
 
 }
