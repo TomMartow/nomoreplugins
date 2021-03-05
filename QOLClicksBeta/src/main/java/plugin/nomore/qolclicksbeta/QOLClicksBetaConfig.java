@@ -892,7 +892,7 @@ public interface QOLClicksBetaConfig extends Config
             unhide = "configEnum",
             unhideValue = "Click Item -> Cast Spell on Item"
     )
-    default Skilling INV_SPELL_CAST_ON_WIDGET_SPELL() { return Skilling.HIGH_ALCH; }
+    default MiscSkills INV_SPELL_CAST_ON_WIDGET_SPELL() { return MiscSkills.HIGH_LEVEL_ALCHEMY; }
 
     //INV_SPELL_CAST_ON_NPC
     //
@@ -911,7 +911,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_SPELL_CAST_ON_NPC_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the NPC ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:SpellID:NPCID" +
+                "\n\nFormat - ItemID:NPCID" +
                 "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an npc matching the NPC ID.";
     }
 
@@ -929,7 +929,7 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_SPELL_CAST_ON_NPC_CONFIG_STRING",
-            name = "Item ID : Spell ID : NPC ID",
+            name = "Item ID : NPC ID",
             description = "",
             position = 5,
             title = "configOptionsTitle",
@@ -938,6 +938,18 @@ public interface QOLClicksBetaConfig extends Config
             unhideValue = "Click Item -> Cast Spell on NPC"
     )
     default String INV_SPELL_CAST_ON_NPC_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_NPC_SPELL",
+            name = "Spell",
+            description = "",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on NPC"
+    )
+    default CombatSpells INV_SPELL_CAST_ON_NPC_SPELL() { return CombatSpells.WIND_STRIKE; }
 
     //INV_SPELL_CAST_ON_GAME_OBJECT
     //
@@ -956,7 +968,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_SPELL_CAST_ON_GAME_OBJECT_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the Game Object ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:SpellID:GameObjectID" +
+                "\n\nFormat - ItemID:GameObjectID" +
                 "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an game object matching the Game Object ID.";
     }
 
@@ -974,7 +986,7 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_CONFIG_STRING",
-            name = "Item ID : Spell ID : Game Object ID",
+            name = "Item ID : Game Object ID",
             description = "",
             position = 5,
             title = "configOptionsTitle",
@@ -983,6 +995,18 @@ public interface QOLClicksBetaConfig extends Config
             unhideValue = "Click Item -> Cast Spell on Game Object"
     )
     default String INV_SPELL_CAST_ON_GAME_OBJECT_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_SPELL",
+            name = "Spell",
+            description = "",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Game Object"
+    )
+    default MiscSkills INV_SPELL_CAST_ON_GAME_OBJECT_SPELL() { return MiscSkills.TELEKINETIC_GRAB; }
 
     //INV_SPELL_CAST_ON_GROUND_ITEM
     //
@@ -1001,7 +1025,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_SPELL_CAST_ON_GROUND_ITEM_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the Ground Item ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:SpellID:GroundItemID" +
+                "\n\nFormat - ItemID:GroundItemID" +
                 "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an ground item matching the Ground Item ID.";
     }
 
@@ -1019,7 +1043,7 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_CONFIG_STRING",
-            name = "Item ID : Spell ID : Ground Item ID",
+            name = "Item ID : Ground Item ID",
             description = "",
             position = 5,
             title = "configOptionsTitle",
@@ -1029,8 +1053,17 @@ public interface QOLClicksBetaConfig extends Config
     )
     default String INV_SPELL_CAST_ON_GROUND_ITEM_CONFIG_STRING() { return ""; }
 
-
-
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_SPELL",
+            name = "Spell",
+            description = "",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Ground Item"
+    )
+    default MiscSkills INV_SPELL_CAST_ON_GROUND_ITEM_SPELL() { return MiscSkills.TELEKINETIC_GRAB; }
 
 //   █████╗ ██╗   ██╗████████╗ ██████╗ ███╗   ███╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
 //  ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║

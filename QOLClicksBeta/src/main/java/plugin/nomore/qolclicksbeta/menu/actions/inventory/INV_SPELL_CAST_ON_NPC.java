@@ -3,6 +3,7 @@ package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
@@ -41,5 +42,39 @@ public class INV_SPELL_CAST_ON_NPC
 
     public void check(MenuOptionClicked e)
     {
+
+        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigInt(0, config.INV_SPELL_CAST_ON_NPC_CONFIG_STRING()));
+
+        if (itemClicked == null)
+        {
+            System.out.println("item null");
+            return;
+        }
+
+        NPC npcToCastSpellOn = npc.getClosestNpc(utils.getConfigInt(1, config.INV_SPELL_CAST_ON_NPC_CONFIG_STRING()));
+
+        if (npcToCastSpellOn == null)
+        {
+            System.out.println("npc null");
+            return;
+        }
+
+        System.out.println("rune clicked");
+        plugin.setSelectSpell(config.INV_SPELL_CAST_ON_NPC_SPELL().getSpell());
+
+        MenuEntry menuEntry = new MenuEntry(
+                "Cast",
+                "<col=00ff00>" + config.INV_SPELL_CAST_ON_NPC_SPELL().getName()
+                        + "</col><col=ffffff> -> <col=ffff00>"
+                        + client.getNpcDefinition(npcToCastSpellOn.getId()).getName(),
+                npcToCastSpellOn.getIndex(),
+                MenuAction.SPELL_CAST_ON_NPC.getId(),
+                0,
+                0,
+                false
+        );
+
+        e.setMenuEntry(menuEntry);
+        plugin.setQOLClick(true);
     }
 }
