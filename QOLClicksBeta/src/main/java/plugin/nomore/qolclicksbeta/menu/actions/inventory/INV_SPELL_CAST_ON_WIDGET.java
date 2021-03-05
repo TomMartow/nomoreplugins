@@ -2,6 +2,7 @@ package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
 import joptsimple.internal.Strings;
 import net.runelite.api.Client;
+import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.MenuOptionClicked;
@@ -75,6 +76,11 @@ public class INV_SPELL_CAST_ON_WIDGET
                 WidgetInfo.INVENTORY.getId(),
                 false
         );
+
+        if (config.INV_SPELL_CAST_ON_WIDGET_SPELL().getSpell() == WidgetInfo.SPELL_HIGH_LEVEL_ALCHEMY)
+        {
+            plugin.setOpenInventory(true);
+        }
 
         e.setMenuEntry(menuEntry);
         plugin.setQolClick(true);

@@ -105,6 +105,10 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
+	boolean openInventory = false;
+
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
 	static Rectangle clickArea = null;
 
 	private final HotkeyListener toggle = new HotkeyListener(() -> config.dropKeybind())
@@ -177,7 +181,25 @@ public class QOLClicksBetaPlugin extends Plugin
 			setQolClick(false);
 		}
 
-
+		if (openInventory)
+		{
+			if (client != null)
+			{
+				if (client.getGameState() == GameState.LOGGED_IN)
+				{
+					new Thread(() ->
+					{
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException interruptedException) {
+							interruptedException.printStackTrace();
+						}
+						client.runScript(915, 3);
+					}).start();
+				}
+			}
+			setOpenInventory(false);
+		}
 
 		debugMessage(e);
 	}
