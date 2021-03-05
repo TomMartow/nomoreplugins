@@ -38,6 +38,7 @@ import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
@@ -67,6 +68,9 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	@Inject
 	private Client client;
+
+	@Inject
+	private ClientThread clientThread;
 
 	@Inject
 	private QOLClicksBetaConfig config;
@@ -194,7 +198,7 @@ public class QOLClicksBetaPlugin extends Plugin
 						} catch (InterruptedException interruptedException) {
 							interruptedException.printStackTrace();
 						}
-						client.runScript(915, 3);
+						clientThread.invoke(() -> client.runScript(915, 3));
 					}).start();
 				}
 			}
