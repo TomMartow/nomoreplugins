@@ -57,12 +57,7 @@ public class INV_SPELL_CAST_ON_WIDGET
 
         if (itemClicked == null)
         {
-            return;
-        }
-
-        if (Arrays.stream(spellMenuSwap).anyMatch(itemId -> Integer.parseInt(itemId) != itemClicked.getId()))
-        {
-            System.out.println();
+            System.out.println("Item is null");
             return;
         }
 
@@ -70,15 +65,18 @@ public class INV_SPELL_CAST_ON_WIDGET
 
         MenuEntry menuEntry = new MenuEntry(
                 "Cast",
-                config.INV_SPELL_CAST_ON_WIDGET_SPELL().getName(),
+                "<col=00ff00>"
+                        + config.INV_SPELL_CAST_ON_WIDGET_SPELL().getName()
+                        + "</col><col=ffffff> -> <col=ff9040>"
+                        + client.getItemDefinition(itemClicked.getId()).getName(),
                 itemClicked.getId(),
-                MenuAction.CC_OP.getId(),
-                1,
-                WidgetInfo.SPELLBOOK.getId(),
+                MenuAction.ITEM_USE_ON_WIDGET.getId(),
+                itemClicked.getIndex(),
+                WidgetInfo.INVENTORY.getId(),
                 false
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 }

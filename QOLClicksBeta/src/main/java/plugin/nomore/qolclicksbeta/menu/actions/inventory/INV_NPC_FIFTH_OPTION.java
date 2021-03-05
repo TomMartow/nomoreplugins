@@ -67,6 +67,6 @@ public class INV_NPC_FIFTH_OPTION
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 }

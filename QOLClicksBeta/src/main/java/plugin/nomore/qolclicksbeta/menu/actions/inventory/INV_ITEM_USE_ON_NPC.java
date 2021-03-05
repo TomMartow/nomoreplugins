@@ -69,7 +69,7 @@ public class INV_ITEM_USE_ON_NPC
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 
 }

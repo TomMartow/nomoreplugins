@@ -5,7 +5,6 @@ import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
@@ -75,6 +74,6 @@ public class INV_SPELL_CAST_ON_NPC
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 }

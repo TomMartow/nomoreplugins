@@ -67,6 +67,6 @@ public class INV_GAME_OBJECT_THIRD_OPTION
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 }

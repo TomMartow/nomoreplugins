@@ -72,7 +72,7 @@ public class INV_ITEM_USE
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 
 }

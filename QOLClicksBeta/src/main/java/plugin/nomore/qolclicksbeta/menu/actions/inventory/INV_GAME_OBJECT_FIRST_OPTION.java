@@ -64,6 +64,6 @@ public class INV_GAME_OBJECT_FIRST_OPTION
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 }

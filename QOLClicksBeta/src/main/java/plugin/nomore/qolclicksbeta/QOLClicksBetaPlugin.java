@@ -31,6 +31,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
+import net.runelite.api.Point;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -96,7 +97,15 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
-	boolean isQOLClick = false;
+	boolean qolClick = false;
+
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
+	boolean spoofClick = false;
+
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
+	static Rectangle clickArea = null;
 
 	private final HotkeyListener toggle = new HotkeyListener(() -> config.dropKeybind())
 	{
@@ -148,15 +157,27 @@ public class QOLClicksBetaPlugin extends Plugin
 		else
 		{
 			e.setMenuEntry(automation.getTargetMenu());
+			if (isSpoofClick())
+			{
+				new Thread(() ->
+				{
+					automation.clickR(getClickArea());
+					setSpoofClick(false);
+					e.consume();
+				}).start();
+				return;
+			}
 			automation.setTargetMenu(null);
 		}
 
-		if (isQOLClick
+		if (qolClick
 				&& config.displayQOLClickOverlay())
 		{
 			arrow.draw(e);
-			setQOLClick(false);
+			setQolClick(false);
 		}
+
+
 
 		debugMessage(e);
 	}
@@ -201,7 +222,7 @@ public class QOLClicksBetaPlugin extends Plugin
 		}
 		System.out.println(
 				"Point: " + automation.getClickedPoint() + "\n" +
-				"isQOLClick: " + isQOLClick() + "\n" +
+				"isQOLClick: " + isQolClick() + "\n" +
 				"Option: " + e.getMenuOption() + "\n" +
 				"Target: " + e.getMenuTarget() + "\n" +
 				"ID: " + e.getId() + "\n" +
@@ -217,7 +238,7 @@ public class QOLClicksBetaPlugin extends Plugin
 
 		String myString =
 				"Point: " + automation.getClickedPoint() + "\n" +
-				"isQOLClick: " + isQOLClick() + "\n" +
+				"isQOLClick: " + isQolClick() + "\n" +
 				"Option: " + e.getMenuOption() + "\n" +
 				"Target: " + e.getMenuTarget() + "\n" +
 				"ID: " + e.getId() + "\n" +

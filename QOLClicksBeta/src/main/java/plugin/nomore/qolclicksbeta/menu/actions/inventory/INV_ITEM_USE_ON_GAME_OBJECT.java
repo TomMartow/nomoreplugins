@@ -71,6 +71,6 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
         );
 
         e.setMenuEntry(menuEntry);
-        plugin.setQOLClick(true);
+        plugin.setQolClick(true);
     }
 }
