@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018, James Swindle <wilingua@gmail.com>
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,50 +24,10 @@
  */
 package plugin.nomore.newplugin;
 
-import com.google.inject.Provides;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.events.GameTick;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDependency;
-import net.runelite.client.plugins.PluginDescriptor;
-import org.pf4j.Extension;
-import plugin.nomore.nmputils.NMPUtils;
-import plugin.nomore.nmputils.api.DebugAPI;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
 
-import javax.inject.Inject;
-
-@Extension
-@PluginDescriptor(
-		name = "New Plugin",
-		description = "New Plugin Description",
-		tags = {"tag1", "tag2", "tag3"}
-)
-@Slf4j
-public class NewPluginPlugin extends Plugin
+@ConfigGroup("NewPlugin")
+public interface JSONConfig extends Config
 {
-
-	@Inject
-	private Client client;
-
-	@Provides
-	NewAutomationPluginConfig provideConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(NewAutomationPluginConfig.class);
-	}
-
-	@Override
-	protected void startUp()
-	{
-		log.info("Plugin started.");
-	}
-
-	@Override
-	protected void shutDown()
-	{
-		log.info("Plugin finished.");
-	}
-
 }

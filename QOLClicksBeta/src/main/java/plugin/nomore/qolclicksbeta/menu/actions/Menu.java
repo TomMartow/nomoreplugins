@@ -45,7 +45,7 @@ public class Menu
     public void onClicked(MenuOptionClicked e)
     {
 
-        if (e.getMenuAction() == MenuAction.ITEM_USE)
+        if (e.getMenuAction() == MenuAction.ITEM_USE || e.getMenuAction() == MenuAction.WIDGET_FIRST_OPTION)
         {
             if (config.ENABLE_INV_ITEM_USE()) { inv_item_use.check(e); }
             if (config.ENABLE_INV_ITEM_USE_ON_NPC()) { inv_item_use_on_npc.check(e); }

@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018, James Swindle <wilingua@gmail.com>
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,52 +22,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.newplugin;
 
-import com.google.inject.Provides;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.events.GameTick;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDependency;
-import net.runelite.client.plugins.PluginDescriptor;
-import org.pf4j.Extension;
-import plugin.nomore.nmputils.NMPUtils;
-import plugin.nomore.nmputils.api.DebugAPI;
+version = "4.0.0"
 
-import javax.inject.Inject;
+project.extra["PluginName"] = "JSON"
+project.extra["PluginDescription"] = "JSON JSON JSON."
 
-@Extension
-@PluginDescriptor(
-		name = "New Plugin",
-		description = "New Plugin Description",
-		tags = {"tag1", "tag2", "tag3"}
-)
-@Slf4j
-public class NewPluginPlugin extends Plugin
-{
-
-	@Inject
-	private Client client;
-
-	@Provides
-	NewAutomationPluginConfig provideConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(NewAutomationPluginConfig.class);
-	}
-
-	@Override
-	protected void startUp()
-	{
-		log.info("Plugin started.");
-	}
-
-	@Override
-	protected void shutDown()
-	{
-		log.info("Plugin finished.");
-	}
-
+tasks {
+    jar {
+        manifest {
+            attributes(mapOf(
+                "Plugin-Version" to project.version,
+                "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
+                "Plugin-Provider" to project.extra["PluginProvider"],
+                "Plugin-Description" to project.extra["PluginDescription"],
+                "Plugin-License" to project.extra["PluginLicense"]
+            ))
+        }
+    }
 }

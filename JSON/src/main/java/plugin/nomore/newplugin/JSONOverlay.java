@@ -9,14 +9,14 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import javax.inject.Inject;
 import java.awt.*;
 
-public class NewPluginOverlay extends Overlay
+public class JSONOverlay extends Overlay
 {
 
     @Inject
     private Client client;
 
     @Inject
-    public NewAutomationPluginOverlay() {
+    public JSONOverlay() {
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.LOW);
         setLayer(OverlayLayer.ABOVE_SCENE);
