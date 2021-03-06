@@ -25,15 +25,24 @@
  */
 package plugin.nomore.newplugin;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.NPC;
+import net.runelite.api.NPCComposition;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import org.pf4j.Extension;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @Extension
 @PluginDescriptor(
@@ -48,6 +57,9 @@ public class JSONPlugin extends Plugin
 	@Inject
 	private Client client;
 
+	Gson gson;
+	List<NPCs> npcs = new ArrayList<>();
+
 	@Provides
 	JSONConfig provideConfig(ConfigManager configManager)
 	{
@@ -57,13 +69,51 @@ public class JSONPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		log.info("Plugin started.");
+		gson = new GsonBuilder().setPrettyPrinting().create();
 	}
 
 	@Override
 	protected void shutDown()
 	{
-		log.info("Plugin finished.");
+		gson = null;
+	}
+
+	@Subscribe
+	private void on(NpcSpawned e)
+	{
+		NPC npc = e.getNpc();
+		if (npc == null)
+		{
+			return;
+		}
+
+		NPCComposition def = client.getNpcDefinition(npc.getId());
+		NPCs builtNPC = NPCs.builder().npc(npc).id(npc.getId()).name(def.getName()).build();
+		if (builtNPC == null)
+		{
+			return;
+		}
+		npcs.add(builtNPC);
+		System.out.println(builtNPC.getName() + " added.");
+	}
+
+	@Subscribe
+	private void on(NpcDespawned e)
+	{
+		NPC npc = e.getNpc();
+		if (npc == null)
+		{
+			return;
+		}
+
+		NPCComposition def = client.getNpcDefinition(npc.getId());
+		NPCs builtNPC = NPCs.builder().npc(npc).id(npc.getId()).name(def.getName()).build();
+		if (builtNPC == null)
+		{
+			return;
+		}
+		npcs.removeIf(npcs -> npcs.getNpc() == builtNPC.getNpc());
+		System.out.println(builtNPC.getName() + " removed.");
 	}
 
 }

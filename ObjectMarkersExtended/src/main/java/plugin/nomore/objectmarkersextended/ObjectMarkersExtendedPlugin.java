@@ -151,7 +151,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.equals(createHighlightingObject(object, tile)));
+		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.getObject() == createHighlightingObject(object, tile).getObject());
 	}
 
 	@Subscribe
@@ -188,7 +188,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.equals(createHighlightingObject(object, tile)));
+		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.getObject() == createHighlightingObject(object, tile).getObject());
 	}
 
 	@Subscribe
@@ -225,7 +225,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.equals(createHighlightingObject(object, tile)));
+		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.getObject() == createHighlightingObject(object, tile).getObject());
 	}
 
 	@Subscribe
@@ -262,7 +262,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.equals(createHighlightingObject(object, tile)));
+		objectToHighlight.removeIf(HighlightingObject -> HighlightingObject.getObject() == createHighlightingObject(object, tile).getObject());
 	}
 
 	private void removePrevious(TileObject previousObject)

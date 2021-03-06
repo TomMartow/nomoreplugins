@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "4.0.0"
+version = "4.0.1"
 
 project.extra["PluginName"] = "Ex: NPC Highlighting"
 project.extra["PluginDescription"] = "NPC Highlighting, but with more options."

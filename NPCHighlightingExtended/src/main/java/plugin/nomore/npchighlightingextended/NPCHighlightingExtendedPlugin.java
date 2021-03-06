@@ -136,7 +136,7 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		npcsToHighlight.removeIf(HighlightingObject -> HighlightingObject.equals(createHighlightingObject(npc)));
+		npcsToHighlight.removeIf(HighlightingObject -> HighlightingObject.getNpc() == createHighlightingObject(npc).getNpc());
 	}
 
 	private void getAllNpcs()
