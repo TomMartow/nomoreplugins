@@ -52,13 +52,17 @@ public class NPCHighlightingExtendedOverlay extends Overlay
     private void renderNPC(Graphics2D graphics, Player player)
     {
         List<HighlightingObject> npcsToHighlight = plugin.getNpcsToHighlight();
-        for (HighlightingObject HIghlightingObject : npcsToHighlight)
+        for (HighlightingObject highlightingObject : npcsToHighlight)
         {
-            NPC npc = HIghlightingObject.getNpc();
-            Color color = HIghlightingObject.getColor();
+            NPC npc = highlightingObject.getNpc();
+            Color color = highlightingObject.getColor();
             if (npc == null)
             {
                 continue;
+            }
+            if (color == null)
+            {
+                config.npcDefaultHighlightColor();
             }
 
             if (config.npcLineOfSight()

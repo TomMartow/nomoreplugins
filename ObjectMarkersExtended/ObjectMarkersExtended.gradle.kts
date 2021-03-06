@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "4.0.1"
+version = "4.0.2"
 
 project.extra["PluginName"] = "Ex: Object Markers"
 project.extra["PluginDescription"] = "Object Markers, but with more options."

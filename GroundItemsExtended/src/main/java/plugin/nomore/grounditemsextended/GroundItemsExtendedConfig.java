@@ -29,7 +29,7 @@ import net.runelite.client.config.*;
 import java.awt.*;
 
 @ConfigGroup("grounditemsextended")
-public interface GroundMarkersExtendedConfig extends Config
+public interface GroundItemsExtendedConfig extends Config
 {
 
     @ConfigTitle(

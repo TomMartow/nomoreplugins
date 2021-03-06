@@ -35,6 +35,8 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.input.KeyListener;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -45,7 +47,9 @@ import plugin.nomore.grounditemsextended.utils.StringFormat;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Extension
@@ -55,7 +59,7 @@ import java.util.List;
 		tags = {"ground", "items", "loot", "nomore"}
 )
 @Slf4j
-public class GroundMarkersExtendedPlugin extends Plugin
+public class GroundItemsExtendedPlugin extends Plugin implements KeyListener
 {
 
 	@Inject
@@ -65,10 +69,13 @@ public class GroundMarkersExtendedPlugin extends Plugin
 	private ClientThread clientThread;
 
 	@Inject
-	private GroundMarkersExtendedConfig config;
+	private KeyManager keyManager;
 
 	@Inject
-	private GroundMarkersExtendedOverlay overlay;
+	private GroundItemsExtendedConfig config;
+
+	@Inject
+	private GroundItemsExtendedOverlay overlay;
 
 	@Inject
 	private OverlayManager overlayManager;
@@ -80,17 +87,21 @@ public class GroundMarkersExtendedPlugin extends Plugin
 	private ItemManager itemManager;
 
 	@Provides
-	GroundMarkersExtendedConfig provideConfig(ConfigManager configManager)
+	GroundItemsExtendedConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(GroundMarkersExtendedConfig.class);
+		return configManager.getConfig(GroundItemsExtendedConfig.class);
 	}
 
 	private static final List<HighlightingObject> groundItemsToHighlight = new ArrayList<>();
 	private final List<ConfigObject> configObjects = new ArrayList<>();
+	private static final String UNMARK = "Un-tag";
+	private static final String MARK = "Tag";
+	private boolean isShiftKeyPressed = false;
 	
 	@Override
 	protected void startUp()
 	{
+		keyManager.registerKeyListener(this);
 		overlayManager.add(overlay);
 		getConfigTextField();
 	}
@@ -98,6 +109,7 @@ public class GroundMarkersExtendedPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		keyManager.unregisterKeyListener(this);
 		overlayManager.remove(overlay);
 		groundItemsToHighlight.clear();
 	}
@@ -269,32 +281,14 @@ public class GroundMarkersExtendedPlugin extends Plugin
 		{
 			configItemName = "null";
 		}
-		if (Strings.isNullOrEmpty(configItemColor))
-		{
-			configItemColor = "null";
-		}
-		try
-		{
-			if (configItemColor.length() != 6)
-			{
-				configItemColor = "00FF00";
-			}
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			if (Strings.isNullOrEmpty(configItemColor))
-			{
-				configItemColor = "00FF00";
-			}
-		}
-		Color actualConfigColor = config.groundItemDefaultHighlightColor();
+		Color actualConfigColor;
 		try
 		{
 			actualConfigColor = Color.decode("#" + configItemColor);
 		}
 		catch (NumberFormatException nfe)
 		{
-			System.out.println("Error decoding color for " + configItemColor);
+			actualConfigColor = config.groundItemDefaultHighlightColor();
 		}
 		ConfigObject configObject = ConfigObject.builder()
 				.name(configItemName)
@@ -349,5 +343,26 @@ public class GroundMarkersExtendedPlugin extends Plugin
 			return false;
 		}
 		return player.getWorldArea().hasLineOfSightTo(client, item.getTile().getWorldLocation().toWorldArea());
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = false;
+		}
 	}
 }

@@ -26,7 +26,10 @@
 package plugin.nomore.objectmarkersextended;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.*;
@@ -36,11 +39,15 @@ import net.runelite.api.queries.GroundObjectQuery;
 import net.runelite.api.queries.WallObjectQuery;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.Keybind;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.input.KeyListener;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
 import plugin.nomore.objectmarkersextended.utils.StringFormat;
 import plugin.nomore.objectmarkersextended.builder.ConfigObject;
@@ -48,8 +55,11 @@ import plugin.nomore.objectmarkersextended.builder.HighlightingObject;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Extension
 @PluginDescriptor(
@@ -58,7 +68,7 @@ import java.util.ArrayList;
 		tags = {"object", "marker", "nomore"}
 )
 @Slf4j
-public class ObjectMarkersExtendedPlugin extends Plugin
+public class ObjectMarkersExtendedPlugin extends Plugin implements KeyListener
 {
 
 	@Inject
@@ -66,6 +76,9 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 
 	@Inject
 	private ClientThread clientThread;
+
+	@Inject
+	private KeyManager keyManager;
 
 	@Inject
 	private ObjectMarkersExtendedConfig config;
@@ -88,9 +101,14 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 	private static final List<HighlightingObject> objectToHighlight = new ArrayList<>();
 	private final List<ConfigObject> configObjects = new ArrayList<>();
 
+	private static final String UNMARK = "Un-tag";
+	private static final String MARK = "Tag";
+	private boolean isShiftKeyPressed = false;
+
 	@Override
 	protected void startUp()
 	{
+		keyManager.registerKeyListener(this);
 		overlayManager.add(overlay);
 		getConfigTextField();
 		if (client.getLocalPlayer() == null)
@@ -103,8 +121,146 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		keyManager.unregisterKeyListener(this);
 		overlayManager.remove(overlay);
 		objectToHighlight.clear();
+	}
+
+	@Subscribe
+	private void on(MenuOpened e)
+	{
+
+		if (!isShiftKeyPressed)
+		{
+			client.setMenuEntries(e.getMenuEntries());
+			return;
+		}
+
+		System.out.println("Hotkey pressed.");
+		MenuEntry objectEntry = Arrays.stream(e.getMenuEntries()).filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_OBJECT).findFirst().orElse(null);
+
+		if (objectEntry == null)
+		{
+			return;
+		}
+
+		final Tile tile = client.getScene().getTiles()[client.getPlane()][objectEntry.getParam0()][objectEntry.getParam1()];
+		final TileObject object = findTileObject(tile, objectEntry.getIdentifier());
+
+		if (object == null)
+		{
+			return;
+		}
+
+		MenuEntry[] menuEntries = e.getMenuEntries();
+		menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
+		MenuEntry menuEntry = menuEntries[2] = new MenuEntry();
+
+		menuEntry.setOption(getObjectToHighlight().stream().anyMatch(o -> o.getObject() == object) ? UNMARK : MARK);
+		menuEntry.setTarget(objectEntry.getTarget());
+		menuEntry.setParam0(objectEntry.getParam0());
+		menuEntry.setParam1(objectEntry.getParam1());
+		menuEntry.setIdentifier(objectEntry.getIdentifier());
+		menuEntry.setOpcode(objectEntry.getMenuAction().getId());
+		client.setMenuEntries(menuEntries);
+	}
+
+	@Subscribe
+	private void on(MenuOptionClicked e)
+	{
+		if (e.getMenuOption().equalsIgnoreCase(MARK))
+		{
+			final Tile tile = client.getScene().getTiles()[client.getPlane()][e.getActionParam()][e.getWidgetId()];
+			final TileObject object = findTileObject(tile, e.getId());
+
+			if (object == null)
+			{
+				return;
+			}
+
+			compareObject(object, tile, true);
+			e.consume();
+		}
+		if (e.getMenuOption().equalsIgnoreCase(UNMARK))
+		{
+			final Tile tile = client.getScene().getTiles()[client.getPlane()][e.getActionParam()][e.getWidgetId()];
+			final TileObject object = findTileObject(tile, e.getId());
+
+			if (object == null)
+			{
+				return;
+			}
+
+			objectToHighlight.removeIf(hObj -> hObj.getObject() == object);
+			e.consume();
+		}
+	}
+
+	private TileObject findTileObject(Tile tile, int id)
+	{
+		if (tile == null)
+		{
+			return null;
+		}
+
+		final GameObject[] tileGameObjects = tile.getGameObjects();
+		final DecorativeObject tileDecorativeObject = tile.getDecorativeObject();
+		final WallObject tileWallObject = tile.getWallObject();
+		final GroundObject groundObject = tile.getGroundObject();
+
+		if (objectIdEquals(tileWallObject, id))
+		{
+			return tileWallObject;
+		}
+
+		if (objectIdEquals(tileDecorativeObject, id))
+		{
+			return tileDecorativeObject;
+		}
+
+		if (objectIdEquals(groundObject, id))
+		{
+			return groundObject;
+		}
+
+		for (GameObject object : tileGameObjects)
+		{
+			if (objectIdEquals(object, id))
+			{
+				return object;
+			}
+		}
+		return null;
+	}
+
+	private boolean objectIdEquals(TileObject tileObject, int id)
+	{
+		if (tileObject == null)
+		{
+			return false;
+		}
+
+		if (tileObject.getId() == id)
+		{
+			return true;
+		}
+
+		// Menu action EXAMINE_OBJECT sends the transformed object id, not the base id, unlike
+		// all of the GAME_OBJECT_OPTION actions, so check the id against the impostor ids
+		final ObjectComposition comp = client.getObjectDefinition(tileObject.getId());
+
+		if (comp.getImpostorIds() != null)
+		{
+			for (int impostorId : comp.getImpostorIds())
+			{
+				if (impostorId == id)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	@Subscribe
@@ -126,7 +282,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(object, tile);
+		compareObject(object, tile, false);
 	}
 
 	@Subscribe
@@ -139,7 +295,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(newObject, tile);
+		compareObject(newObject, tile, false);
 	}
 
 	@Subscribe
@@ -163,7 +319,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(object, tile);
+		compareObject(object, tile, false);
 	}
 
 	@Subscribe
@@ -176,7 +332,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(newObject, tile);
+		compareObject(newObject, tile, false);
 	}
 
 	@Subscribe
@@ -200,7 +356,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(object, tile);
+		compareObject(object, tile, false);
 	}
 
 	@Subscribe
@@ -213,7 +369,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(newObject, tile);
+		compareObject(newObject, tile, false);
 	}
 
 	@Subscribe
@@ -237,7 +393,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(object, tile);
+		compareObject(object, tile, false);
 	}
 
 	@Subscribe
@@ -250,7 +406,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareObject(newObject, tile);
+		compareObject(newObject, tile, false);
 	}
 
 	@Subscribe
@@ -275,16 +431,21 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		if (previousHighlightingObject != null)
 		{
 			objectToHighlight.removeIf(HighlightingObject
-					-> HighlightingObject.getObject() == previousHighlightingObject.getObject());
+					-> HighlightingObject.getObject() == previousHighlightingObject.getObject()
+					&& HighlightingObject.getTile() == previousHighlightingObject.getTile());
 		}
 	}
 
-	public void compareObject(TileObject object, Tile tile)
+	public void compareObject(TileObject object, Tile tile, boolean forceTag)
 	{
 		HighlightingObject highlightingObject = createHighlightingObject(object, tile);
 		if (highlightingObject == null)
 		{
 			return;
+		}
+		if (forceTag)
+		{
+			objectToHighlight.add(highlightingObject);
 		}
 		String objectName = highlightingObject.getName();
 		int objectId = highlightingObject.getId();
@@ -322,7 +483,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareObject(object, null);
+			compareObject(object, null, false);
 		}
 		for (DecorativeObject object : new DecorativeObjectQuery().result(client).list)
 		{
@@ -330,7 +491,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareObject(object, null);
+			compareObject(object, null, false);
 		}
 		for (WallObject object : new WallObjectQuery().result(client).list)
 		{
@@ -338,7 +499,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareObject(object, null);
+			compareObject(object, null, false);
 		}
 		for (GroundObject object : new GroundObjectQuery().result(client).list)
 		{
@@ -346,7 +507,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareObject(object, null);
+			compareObject(object, null, false);
 		}
 	}
 
@@ -362,6 +523,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 				.id(object.getId())
 				.object(object)
 				.tile(tile)
+				.color(config.objectDefaultHighlightColor() != null ? config.objectDefaultHighlightColor() : Color.GREEN)
 				.plane(object.getPlane())
 				.build();
 	}
@@ -455,32 +617,14 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		{
 			configObjectName = "null";
 		}
-		if (Strings.isNullOrEmpty(configObjectColor))
-		{
-			configObjectColor = "null";
-		}
-		try
-		{
-			if (configObjectColor.length() != 6)
-			{
-				configObjectColor = "00FF00";
-			}
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			if (Strings.isNullOrEmpty(configObjectColor))
-			{
-				configObjectColor = "00FF00";
-			}
-		}
-		Color actualConfigColor = config.objectDefaultHighlightColor();
+		Color actualConfigColor;
 		try
 		{
 			actualConfigColor = Color.decode("#" + configObjectColor);
 		}
 		catch (NumberFormatException nfe)
 		{
-			System.out.println("Error decoding color for " + configObjectColor);
+			actualConfigColor = config.objectDefaultHighlightColor();
 		}
 		ConfigObject configObject = ConfigObject.builder()
 				.name(configObjectName)
@@ -491,7 +635,7 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	public void on(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("objectmarkersextended"))
 		{
@@ -538,4 +682,24 @@ public class ObjectMarkersExtendedPlugin extends Plugin
 		return player.getWorldArea().hasLineOfSightTo(client, object.getObject().getWorldLocation());
 	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = false;
+		}
+	}
 }

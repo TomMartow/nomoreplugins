@@ -38,6 +38,8 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.input.KeyListener;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -48,6 +50,7 @@ import plugin.nomore.inventorytagsextended.utils.StringFormat;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,6 +70,9 @@ public class InventoryTagsExtendedPlugin extends Plugin
 
 	@Inject
 	private ClientThread clientThread;
+
+	@Inject
+	private KeyManager keyManager;
 
 	@Inject
 	private InventoryTagsExtendedConfig config;
@@ -299,7 +305,6 @@ public class InventoryTagsExtendedPlugin extends Plugin
 				{
 					colonSplit = new String[]{colonToAdd[0], colonToAdd[1], colonToAdd[2]};
 				}
-				log.info(colonSplit[0] + ", " + colonSplit[1] + ", " + colonSplit[2]);
 				if (stringFormat.containsNumbers(colonSplit[0]))
 				{
 					createConfigObject(null, checkInt(colonSplit[0]), colonSplit[1], checkInt(colonSplit[2]));
@@ -348,32 +353,14 @@ public class InventoryTagsExtendedPlugin extends Plugin
 		{
 			configName = "null";
 		}
-		if (Strings.isNullOrEmpty(configColor))
-		{
-			configColor = "null";
-		}
-		try
-		{
-			if (configColor.length() != 6)
-			{
-				configColor = "00FF00";
-			}
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			if (Strings.isNullOrEmpty(configColor))
-			{
-				configColor = "00FF00";
-			}
-		}
-		Color actualConfigColor = config.inventoryItemDefaultHighlightColor();
+		Color actualConfigColor;
 		try
 		{
 			actualConfigColor = Color.decode("#" + configColor);
 		}
 		catch (NumberFormatException nfe)
 		{
-			System.out.println("Error decoding color for " + configColor);
+			actualConfigColor = config.inventoryItemDefaultHighlightColor();
 		}
 		ConfigObject configObject = ConfigObject.builder()
 				.name(configName)

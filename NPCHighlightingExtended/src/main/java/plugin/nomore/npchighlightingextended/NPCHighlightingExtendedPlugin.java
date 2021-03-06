@@ -30,10 +30,13 @@ import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.*;
+import net.runelite.api.queries.NPCQuery;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.input.KeyListener;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -44,7 +47,9 @@ import plugin.nomore.npchighlightingextended.utils.StringFormat;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Extension
@@ -54,7 +59,7 @@ import java.util.List;
 		tags = {"npc", "highlighting", "nomore"}
 )
 @Slf4j
-public class NPCHighlightingExtendedPlugin extends Plugin
+public class NPCHighlightingExtendedPlugin extends Plugin implements KeyListener
 {
 
 	@Inject
@@ -62,6 +67,9 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 
 	@Inject
 	private ClientThread clientThread;
+
+	@Inject
+	private KeyManager keyManager;
 
 	@Inject
 	private NPCHighlightingExtendedConfig config;
@@ -84,9 +92,14 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 	private static final List<HighlightingObject> npcsToHighlight = new ArrayList<>();
 	private final List<ConfigObject> configObjects = new ArrayList<>();
 
+	private static final String UNMARK = "Un-tag";
+	private static final String MARK = "Tag";
+	private boolean isShiftKeyPressed = false;
+
 	@Override
 	protected void startUp()
 	{
+		keyManager.registerKeyListener(this);
 		overlayManager.add(overlay);
 		getConfigTextField();
 		if (client.getLocalPlayer() == null)
@@ -103,8 +116,81 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		keyManager.unregisterKeyListener(this);
 		overlayManager.remove(overlay);
 		npcsToHighlight.clear();
+	}
+
+	@Subscribe
+	private void on(MenuOpened e)
+	{
+
+		if (!isShiftKeyPressed)
+		{
+			client.setMenuEntries(e.getMenuEntries());
+			return;
+		}
+
+		System.out.println("Hotkey pressed.");
+		MenuEntry objectEntry = Arrays.stream(e.getMenuEntries()).filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_OBJECT).findFirst().orElse(null);
+
+		if (objectEntry == null)
+		{
+			return;
+		}
+
+		final NPC npc = findNpc(objectEntry.getIdentifier());
+
+		if (npc == null)
+		{
+			return;
+		}
+
+		MenuEntry[] menuEntries = e.getMenuEntries();
+		menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
+		MenuEntry menuEntry = menuEntries[2] = new MenuEntry();
+
+		menuEntry.setOption(getNpcsToHighlight().stream().anyMatch(o -> o.getNpc() == npc) ? UNMARK : MARK);
+		menuEntry.setTarget(objectEntry.getTarget());
+		menuEntry.setParam0(objectEntry.getParam0());
+		menuEntry.setParam1(objectEntry.getParam1());
+		menuEntry.setIdentifier(objectEntry.getIdentifier());
+		menuEntry.setOpcode(objectEntry.getMenuAction().getId());
+		client.setMenuEntries(menuEntries);
+	}
+
+	@Subscribe
+	private void on(MenuOptionClicked e)
+	{
+		if (e.getMenuOption().equalsIgnoreCase(MARK))
+		{
+			final NPC npc = findNpc(e.getId());
+
+			if (npc == null)
+			{
+				return;
+			}
+
+			compareNPC(npc, true);
+			e.consume();
+		}
+		if (e.getMenuOption().equalsIgnoreCase(UNMARK))
+		{
+			final NPC npc = findNpc(e.getId());
+
+			if (npc == null)
+			{
+				return;
+			}
+
+			npcsToHighlight.removeIf(hObj -> hObj.getNpc() == npc);
+			e.consume();
+		}
+	}
+
+	private NPC findNpc(int index)
+	{
+		return new NPCQuery().result(client).stream().filter(npc -> npc != null && npc.getIndex() == index).findFirst().orElse(null);
 	}
 
 	@Subscribe
@@ -125,7 +211,7 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 		{
 			return;
 		}
-		compareNPC(npc);
+		compareNPC(npc, false);
 	}
 
 	@Subscribe
@@ -154,16 +240,20 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareNPC(npc);
+			compareNPC(npc, false);
 		}
 	}
 
-	private void compareNPC(NPC npc)
+	private void compareNPC(NPC npc, boolean forceTag)
 	{
 		HighlightingObject highlightingObject = createHighlightingObject(npc);
 		if (highlightingObject == null)
 		{
 			return;
+		}
+		if (forceTag)
+		{
+			npcsToHighlight.add(highlightingObject);
 		}
 		String npcName = highlightingObject.getName();
 		int npcId = npc.getId();
@@ -290,32 +380,14 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 		{
 			configNpcName = "null";
 		}
-		if (Strings.isNullOrEmpty(configNpcColor))
-		{
-			configNpcColor = "null";
-		}
-		try
-		{
-			if (configNpcColor.length() != 6)
-			{
-				configNpcColor = "00FF00";
-			}
-		}
-		catch (ArrayIndexOutOfBoundsException e)
-		{
-			if (Strings.isNullOrEmpty(configNpcColor))
-			{
-				configNpcColor = "00FF00";
-			}
-		}
-		Color actualConfigColor = config.npcDefaultHighlightColor();
+		Color actualConfigColor;
 		try
 		{
 			actualConfigColor = Color.decode("#" + configNpcColor);
 		}
 		catch (NumberFormatException nfe)
 		{
-			System.out.println("Error decoding color for " + configNpcColor);
+			actualConfigColor = config.npcDefaultHighlightColor();
 		}
 		ConfigObject configObject = ConfigObject.builder()
 				.name(configNpcName)
@@ -433,6 +505,27 @@ public class NPCHighlightingExtendedPlugin extends Plugin
 			return false;
 		}
 		return player.getWorldArea().hasLineOfSightTo(client, npc.getWorldArea());
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = false;
+		}
 	}
 
 }

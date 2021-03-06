@@ -60,6 +60,10 @@ public class ObjectMarkersExtendedOverlay extends Overlay
             {
                 continue;
             }
+            if (color == null)
+            {
+                color = config.objectDefaultHighlightColor();
+            }
 
             if (player.getWorldLocation().getPlane() != highlightingObject.getPlane())
             {
@@ -72,24 +76,10 @@ public class ObjectMarkersExtendedOverlay extends Overlay
                 return;
             }
 
-            switch (config.objectRenderStyle())
+            if (config.objectRenderStyle() == ObjectRenderStyle.BOX)
             {
-                case BOX:
-                    render.renderObjectCentreBox(graphics, object, color, config.objectIndicatorSize());
-                    showMouseOverlay(graphics, object, color);
-                    break;
-                case HULL:
-                    render.clickbox(graphics, client.getMouseCanvasPosition(), object.getClickbox(), color);
-                    showMouseOverlay(graphics, object, color);
-                    break;
-                case CLICKBOX:
-                    render.hull(graphics, object.getClickbox(), color);
-                    showMouseOverlay(graphics, object, color);
-                    break;
-                case FILL:
-                    render.fill(graphics, object.getClickbox(), color);
-                    showMouseOverlay(graphics, object, color);
-                    break;
+                render.renderObjectCentreBox(graphics, object, color, config.objectIndicatorSize());
+                showMouseOverlay(graphics, object, color);
             }
 
         }

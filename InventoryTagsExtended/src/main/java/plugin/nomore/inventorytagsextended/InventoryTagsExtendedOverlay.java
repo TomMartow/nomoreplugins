@@ -55,6 +55,10 @@ public class InventoryTagsExtendedOverlay extends WidgetItemOverlay
             {
                 continue;
             }
+            if (color == null)
+            {
+                color = config.inventoryItemDefaultHighlightColor();
+            }
 
             Rectangle bounds = item.getCanvasBounds();
             if (bounds == null)

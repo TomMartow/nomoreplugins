@@ -10,23 +10,23 @@ import javax.inject.Inject;
 import java.awt.*;
 import java.util.List;
 
-public class GroundMarkersExtendedOverlay extends Overlay
+public class GroundItemsExtendedOverlay extends Overlay
 {
 
     @Inject
     private Client client;
 
     @Inject
-    private GroundMarkersExtendedPlugin plugin;
+    private GroundItemsExtendedPlugin plugin;
 
     @Inject
-    private GroundMarkersExtendedConfig config;
+    private GroundItemsExtendedConfig config;
 
     @Inject
     private Rendering render;
 
     @Inject
-    public GroundMarkersExtendedOverlay()
+    public GroundItemsExtendedOverlay()
     {
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.LOW);
@@ -57,6 +57,10 @@ public class GroundMarkersExtendedOverlay extends Overlay
             if (item == null || tile == null)
             {
                 continue;
+            }
+            if (color == null)
+            {
+                color = config.groundItemDefaultHighlightColor();
             }
 
             if (player.getWorldLocation().getPlane() != highlightingObject.getPlane())

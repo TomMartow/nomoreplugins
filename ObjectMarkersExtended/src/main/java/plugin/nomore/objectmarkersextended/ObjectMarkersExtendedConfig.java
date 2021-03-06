@@ -85,7 +85,7 @@ public interface ObjectMarkersExtendedConfig extends Config
             position = 11,
             title = "objectColorTitle"
     )
-    default Color objectDefaultHighlightColor() { return Color.GREEN; }
+    default Color objectDefaultHighlightColor() { return null; }
 
     @ConfigTitle(
             keyName = "objectMiscOptionsTitle",
