@@ -30,6 +30,8 @@ import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.*;
+import net.runelite.api.queries.InventoryItemQuery;
+import net.runelite.api.queries.NPCQuery;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
@@ -51,6 +53,7 @@ import plugin.nomore.inventorytagsextended.utils.StringFormat;
 import javax.inject.Inject;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +65,7 @@ import java.util.List;
 		tags = {"inventory", "tags", "nomore"}
 )
 @Slf4j
-public class InventoryTagsExtendedPlugin extends Plugin
+public class InventoryTagsExtendedPlugin extends Plugin implements KeyListener
 {
 
 	@Inject
@@ -99,10 +102,14 @@ public class InventoryTagsExtendedPlugin extends Plugin
 	private final List<ConfigObject> configObjects = new ArrayList<>();
 	private int gameTick = 5;
 	private boolean initialCheck = false;
+	private static final String UNMARK = "Un-tag";
+	private static final String MARK = "Tag";
+	private boolean isShiftKeyPressed = false;
 
 	@Override
 	protected void startUp()
 	{
+		keyManager.registerKeyListener(this);
 		overlayManager.add(overlay);
 		getConfigTextField();
 		clientThread.invoke(this::getAllInventoryItems);
@@ -111,8 +118,98 @@ public class InventoryTagsExtendedPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		keyManager.unregisterKeyListener(this);
 		overlayManager.remove(overlay);
 		inventoryItemsToHighlight.clear();
+	}
+
+	@Subscribe
+	private void on(MenuOpened e)
+	{
+		if (!isShiftKeyPressed)
+		{
+			client.setMenuEntries(e.getMenuEntries());
+			return;
+		}
+
+		MenuEntry inventoryItemMenu = Arrays.stream(e.getMenuEntries())
+				.filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_ITEM)
+				.findFirst()
+				.orElse(null);
+
+		if (inventoryItemMenu == null)
+		{
+			return;
+		}
+
+		final WidgetItem widgetItem = findWidgetItem(inventoryItemMenu.getIdentifier(), inventoryItemMenu.getActionParam());
+
+		if (widgetItem == null)
+		{
+			return;
+		}
+
+		MenuEntry[] menuEntries = e.getMenuEntries();
+		menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
+		MenuEntry menuEntry = menuEntries[2] = new MenuEntry();
+
+		menuEntry.setOption(getInventoryItemsToHighlight().stream().anyMatch(o -> o.getWidgetItem().getId() == widgetItem.getId() && o.getWidgetItem().getIndex() == widgetItem.getIndex()) ? UNMARK : MARK);
+		menuEntry.setTarget(inventoryItemMenu.getTarget());
+		menuEntry.setParam0(inventoryItemMenu.getParam0());
+		menuEntry.setParam1(inventoryItemMenu.getParam1());
+		menuEntry.setIdentifier(inventoryItemMenu.getIdentifier());
+		menuEntry.setOpcode(inventoryItemMenu.getMenuAction().getId());
+		client.setMenuEntries(menuEntries);
+	}
+
+	@Subscribe
+	private void on(MenuOptionClicked e)
+	{
+		if (e.getMenuOption().equalsIgnoreCase(MARK))
+		{
+			final WidgetItem widgetItem = findWidgetItem(e.getId(), e.getActionParam());
+
+			if (widgetItem == null)
+			{
+				return;
+			}
+
+			createConfigObject(
+					client.getItemComposition(widgetItem.getId()).getName(),
+					widgetItem.getId(),
+					String.valueOf(config.inventoryItemDefaultHighlightColor().getRGB()),
+					widgetItem.getQuantity());
+			getAllInventoryItems();
+			e.consume();
+		}
+		if (e.getMenuOption().equalsIgnoreCase(UNMARK))
+		{
+			final WidgetItem widgetItem = findWidgetItem(e.getId(), e.getActionParam());
+
+			if (widgetItem == null)
+			{
+				return;
+			}
+
+			inventoryItemsToHighlight.removeIf(hObj -> hObj.getWidgetItem().getId() == widgetItem.getId());
+			configObjects.removeIf(cObj -> cObj.getId() == widgetItem.getId());
+			e.consume();
+		}
+	}
+
+	private WidgetItem findWidgetItem(int itemId, int index)
+	{
+		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
+		if (inventory == null)
+		{
+			return null;
+		}
+		return inventory
+				.getWidgetItems()
+				.stream()
+				.filter(widgetItem -> widgetItem != null
+						&& widgetItem.getId() == itemId
+						&& widgetItem.getIndex() == index).findFirst().orElse(null);
 	}
 
 	@Subscribe
@@ -191,7 +288,7 @@ public class InventoryTagsExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareInventoryItem(item);
+			compareInventoryItem(item, false);
 		}
 	}
 
@@ -214,16 +311,20 @@ public class InventoryTagsExtendedPlugin extends Plugin
 			{
 				continue;
 			}
-			compareInventoryItem(item);
+			compareInventoryItem(item, false);
 		}
 	}
 
-	private void compareInventoryItem(WidgetItem item)
+	private void compareInventoryItem(WidgetItem item, boolean forceTag)
 	{
 		HighlightingObject highlightingObject = createHighlightingObject(item);
 		if (highlightingObject == null)
 		{
 			return;
+		}
+		if (forceTag)
+		{
+			inventoryItemsToHighlight.add(highlightingObject);
 		}
 		String itemName = highlightingObject.getName();
 		int itemId = item.getId();
@@ -258,6 +359,7 @@ public class InventoryTagsExtendedPlugin extends Plugin
 				.widgetItem(item)
 				.index(item.getIndex())
 				.quantity(item.getQuantity())
+				.color(config.inventoryItemDefaultHighlightColor())
 				.build();
 	}
 
@@ -399,4 +501,24 @@ public class InventoryTagsExtendedPlugin extends Plugin
 		return inventoryItemsToHighlight;
 	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == 16)
+		{
+			isShiftKeyPressed = false;
+		}
+	}
 }

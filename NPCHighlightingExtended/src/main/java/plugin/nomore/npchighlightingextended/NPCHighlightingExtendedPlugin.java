@@ -124,7 +124,6 @@ public class NPCHighlightingExtendedPlugin extends Plugin implements KeyListener
 	@Subscribe
 	private void on(MenuOpened e)
 	{
-
 		if (!isShiftKeyPressed)
 		{
 			client.setMenuEntries(e.getMenuEntries());
@@ -132,7 +131,7 @@ public class NPCHighlightingExtendedPlugin extends Plugin implements KeyListener
 		}
 
 		System.out.println("Hotkey pressed.");
-		MenuEntry objectEntry = Arrays.stream(e.getMenuEntries()).filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_OBJECT).findFirst().orElse(null);
+		MenuEntry objectEntry = Arrays.stream(e.getMenuEntries()).filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_NPC).findFirst().orElse(null);
 
 		if (objectEntry == null)
 		{
@@ -190,7 +189,12 @@ public class NPCHighlightingExtendedPlugin extends Plugin implements KeyListener
 
 	private NPC findNpc(int index)
 	{
-		return new NPCQuery().result(client).stream().filter(npc -> npc != null && npc.getIndex() == index).findFirst().orElse(null);
+		return new NPCQuery()
+				.result(client)
+				.stream()
+				.filter(npc -> npc != null && npc.getIndex() == index)
+				.findFirst()
+				.orElse(null);
 	}
 
 	@Subscribe
