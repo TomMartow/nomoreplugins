@@ -6,6 +6,7 @@ public enum QOLClickCategory
     // Click item in inventory to perform action.
 
     ITEM_TITLE("-- Click an Inventory Item --"),
+    UNUSED_1(""),
     INV_ITEM_USE("Click Item -> Drop Item"),
     INV_ITEM_USE_ON_NPC("Click Item -> Use on NPC"),
     INV_ITEM_USE_ON_GAME_OBJECT("Click Item -> Use on Game Object"),
@@ -24,15 +25,19 @@ public enum QOLClickCategory
     INV_SPELL_CAST_ON_NPC("Click Item -> Cast Spell on NPC"),
     INV_SPELL_CAST_ON_GAME_OBJECT("Click Item -> Cast Spell on Game Object"),
     INV_SPELL_CAST_ON_GROUND_ITEM("Click Item -> Cast Spell on Ground Item"),
+    UNUSED_2(""),
 
     // Click npc to perform action.
 
     NPC_TITLE("-- Click an NPC --"),
+    UNUSED_3(""),
     NPC_ITEM_USE_ON_NPC("Click NPC -> Use Item on NPC"),
     NPC_SPELL_CAST_ON_NPC("Click NPC -> Cast Spell on NPC"),
+    UNUSED_4(""),
 
     // Click game object to perform action
     GAME_OBJECT_TITLE("-- Click a Game Object --"),
+    UNUSED_5(""),
     GAME_OBJECT_ITEM_USE_ON_GAME_OBJECT("Click Game Object -> Use Item on Object"),
     NPC_SPELL_CAST_ON_GAME_OBJECT("Click Game Object -> Cast Spell on Game Object"),
 
