@@ -47,7 +47,7 @@ public interface QOLClicksBetaConfig extends Config
             position = 2,
             title = "configOptionsTitle"
     )
-    default ConfigOptions configOptions() { return ConfigOptions.INV_ITEM_USE; }
+    default QOLClickCategory configOptions() { return QOLClickCategory.INV_ITEM_USE; }
     
     /*
     @ConfigItem(
@@ -304,7 +304,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_FIRST_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -316,7 +316,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_FIRST_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -361,7 +361,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_SECOND_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -373,7 +373,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_SECOND_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -418,7 +418,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_THIRD_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -430,7 +430,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_THIRD_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -475,7 +475,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_FOURTH_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -487,7 +487,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_FOURTH_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -532,7 +532,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_FIFTH_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -544,7 +544,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_NPC_FIFTH_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -589,7 +589,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_FIRST_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -601,7 +601,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -646,7 +646,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_SECOND_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -658,7 +658,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_SECOND_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -703,7 +703,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_THIRD_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -715,7 +715,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -760,7 +760,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_FOURTH_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -772,7 +772,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_FOURTH_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -817,7 +817,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_FIFTH_OPTION_MENU_OPTION",
             name = "Menu Option",
             description = "The Menu Option is the ",
-            position = 4,
+            position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -829,7 +829,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -886,7 +886,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_WIDGET_SPELL",
             name = "Spell",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -943,7 +943,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_NPC_SPELL",
             name = "Spell",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1000,7 +1000,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_SPELL",
             name = "Spell",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1057,7 +1057,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_SPELL",
             name = "Spell",
             description = "",
-            position = 5,
+            position = 6,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1077,99 +1077,111 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "automationTitle",
             name = "Automation Options",
             description = "",
-            position = 15
+            position = 3
     )
     String automationTitle = "automationTitle";
 
     @ConfigItem(
-            keyName = "hideAutomationSettings",
-            name = "Show automation options",
+            keyName = "shopAutomationOptions",
+            name = "Display options",
             description = "",
-            position = 16,
+            position = 4,
             title = "automationTitle"
     )
-    default boolean hideAutomationSettings() { return false; }
+    default boolean shopAutomationOptions() { return false; }
 
     @ConfigItem(
-            keyName = "droppingKeybind",
+            keyName = "automationKeybind",
             name = "Keybind",
             description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 17,
+            position = 5,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
-    default Keybind dropKeybind() { return Keybind.NOT_SET; }
+    default Keybind automationKeybind() { return Keybind.NOT_SET; }
 
     @ConfigItem(
-            keyName = "dropMatching",
-            name = "Drop matching",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 18,
+            keyName = "itemsMatching",
+            name = "Interact with all matching",
+            description = "If enabled, when the keybind hotkey is pressed, all items that match in the box below will be interacted with based on your interaction choice.",
+            position = 6,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
-    default boolean dropMatching() { return false; }
+    default boolean itemsMatching() { return false; }
 
     @ConfigItem(
             keyName = "matchingList",
             name = "Matching list",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 19,
+            description = "If enabled, when the keybind hotkey is pressed, all items that match in the box below will be interacted with based on your interaction choice.",
+            position = 7,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
     default String matchingList() { return "Bones"; }
 
     @ConfigItem(
-            keyName = "dropExcept",
-            name = "Drop except",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 20,
+            keyName = "itemsExcept",
+            name = "Interact with all except",
+            description = "If enabled, when the keybind hotkey is pressed, all items that match in the box below will be interacted with based on your interaction choice.",
+            position = 8,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
-    default boolean dropExcept() { return false; }
+    default boolean itemsExcept() { return false; }
 
     @ConfigItem(
             keyName = "exceptList",
             name = "Except list",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that don't match in the box below will be dropped.",
-            position = 21,
+            description = "If enabled, when the keybind hotkey is pressed, all items that don't match in the box below will be interacted with based on your interaction choice.",
+            position = 9,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
     default String exceptList() { return "Bones"; }
 
     @ConfigItem(
-            keyName = "listOrder",
-            name = "Order",
-            description = "The iteration order.",
-            position = 22,
+            keyName = "qolClickWidgetItemInteractionType",
+            name = "Interaction type",
+            description = "How the item will be interacted with.",
+            position = 9,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
-    default String listOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
+    default QOLClickWidgetItemInteractionType qolClickWidgetItemInteractionType() { return QOLClickWidgetItemInteractionType.DEFAULT_CLICK; }
+
+    @ConfigItem(
+            keyName = "inventorySlotOrder",
+            name = "Order",
+            description = "Will interact with inventory items in the order provided below.",
+            position = 15,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
+    )
+    default String inventorySlotOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
 
     @ConfigItem(
             keyName = "minTime",
             name = "Min (millis)",
-            description = "The minimum time between dropping.",
-            position = 23,
+            description = "The minimum time between interacting.",
+            position = 16,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
     default String minTime() { return "250"; }
@@ -1177,14 +1189,16 @@ public interface QOLClicksBetaConfig extends Config
     @ConfigItem(
             keyName = "maxTime",
             name = "Max (millis)",
-            description = "The maximum time between dropping.",
-            position = 24,
+            description = "The maximum time between interacting.",
+            position = 17,
             title = "automationTitle",
             hidden = true,
-            unhide = "hideAutomationSettings",
+            unhide = "shopAutomationOptions",
             unhideValue = "true"
     )
     default String maxTime() { return "1000"; }
+
+
 
 //  ███╗   ███╗██╗███████╗ ██████╗
 //  ████╗ ████║██║██╔════╝██╔════╝
@@ -1198,7 +1212,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "miscTitle",
             name = "Miscellaneous Options",
             description = "",
-            position = 25
+            position = 18
     )
     String miscTitle = "miscTitle";
 
@@ -1206,7 +1220,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "displayQOLClickOverlay",
             name = "Display qol click overlay",
             description = "If enabled, will display an overlay over an NPC / Object that you're interacting with.",
-            position = 26,
+            position = 19,
             title = "miscTitle"
     )
     default boolean displayQOLClickOverlay() { return true; }
@@ -1215,7 +1229,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "enableDebug",
             name = "Enable console debugging",
             description = "",
-            position = 26,
+            position = 20,
             title = "miscTitle"
     )
     default boolean enableDebug() { return true; }
@@ -1224,7 +1238,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "enableClipboard",
             name = "Enable copy to clipboard",
             description = "",
-            position = 26,
+            position = 21,
             title = "miscTitle",
             hidden = true,
             unhide = "enableDebug",

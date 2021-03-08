@@ -118,7 +118,7 @@ public class QOLClicksBetaPlugin extends Plugin
 	@Setter(AccessLevel.PUBLIC)
 	static Rectangle clickArea = null;
 
-	private final HotkeyListener toggle = new HotkeyListener(() -> config.dropKeybind())
+	private final HotkeyListener toggle = new HotkeyListener(() -> config.automationKeybind())
 	{
 		@Override
 		public void hotkeyPressed()

@@ -115,7 +115,6 @@ public class UpOrDownPlugin extends Plugin
 			if (elevationObjects.contains(eObjToRemove))
 			{
 				assert eObjToRemove != null;
-				System.out.println("Removing object: " + client.getObjectDefinition(eObjToRemove.getGameObject().getId()).getName());
 				elevationObjects.remove(eObjToRemove);
 			}
 		}
@@ -129,7 +128,6 @@ public class UpOrDownPlugin extends Plugin
 			return;
 		}
 		elevationObjects.add(elevationObject);
-		//System.out.println(client.getObjectDefinition(elevationObject.getGameObject().getId()).getName() + ", " + elevationObject.getTile().getWorldLocation() + ", Up: " + elevationObject.isUp() + ", Down: " + elevationObject.isDown());
 	}
 
 	private ElevationObject createElevationObject(GameObject obj, Tile tile)

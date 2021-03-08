@@ -136,7 +136,6 @@ public class ObjectMarkersExtendedPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		System.out.println("Hotkey pressed.");
 		MenuEntry objectEntry = Arrays.stream(e.getMenuEntries()).filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_OBJECT).findFirst().orElse(null);
 
 		if (objectEntry == null)

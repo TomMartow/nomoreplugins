@@ -1,10 +1,11 @@
 package plugin.nomore.qolclicksbeta;
 
-public enum ConfigOptions
+public enum QOLClickCategory
 {
 
     // Click item in inventory to perform action.
 
+    ITEM_TITLE("-- Click an Inventory Item --"),
     INV_ITEM_USE("Click Item -> Drop Item"),
     INV_ITEM_USE_ON_NPC("Click Item -> Use on NPC"),
     INV_ITEM_USE_ON_GAME_OBJECT("Click Item -> Use on Game Object"),
@@ -26,36 +27,38 @@ public enum ConfigOptions
 
     // Click npc to perform action.
 
+    NPC_TITLE("-- Click an NPC --"),
     NPC_ITEM_USE_ON_NPC("Click NPC -> Use Item on NPC"),
     NPC_SPELL_CAST_ON_NPC("Click NPC -> Cast Spell on NPC"),
 
     // Click game object to perform action
-
+    GAME_OBJECT_TITLE("-- Click a Game Object --"),
     GAME_OBJECT_ITEM_USE_ON_GAME_OBJECT("Click Game Object -> Use Item on Object"),
     NPC_SPELL_CAST_ON_GAME_OBJECT("Click Game Object -> Cast Spell on Game Object"),
 
     // Misc
 
-    SPELL_CAST_ON_WIDGET("Click Spell ->"),
-    SPELL_CAST_ON_NPC(""),
-    SPELL_CAST_ON_GAME_OBJECT(""),
-    SPELL_CAST_ON_GROUND_ITEM(""),
-    SPELL_CAST_ON_PLAYER(""),
-    WIDGET_FIRST_OPTION(""),
-    WIDGET_SECOND_OPTION(""),
-    WIDGET_THIRD_OPTION(""),
-    WIDGET_FOURTH_OPTION(""),
-    WIDGET_FIFTH_OPTION(""),
-    WIDGET_TYPE_1(""),
-    WIDGET_TYPE_2(""),
-    WIDGET_TYPE_3(""),
-    WIDGET_TYPE_4(""),
-    WIDGET_TYPE_5(""),
-    WIDGET_TYPE_6("");
+
+    SPELL_CAST_ON_WIDGET("Not currently implemented"),
+    SPELL_CAST_ON_NPC("Not currently implemented"),
+    SPELL_CAST_ON_GAME_OBJECT("Not currently implemented"),
+    SPELL_CAST_ON_GROUND_ITEM("Not currently implemented"),
+    SPELL_CAST_ON_PLAYER("Not currently implemented"),
+    WIDGET_FIRST_OPTION("Not currently implemented"),
+    WIDGET_SECOND_OPTION("Not currently implemented"),
+    WIDGET_THIRD_OPTION("Not currently implemented"),
+    WIDGET_FOURTH_OPTION("Not currently implemented"),
+    WIDGET_FIFTH_OPTION("Not currently implemented"),
+    WIDGET_TYPE_1("Not currently implemented"),
+    WIDGET_TYPE_2("Not currently implemented"),
+    WIDGET_TYPE_3("Not currently implemented"),
+    WIDGET_TYPE_4("Not currently implemented"),
+    WIDGET_TYPE_5("Not currently implemented"),
+    WIDGET_TYPE_6("Not currently implemented");
 
     public final String enumString;
 
-    ConfigOptions(String enumString) {
+    QOLClickCategory(String enumString) {
         this.enumString = enumString;
     }
 

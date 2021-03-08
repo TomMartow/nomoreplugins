@@ -9,6 +9,7 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
+import plugin.nomore.qolclicksbeta.QOLClickWidgetItemInteractionType;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.builds.BuiltInventoryItem;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
@@ -54,11 +55,11 @@ public class Automation
 
     public void dropItems()
     {
-        if (config.dropMatching())
+        if (config.itemsMatching())
         {
             dropMatching();
         }
-        if (config.dropExcept())
+        if (config.itemsExcept())
         {
             dropExcept();
         }
@@ -125,15 +126,18 @@ public class Automation
         {
             for (BuiltInventoryItem inventoryItem : items)
             {
-                setTargetMenu(new MenuEntry(
-                        "Drop",
-                        "<col=ff9040>" + inventoryItem.getName(),
-                        inventoryItem.getWidgetItem().getId(),
-                        MenuAction.ITEM_FIFTH_OPTION.getId(),
-                        inventoryItem.getWidgetItem().getIndex(),
-                        WidgetInfo.INVENTORY.getId(),
-                        false
-                ));
+                if (config.qolClickWidgetItemInteractionType() == QOLClickWidgetItemInteractionType.DROP_ITEM)
+                {
+                    setTargetMenu(new MenuEntry(
+                            "Drop",
+                            "<col=ff9040>" + inventoryItem.getName(),
+                            inventoryItem.getWidgetItem().getId(),
+                            MenuAction.ITEM_FIFTH_OPTION.getId(),
+                            inventoryItem.getWidgetItem().getIndex(),
+                            WidgetInfo.INVENTORY.getId(),
+                            false
+                    ));
+                }
                 clickC(inventoryItem.getWidgetItem().getCanvasBounds());
                 try
                 {
@@ -153,7 +157,7 @@ public class Automation
 
     public List<BuiltInventoryItem> sortDropListOrder(List<BuiltInventoryItem> items)
     {
-        String[] dropOrder = utils.rws(config.listOrder()).split(",");
+        String[] dropOrder = utils.rws(config.inventorySlotOrder()).split(",");
         List<BuiltInventoryItem> sortedDropItems = new ArrayList<>();
         for (int i = 0; i < dropOrder.length; i++)
         {

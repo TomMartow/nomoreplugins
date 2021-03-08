@@ -130,7 +130,6 @@ public class NPCHighlightingExtendedPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		System.out.println("Hotkey pressed.");
 		MenuEntry objectEntry = Arrays.stream(e.getMenuEntries()).filter(entry -> entry.getMenuAction() == MenuAction.EXAMINE_NPC).findFirst().orElse(null);
 
 		if (objectEntry == null)

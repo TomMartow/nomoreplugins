@@ -93,7 +93,6 @@ public class JSONPlugin extends Plugin
 			return;
 		}
 		npcs.add(builtNPC);
-		System.out.println(builtNPC.getName() + " added.");
 	}
 
 	@Subscribe
@@ -112,7 +111,6 @@ public class JSONPlugin extends Plugin
 			return;
 		}
 		npcs.removeIf(npcs -> npcs.getNpc() == builtNPC.getNpc());
-		System.out.println(builtNPC.getName() + " removed.");
 	}
 
 }

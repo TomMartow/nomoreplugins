@@ -46,7 +46,6 @@ public class INV_SPELL_CAST_ON_NPC
 
         if (itemClicked == null)
         {
-            System.out.println("item null");
             return;
         }
 
@@ -54,11 +53,9 @@ public class INV_SPELL_CAST_ON_NPC
 
         if (npcToCastSpellOn == null)
         {
-            System.out.println("npc null");
             return;
         }
 
-        System.out.println("rune clicked");
         plugin.setSelectSpell(config.INV_SPELL_CAST_ON_NPC_SPELL().getSpell());
 
         MenuEntry menuEntry = new MenuEntry(

@@ -57,7 +57,6 @@ public class INV_SPELL_CAST_ON_WIDGET
 
         if (itemClicked == null)
         {
-            System.out.println("Item is null");
             return;
         }
 

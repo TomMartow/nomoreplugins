@@ -48,7 +48,6 @@ public class Utils
             sortedString[1] = splitString[1];
             sortedString[2] = splitString[2];
         }
-        System.out.println(sortedString[0] + " : " + sortedString[1] + " : " + sortedString[2]);
         return Integer.parseInt(sortedString[configIteration]);
     }
 
@@ -80,7 +79,6 @@ public class Utils
             sortedString[1] = splitString[1];
             sortedString[2] = splitString[2];
         }
-        System.out.println(sortedString[0] + " : " + sortedString[1] + " : " + sortedString[2]);
         return sortedString[configIteration];
     }
 }
