@@ -1,9 +1,6 @@
 package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
-import net.runelite.api.Client;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.NPC;
+import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
@@ -41,16 +38,48 @@ public class INV_ITEM_USE_ON_NPC
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigInt(0, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()), e.getActionParam());
-        NPC npcToUseItemOn = npc.getClosestNpc(utils.getConfigInt(1, config.INV_ITEM_USE_ON_NPC_CONFIG_STRING()));
-        if (itemClicked == null
-                || npcToUseItemOn == null)
+        int itemClickedId = e.getId();
+        int itemClickedSlot = e.getActionParam();
+
+        WidgetItem itemClicked = null;
+        NPC npcToUseItemOn = null;
+
+        String fullConfigString = utils.rws(config.INV_ITEM_USE_ON_NPC_CONFIG_STRING());
+        String[] fullSplitConfigString = fullConfigString.split(",");
+
+        for (String individualConfigString : fullSplitConfigString)
         {
-            return;
+            String[] individualPart = new String[]{"-1", "-1"};
+            String[] individualSplitConfigString = individualConfigString.split(":");
+
+            try
+            {
+                individualPart[0] = individualSplitConfigString[0];
+                individualPart[1] = individualSplitConfigString[1];
+            }
+            catch (Exception exc)
+            {
+                individualPart[0] = "-1";
+                individualPart[1] = "-1";
+            }
+
+            int id1 = Integer.parseInt(individualPart[0]);
+            int id2 = Integer.parseInt(individualPart[1]);
+
+            if (id1 == -1 || id2 == -1)
+            {
+                continue;
+            }
+
+            if (id1 == itemClickedId)
+            {
+                itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                npcToUseItemOn = npc.getClosestNpc(id2);
+                break;
+            }
         }
 
-        if (itemClicked.getId() != e.getId()
-                || itemClicked.getIndex() != e.getActionParam())
+        if (itemClicked == null || npcToUseItemOn == null)
         {
             return;
         }

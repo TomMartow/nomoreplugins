@@ -41,16 +41,49 @@ public class INV_GAME_OBJECT_THIRD_OPTION
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getItemInSlot(utils.getConfigInt(0, config.INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING()), e.getActionParam());
-        GameObject gameObjectToInteractWith = gameObj.getClosestGameObject(utils.getConfigInt(1, config.INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING()));
-        if (itemClicked == null
-                || gameObjectToInteractWith == null)
+
+        int itemClickedId = e.getId();
+        int itemClickedSlot = e.getActionParam();
+
+        WidgetItem itemClicked = null;
+        GameObject gameObjectToInteractWith = null;
+
+        String fullConfigString = utils.rws(config.INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING());
+        String[] fullSplitConfigString = fullConfigString.split(",");
+
+        for (String individualConfigString : fullSplitConfigString)
         {
-            return;
+            String[] individualPart = new String[]{"-1", "-1"};
+            String[] individualSplitConfigString = individualConfigString.split(":");
+
+            try
+            {
+                individualPart[0] = individualSplitConfigString[0];
+                individualPart[1] = individualSplitConfigString[1];
+            }
+            catch (Exception exc)
+            {
+                individualPart[0] = "-1";
+                individualPart[1] = "-1";
+            }
+
+            int id1 = Integer.parseInt(individualPart[0]);
+            int id2 = Integer.parseInt(individualPart[1]);
+
+            if (id1 == -1 || id2 == -1)
+            {
+                continue;
+            }
+
+            if (id1 == itemClickedId)
+            {
+                itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                gameObjectToInteractWith = gameObj.getClosestGameObject(id2);
+                break;
+            }
         }
 
-        if (itemClicked.getId() != e.getId()
-                || itemClicked.getIndex() != e.getActionParam())
+        if (itemClicked == null || gameObjectToInteractWith == null)
         {
             return;
         }

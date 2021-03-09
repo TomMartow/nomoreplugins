@@ -149,7 +149,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_ITEM_USE_ON_NPC_EXPLAINATION()
     {
         return "In the text box below, input the Item ID followed by \":\", followed by the NPC ID. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, it will use that item on an npc matching the NPC ID.";
     }
 
@@ -194,7 +194,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_ITEM_USE_ON_GAME_OBJECT_EXPLAINATION()
     {
         return "In the text box below, input the Item ID followed by \":\", followed by the Game Object ID." +
-            "\n\nFormat - 1:1 " +
+            "\n\nFormat - 1:1,2:2,3:3 " +
             "\n\nWhen you click on the item matching the Item ID, it will use that item on an game object matching the Game Object ID.";
     }
 
@@ -239,7 +239,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_ITEM_USE_ON_WIDGET_ITEM_EXPLAINATION()
     {
         return "In the text box below, input the Clicked Item ID you want to click on followed by \":\", followed by the Selected Item ID that you want to be selected. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Clicked Item ID, the item matching the Selected Item ID will be used on the item clicked.";
     }
 
@@ -284,7 +284,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_NPC_FIRST_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs first menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs first menu option.";
     }
 
@@ -341,7 +341,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_NPC_SECOND_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs second menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs second menu option.";
     }
 
@@ -398,7 +398,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_NPC_THIRD_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs third menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs third menu option.";
     }
 
@@ -455,7 +455,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_NPC_FOURTH_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs fourth menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs fourth menu option.";
     }
 
@@ -512,7 +512,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_NPC_FIFTH_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs fifth menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs fifth menu option.";
     }
 
@@ -569,7 +569,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_GAME_OBJECT_FIRST_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects first menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects first menu option.";
     }
 
@@ -626,7 +626,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_GAME_OBJECT_SECOND_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects second menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects second menu option.";
     }
 
@@ -683,7 +683,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_GAME_OBJECT_THIRD_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects third menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects third menu option.";
     }
 
@@ -740,7 +740,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_GAME_OBJECT_FOURTH_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects fourth menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects fourth menu option.";
     }
 
@@ -797,7 +797,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_GAME_OBJECT_FIFTH_OPTION_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects fifth menu option. " +
-                "\n\nFormat - 1:1 " +
+                "\n\nFormat - 1:1,2:2,3:3 " +
                 "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects fifth menu option.";
     }
 
@@ -911,7 +911,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_SPELL_CAST_ON_NPC_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the NPC ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:NPCID" +
+                "\n\nFormat - ItemID:NPCID, ItemID:NPCID, ItemID:NPCID" +
                 "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an npc matching the NPC ID.";
     }
 
@@ -968,7 +968,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_SPELL_CAST_ON_GAME_OBJECT_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the Game Object ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:GameObjectID" +
+                "\n\nFormat - ItemID:GameObjectID, ItemID:GameObjectID, ItemID:GameObjectID" +
                 "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an game object matching the Game Object ID.";
     }
 
@@ -1025,7 +1025,7 @@ public interface QOLClicksBetaConfig extends Config
     default String INV_SPELL_CAST_ON_GROUND_ITEM_EXPLAINATION()
     {
         return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the Ground Item ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:GroundItemID" +
+                "\n\nFormat - ItemID:GroundItemID,ItemID:GroundItemID, ItemID:GroundItemID" +
                 "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an ground item matching the Ground Item ID.";
     }
 

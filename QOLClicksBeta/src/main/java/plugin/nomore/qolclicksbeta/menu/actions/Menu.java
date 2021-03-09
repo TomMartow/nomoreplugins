@@ -1,5 +1,6 @@
 package plugin.nomore.qolclicksbeta.menu.actions;
 
+import com.google.common.collect.ImmutableSet;
 import net.runelite.api.MenuAction;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -8,6 +9,7 @@ import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.menu.actions.inventory.*;
 
 import javax.inject.Inject;
+import java.util.Set;
 
 public class Menu
 {
@@ -32,6 +34,16 @@ public class Menu
     @Inject INV_SPELL_CAST_ON_GAME_OBJECT inv_spell_cast_on_game_object;
     @Inject INV_SPELL_CAST_ON_GROUND_ITEM inv_spell_cast_on_ground_item;
 
+    Set<MenuAction> itemMenuActions = ImmutableSet.of(
+            MenuAction.ITEM_USE,
+            MenuAction.ITEM_FIRST_OPTION,
+            MenuAction.ITEM_SECOND_OPTION,
+            MenuAction.ITEM_THIRD_OPTION,
+            MenuAction.ITEM_FOURTH_OPTION,
+            MenuAction.ITEM_FIFTH_OPTION,
+            MenuAction.EXAMINE_ITEM
+    );
+
     public void onOpen(MenuOpened e)
     {
 
@@ -45,7 +57,7 @@ public class Menu
     public void onClicked(MenuOptionClicked e)
     {
 
-        if (e.getMenuAction() == MenuAction.ITEM_USE || e.getMenuAction() == MenuAction.WIDGET_FIRST_OPTION)
+        if (itemMenuActions.contains(e.getMenuAction()))
         {
             if (config.ENABLE_INV_ITEM_USE()) { inv_item_use.check(e); }
             if (config.ENABLE_INV_ITEM_USE_ON_NPC()) { inv_item_use_on_npc.check(e); }

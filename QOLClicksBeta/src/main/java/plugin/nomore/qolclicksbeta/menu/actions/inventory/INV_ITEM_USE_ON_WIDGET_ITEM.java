@@ -1,5 +1,6 @@
 package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
+import joptsimple.internal.Strings;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
@@ -41,15 +42,48 @@ public class INV_ITEM_USE_ON_WIDGET_ITEM
 
     public void check(MenuOptionClicked e)
     {
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigInt(0, config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING()));
-        WidgetItem selectedItem = inventory.getFirstItem(utils.getConfigInt(1, config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING()));
+        int itemClickedId = e.getId();
+        int itemClickedSlot = e.getActionParam();
 
-        if (itemClicked == null || selectedItem == null)
+        WidgetItem itemClicked = null;
+        WidgetItem selectedItem = null;
+
+        String fullConfigString = utils.rws(config.INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING());
+        String[] fullSplitConfigString = fullConfigString.split(",");
+
+        for (String individualConfigString : fullSplitConfigString)
         {
-            return;
+            String[] configClickedItemAndSelectedItemIdString = new String[]{"-1", "-1"};
+            String[] individualSplitConfigString = individualConfigString.split(":");
+
+            try
+            {
+                configClickedItemAndSelectedItemIdString[0] = individualSplitConfigString[0];
+                configClickedItemAndSelectedItemIdString[1] = individualSplitConfigString[1];
+            }
+            catch (Exception exc)
+            {
+                configClickedItemAndSelectedItemIdString[0] = "-1";
+                configClickedItemAndSelectedItemIdString[1] = "-1";
+            }
+
+            int configClickedItemId = Integer.parseInt(configClickedItemAndSelectedItemIdString[0]);
+            int configSelectedItemId = Integer.parseInt(configClickedItemAndSelectedItemIdString[1]);
+
+            if (configClickedItemId == -1 || configSelectedItemId == -1)
+            {
+                continue;
+            }
+
+            if (configClickedItemId == itemClickedId)
+            {
+                itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                selectedItem = inventory.getFirstItem(configSelectedItemId);
+                break;
+            }
         }
 
-        if (e.getId() != itemClicked.getId() && e.getActionParam() != itemClicked.getIndex())
+        if (itemClicked == null || selectedItem == null)
         {
             return;
         }

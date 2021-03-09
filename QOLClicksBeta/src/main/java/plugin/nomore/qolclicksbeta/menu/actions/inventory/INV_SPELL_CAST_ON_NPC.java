@@ -41,17 +41,48 @@ public class INV_SPELL_CAST_ON_NPC
 
     public void check(MenuOptionClicked e)
     {
+        int itemClickedId = e.getId();
+        int itemClickedSlot = e.getActionParam();
 
-        WidgetItem itemClicked = inventory.getFirstItem(utils.getConfigInt(0, config.INV_SPELL_CAST_ON_NPC_CONFIG_STRING()));
+        WidgetItem itemClicked = null;
+        NPC npcToCastSpellOn = null;
 
-        if (itemClicked == null)
+        String fullConfigString = utils.rws(config.INV_SPELL_CAST_ON_NPC_CONFIG_STRING());
+        String[] fullSplitConfigString = fullConfigString.split(",");
+
+        for (String individualConfigString : fullSplitConfigString)
         {
-            return;
+            String[] individualPart = new String[]{"-1", "-1"};
+            String[] individualSplitConfigString = individualConfigString.split(":");
+
+            try
+            {
+                individualPart[0] = individualSplitConfigString[0];
+                individualPart[1] = individualSplitConfigString[1];
+            }
+            catch (Exception exc)
+            {
+                individualPart[0] = "-1";
+                individualPart[1] = "-1";
+            }
+
+            int id1 = Integer.parseInt(individualPart[0]);
+            int id2 = Integer.parseInt(individualPart[1]);
+
+            if (id1 == -1 || id2 == -1)
+            {
+                continue;
+            }
+
+            if (id1 == itemClickedId)
+            {
+                itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                npcToCastSpellOn = npc.getClosestNpc(id2);
+                break;
+            }
         }
 
-        NPC npcToCastSpellOn = npc.getClosestNpc(utils.getConfigInt(1, config.INV_SPELL_CAST_ON_NPC_CONFIG_STRING()));
-
-        if (npcToCastSpellOn == null)
+        if (itemClicked == null || npcToCastSpellOn == null)
         {
             return;
         }
