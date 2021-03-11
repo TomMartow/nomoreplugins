@@ -7,14 +7,16 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
+import plugin.nomore.qolclicksbeta.QOLClicksConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class INV_ITEM_USE_ON_GAME_OBJECT
 {
@@ -23,10 +25,10 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
     Client client;
 
     @Inject
-    QOLClicksBetaPlugin plugin;
+    QOLClicksPlugin plugin;
 
     @Inject
-    QOLClicksBetaConfig config;
+    QOLClicksConfig config;
 
     @Inject
     Inventory inventory;
@@ -52,6 +54,8 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
         String fullConfigString = utils.rws(config.INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING());
         String[] fullSplitConfigString = fullConfigString.split(",");
 
+        List<Integer> idsList = new ArrayList<>();
+
         for (String individualConfigString : fullSplitConfigString)
         {
             String[] individualPart = new String[]{"-1", "-1"};
@@ -69,18 +73,46 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
             }
 
             int id1 = Integer.parseInt(individualPart[0]);
-            int id2 = Integer.parseInt(individualPart[1]);
 
-            if (id1 == -1 || id2 == -1)
+            if (individualPart[1].contains("/"))
             {
-                continue;
+                String[] stringIds = individualPart[1].split("/");
+                for (String stringId : stringIds)
+                {
+                    try
+                    {
+                        idsList.add(Integer.parseInt(stringId));
+                    }
+                    catch (Exception ignored) {}
+                }
+
+                if (id1 == -1)
+                {
+                    continue;
+                }
+
+                if (id1 == itemClickedId)
+                {
+                    itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                    gameObject = gameObj.getClosestGameObject(idsList);
+                    break;
+                }
             }
-
-            if (id1 == itemClickedId)
+            else
             {
-                itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
-                gameObject = gameObj.getClosestGameObject(id2);
-                break;
+                int id2 = Integer.parseInt(individualPart[1]);
+
+                if (id1 == -1 || id2 == -1)
+                {
+                    continue;
+                }
+
+                if (id1 == itemClickedId)
+                {
+                    itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                    gameObject = gameObj.getClosestGameObject(id2);
+                    break;
+                }
             }
         }
 

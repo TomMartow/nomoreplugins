@@ -1,19 +1,20 @@
 package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
-import net.runelite.api.Client;
-import net.runelite.api.GameObject;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import joptsimple.internal.Strings;
+import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
+import plugin.nomore.qolclicksbeta.QOLClicksConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class INV_GAME_OBJECT_FIFTH_OPTION
 {
@@ -22,10 +23,10 @@ public class INV_GAME_OBJECT_FIFTH_OPTION
     Client client;
 
     @Inject
-    QOLClicksBetaPlugin plugin;
+    QOLClicksPlugin plugin;
 
     @Inject
-    QOLClicksBetaConfig config;
+    QOLClicksConfig config;
 
     @Inject
     Inventory inventory;
@@ -50,6 +51,9 @@ public class INV_GAME_OBJECT_FIFTH_OPTION
         String fullConfigString = utils.rws(config.INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING());
         String[] fullSplitConfigString = fullConfigString.split(",");
 
+
+        List<Integer> idsList = new ArrayList<>();
+
         for (String individualConfigString : fullSplitConfigString)
         {
             String[] individualPart = new String[]{"-1", "-1"};
@@ -67,18 +71,46 @@ public class INV_GAME_OBJECT_FIFTH_OPTION
             }
 
             int id1 = Integer.parseInt(individualPart[0]);
-            int id2 = Integer.parseInt(individualPart[1]);
 
-            if (id1 == -1 || id2 == -1)
+            if (individualPart[1].contains("/"))
             {
-                continue;
+                String[] stringIds = individualPart[1].split("/");
+                for (String stringId : stringIds)
+                {
+                    try
+                    {
+                        idsList.add(Integer.parseInt(stringId));
+                    }
+                    catch (Exception ignored) {}
+                }
+
+                if (id1 == -1)
+                {
+                    continue;
+                }
+
+                if (id1 == itemClickedId)
+                {
+                    itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                    gameObjectToInteractWith = gameObj.getClosestGameObject(idsList);
+                    break;
+                }
             }
-
-            if (id1 == itemClickedId)
+            else
             {
-                itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
-                gameObjectToInteractWith = gameObj.getClosestGameObject(id2);
-                break;
+                int id2 = Integer.parseInt(individualPart[1]);
+
+                if (id1 == -1 || id2 == -1)
+                {
+                    continue;
+                }
+
+                if (id1 == itemClickedId)
+                {
+                    itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
+                    gameObjectToInteractWith = gameObj.getClosestGameObject(id2);
+                    break;
+                }
             }
         }
 
@@ -87,8 +119,16 @@ public class INV_GAME_OBJECT_FIFTH_OPTION
             return;
         }
 
+        ObjectComposition def = client.getObjectDefinition(gameObjectToInteractWith.getId());
+
+        String menuOption = Arrays.stream(def.getActions()).findFirst().orElse(null);
+        if (Strings.isNullOrEmpty(menuOption))
+        {
+            return;
+        }
+
         MenuEntry menuEntry = new MenuEntry(
-                config.INV_GAME_OBJECT_FIFTH_OPTION_MENU_OPTION(),
+                menuOption,
                 "<col=ff9040>"
                         + client.getObjectDefinition(gameObjectToInteractWith.getId()).getName(),
                 gameObjectToInteractWith.getId(),

@@ -29,7 +29,7 @@ import net.runelite.client.config.*;
 import plugin.nomore.qolclicksbeta.menu.scene.spells.*;
 
 @ConfigGroup("qolclicksbeta")
-public interface QOLClicksBetaConfig extends Config
+public interface QOLClicksConfig extends Config
 {
 
     @ConfigTitle(
@@ -48,19 +48,8 @@ public interface QOLClicksBetaConfig extends Config
             title = "configOptionsTitle"
     )
     default QOLClickCategory configOptions() { return QOLClickCategory.INV_ITEM_USE; }
-    
+
     /*
-    @ConfigItem(
-            keyName = "[REPLACE]_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "[REPLACE]"
-    )
-    default String [REPLACE]_EXPLAINATION() { return ""; }
 
     @ConfigItem(
             keyName = "ENABLE_[REPLACE]",
@@ -92,27 +81,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_ITEM_USE_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Drop Item"
-    )
-    default String INV_ITEM_USE_EXPLAINATION()
-    {
-        return "In the text box below, add the id's of the inventory items split by \",\". " +
-                "\n\nFormat - 1,2,3,4 " +
-                "\n\nWhen you click on the item matching the Item ID, it will drop the item.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_ITEM_USE",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -124,7 +96,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_ITEM_USE_CONFIG_STRING",
             name = "Item IDs",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -137,27 +109,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_ITEM_USE_ON_NPC_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Use on NPC"
-    )
-    default String INV_ITEM_USE_ON_NPC_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID followed by \":\", followed by the NPC ID. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, it will use that item on an npc matching the NPC ID.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_ITEM_USE_ON_NPC",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -169,7 +124,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_ITEM_USE_ON_NPC_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -182,27 +137,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_ITEM_USE_ON_GAME_OBJECT_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Use on Game Object"
-    )
-    default String INV_ITEM_USE_ON_GAME_OBJECT_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID followed by \":\", followed by the Game Object ID." +
-            "\n\nFormat - 1:1,2:2,3:3 " +
-            "\n\nWhen you click on the item matching the Item ID, it will use that item on an game object matching the Game Object ID.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_ITEM_USE_ON_GAME_OBJECT",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -212,9 +150,9 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING",
-            name = "Item ID : Game Object ID",
+            name = "Item ID : Game Object ID #1 / #2",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -227,27 +165,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_ITEM_USE_ON_WIDGET_ITEM_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Use on Item"
-    )
-    default String INV_ITEM_USE_ON_WIDGET_ITEM_EXPLAINATION()
-    {
-        return "In the text box below, input the Clicked Item ID you want to click on followed by \":\", followed by the Selected Item ID that you want to be selected. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Clicked Item ID, the item matching the Selected Item ID will be used on the item clicked.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_ITEM_USE_ON_WIDGET_ITEM",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -259,7 +180,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING",
             name = "Clicked Item ID : Selected Item ID",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -272,27 +193,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_NPC_FIRST_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC First Option"
-    )
-    default String INV_NPC_FIRST_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs first menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs first menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_NPC_FIRST_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -301,22 +205,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_NPC_FIRST_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_NPC_FIRST_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC First Option"
-    )
-    default String INV_NPC_FIRST_OPTION_MENU_OPTION() { return "Talk-to"; }
-
-    @ConfigItem(
             keyName = "INV_NPC_FIRST_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID",
+            name = "Item ID : NPC ID #1 / #2",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -329,27 +221,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_NPC_SECOND_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Second Option"
-    )
-    default String INV_NPC_SECOND_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs second menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs second menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_NPC_SECOND_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -358,22 +233,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_NPC_SECOND_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_NPC_SECOND_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Second Option"
-    )
-    default String INV_NPC_SECOND_OPTION_MENU_OPTION() { return "Talk-to"; }
-
-    @ConfigItem(
             keyName = "INV_NPC_SECOND_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID",
+            name = "Item ID : NPC ID #1 / #2",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -386,27 +249,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_NPC_THIRD_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Third Option"
-    )
-    default String INV_NPC_THIRD_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs third menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs third menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_NPC_THIRD_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -415,22 +261,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_NPC_THIRD_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_NPC_THIRD_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Third Option"
-    )
-    default String INV_NPC_THIRD_OPTION_MENU_OPTION() { return "Talk-to"; }
-
-    @ConfigItem(
             keyName = "INV_NPC_THIRD_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID",
+            name = "Item ID : NPC ID #1 / #2",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -443,27 +277,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_NPC_FOURTH_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Fourth Option"
-    )
-    default String INV_NPC_FOURTH_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs fourth menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs fourth menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_NPC_FOURTH_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -472,22 +289,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_NPC_FOURTH_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_NPC_FOURTH_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Fourth Option"
-    )
-    default String INV_NPC_FOURTH_OPTION_MENU_OPTION() { return "Talk-to"; }
-
-    @ConfigItem(
             keyName = "INV_NPC_FOURTH_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -500,27 +305,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_NPC_FIFTH_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Fifth Option"
-    )
-    default String INV_NPC_FIFTH_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the NPC ID that you want to interact with using the NPCs fifth menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the npc matching the NPC ID using the NPCs fifth menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_NPC_FIFTH_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -529,22 +317,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_NPC_FIFTH_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_NPC_FIFTH_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> NPC Fifth Option"
-    )
-    default String INV_NPC_FIFTH_OPTION_MENU_OPTION() { return "Talk-to"; }
-
-    @ConfigItem(
             keyName = "INV_NPC_FIFTH_OPTION_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -557,27 +333,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_FIRST_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object First Option"
-    )
-    default String INV_GAME_OBJECT_FIRST_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects first menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects first menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_GAME_OBJECT_FIRST_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -586,22 +345,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_GAME_OBJECT_FIRST_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_FIRST_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object First Option"
-    )
-    default String INV_GAME_OBJECT_FIRST_OPTION_MENU_OPTION() { return "Bank"; }
-
-    @ConfigItem(
             keyName = "INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -614,27 +361,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_SECOND_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Second Option"
-    )
-    default String INV_GAME_OBJECT_SECOND_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects second menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects second menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_GAME_OBJECT_SECOND_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -643,22 +373,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_GAME_OBJECT_SECOND_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_SECOND_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Second Option"
-    )
-    default String INV_GAME_OBJECT_SECOND_OPTION_MENU_OPTION() { return "Bank"; }
-
-    @ConfigItem(
             keyName = "INV_GAME_OBJECT_SECOND_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -671,27 +389,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_THIRD_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Third Option"
-    )
-    default String INV_GAME_OBJECT_THIRD_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects third menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects third menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_GAME_OBJECT_THIRD_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -700,22 +401,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_GAME_OBJECT_THIRD_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_THIRD_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Third Option"
-    )
-    default String INV_GAME_OBJECT_THIRD_OPTION_MENU_OPTION() { return "Bank"; }
-
-    @ConfigItem(
             keyName = "INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -728,27 +417,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_FOURTH_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Fourth Option"
-    )
-    default String INV_GAME_OBJECT_FOURTH_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects fourth menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects fourth menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_GAME_OBJECT_FOURTH_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -757,22 +429,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_GAME_OBJECT_FOURTH_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_FOURTH_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Fourth Option"
-    )
-    default String INV_GAME_OBJECT_FOURTH_OPTION_MENU_OPTION() { return "Bank"; }
-
-    @ConfigItem(
             keyName = "INV_GAME_OBJECT_FOURTH_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -785,27 +445,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_FIFTH_OPTION_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Fifth Option"
-    )
-    default String INV_GAME_OBJECT_FIFTH_OPTION_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click on followed by \":\", followed by the Game Object ID that you want to interact with using the Game Objects fifth menu option. " +
-                "\n\nFormat - 1:1,2:2,3:3 " +
-                "\n\nWhen you click on the item matching the Item ID, your player will interact with the game object matching the Game Object ID using the Game Objects fifth menu option.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_GAME_OBJECT_FIFTH_OPTION",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -814,22 +457,10 @@ public interface QOLClicksBetaConfig extends Config
     default boolean ENABLE_INV_GAME_OBJECT_FIFTH_OPTION() { return false; }
 
     @ConfigItem(
-            keyName = "INV_GAME_OBJECT_FIFTH_OPTION_MENU_OPTION",
-            name = "Menu Option",
-            description = "The Menu Option is the ",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Game Object Fifth Option"
-    )
-    default String INV_GAME_OBJECT_FIFTH_OPTION_MENU_OPTION() { return "Bank"; }
-
-    @ConfigItem(
             keyName = "INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -842,27 +473,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_SPELL_CAST_ON_WIDGET_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Cast Spell on Item"
-    )
-    default String INV_SPELL_CAST_ON_WIDGET_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to cast a spell on." +
-                "\n\nFormat - ItemID,ItemID,ItemID" +
-                "\n\nWhen you click on the item matching the Item ID, the spell selected will be cast on the item.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_SPELL_CAST_ON_WIDGET",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -874,7 +488,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_WIDGET_CONFIG_STRING",
             name = "Item ID",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -886,7 +500,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_WIDGET_SPELL",
             name = "Spell",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -899,27 +513,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_SPELL_CAST_ON_NPC_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Cast Spell on NPC"
-    )
-    default String INV_SPELL_CAST_ON_NPC_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the NPC ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:NPCID, ItemID:NPCID, ItemID:NPCID" +
-                "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an npc matching the NPC ID.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_SPELL_CAST_ON_NPC",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -931,7 +528,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_NPC_CONFIG_STRING",
             name = "Item ID : NPC ID",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -943,7 +540,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_NPC_SPELL",
             name = "Spell",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -956,27 +553,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Cast Spell on Game Object"
-    )
-    default String INV_SPELL_CAST_ON_GAME_OBJECT_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the Game Object ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:GameObjectID, ItemID:GameObjectID, ItemID:GameObjectID" +
-                "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an game object matching the Game Object ID.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_SPELL_CAST_ON_GAME_OBJECT",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -988,7 +568,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_CONFIG_STRING",
             name = "Item ID : Game Object ID",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1000,7 +580,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_SPELL",
             name = "Spell",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1013,27 +593,10 @@ public interface QOLClicksBetaConfig extends Config
     //
 
     @ConfigItem(
-            keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_EXPLAINATION",
-            name = "Instructions",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "Click Item -> Cast Spell on Ground Item"
-    )
-    default String INV_SPELL_CAST_ON_GROUND_ITEM_EXPLAINATION()
-    {
-        return "In the text box below, input the Item ID you want to click, followed by \":\", followed by the Spell ID, followed by \":\", followed by the Ground Item ID that you wish to cash a spell on." +
-                "\n\nFormat - ItemID:GroundItemID,ItemID:GroundItemID, ItemID:GroundItemID" +
-                "\n\nWhen you click on the item matching the Item ID, a spell will be cast that matches the Spell ID on an ground item matching the Ground Item ID.";
-    }
-
-    @ConfigItem(
             keyName = "ENABLE_INV_SPELL_CAST_ON_GROUND_ITEM",
             name = "Enable",
             description = "",
-            position = 4,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1045,7 +608,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_CONFIG_STRING",
             name = "Item ID : Ground Item ID",
             description = "",
-            position = 5,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1057,7 +620,7 @@ public interface QOLClicksBetaConfig extends Config
             keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_SPELL",
             name = "Spell",
             description = "",
-            position = 6,
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
@@ -1232,7 +795,7 @@ public interface QOLClicksBetaConfig extends Config
             position = 20,
             title = "miscTitle"
     )
-    default boolean enableDebug() { return true; }
+    default boolean enableDebug() { return false; }
 
     @ConfigItem(
             keyName = "enableClipboard",
@@ -1244,5 +807,5 @@ public interface QOLClicksBetaConfig extends Config
             unhide = "enableDebug",
             unhideValue = "true"
     )
-    default boolean enableClipboard() { return true; }
+    default boolean enableClipboard() { return false; }
 }

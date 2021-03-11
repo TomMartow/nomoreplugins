@@ -2,13 +2,13 @@ package plugin.nomore.qolclicksbeta.utils;
 
 import joptsimple.internal.Strings;
 import net.runelite.api.mixins.Inject;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksConfig;
 
 public class Utils
 {
 
     @Inject
-    private QOLClicksBetaConfig config;
+    private QOLClicksConfig config;
 
     public String rws(String string)
     {

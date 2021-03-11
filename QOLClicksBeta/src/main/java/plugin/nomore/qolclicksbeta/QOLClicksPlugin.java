@@ -63,7 +63,7 @@ import java.awt.datatransfer.StringSelection;
 		tags = {"nomore", "qol", "click"}
 )
 @Slf4j
-public class QOLClicksBetaPlugin extends Plugin
+public class QOLClicksPlugin extends Plugin
 {
 
 	@Inject
@@ -73,13 +73,13 @@ public class QOLClicksBetaPlugin extends Plugin
 	private ClientThread clientThread;
 
 	@Inject
-	private QOLClicksBetaConfig config;
+	private QOLClicksConfig config;
 
 	@Inject
 	private OverlayManager overlayManager;
 
 	@Inject
-	private QOLClicksBetaOverlay overlay;
+	private QOLClicksOverlay overlay;
 
 	@Inject
 	private KeyManager keyManager;
@@ -97,9 +97,9 @@ public class QOLClicksBetaPlugin extends Plugin
 	private Inventory inventory;
 
 	@Provides
-	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
+    QOLClicksConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(QOLClicksBetaConfig.class);
+		return configManager.getConfig(QOLClicksConfig.class);
 	}
 
 	@Getter(AccessLevel.PUBLIC)

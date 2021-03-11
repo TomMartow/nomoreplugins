@@ -5,7 +5,7 @@ import net.runelite.api.MenuAction;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksConfig;
 import plugin.nomore.qolclicksbeta.menu.actions.inventory.*;
 
 import javax.inject.Inject;
@@ -14,7 +14,8 @@ import java.util.Set;
 public class Menu
 {
 
-    @Inject QOLClicksBetaConfig config;
+    @Inject
+    QOLClicksConfig config;
     @Inject INV_ITEM_USE inv_item_use;
     @Inject INV_ITEM_USE_ON_NPC inv_item_use_on_npc;
     @Inject INV_ITEM_USE_ON_WIDGET_ITEM inv_item_use_on_widget_item;
