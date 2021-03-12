@@ -128,7 +128,7 @@ public class INV_ITEM_USE_ON_GAME_OBJECT
                 "Use",
                 "<col=ff9040>"
                         + client.getItemDefinition(itemClicked.getId()).getName()
-                        + "<col=ffffff> -> <col=ff9040>"
+                        + "<col=ffffff> -> <col=ffff>"
                         + client.getObjectDefinition(gameObject.getId()).getName(),
                 gameObject.getId(),
                 MenuAction.ITEM_USE_ON_GAME_OBJECT.getId(),

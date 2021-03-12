@@ -126,7 +126,7 @@ public class INV_GAME_OBJECT_THIRD_OPTION
 
         MenuEntry menuEntry = new MenuEntry(
                 menuOption,
-                "<col=ff9040>"
+                "<col=ffff>"
                         + def.getName(),
                 gameObjectToInteractWith.getId(),
                 MenuAction.GAME_OBJECT_THIRD_OPTION.getId(),

@@ -125,8 +125,7 @@ public class INV_NPC_THIRD_OPTION
 
         MenuEntry menuEntry = new MenuEntry(
                 menuOption,
-                "<col=ff9040>"
-                        + def.getName(),
+                "<col=ffff00>" + def.getName() + "<col=ff00>",
                 npcToInteractWith.getIndex(),
                 MenuAction.NPC_THIRD_OPTION.getId(),
                 0,

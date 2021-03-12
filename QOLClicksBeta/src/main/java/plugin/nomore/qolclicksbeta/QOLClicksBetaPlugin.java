@@ -58,7 +58,7 @@ import java.awt.datatransfer.StringSelection;
 
 @Extension
 @PluginDescriptor(
-		name = "QOL Clicks (Beta)",
+		name = "QOL Clicks ➯ (Beta)",
 		description = "QOL fixes that should be implemented.",
 		tags = {"nomore", "qol", "click"}
 )
@@ -246,9 +246,10 @@ public class QOLClicksBetaPlugin extends Plugin
 		}
 
 		String myString =
-				"P: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId();
+				"```\nP: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId() + "\n```";
 		StringSelection stringSelection = new StringSelection(myString);
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(stringSelection, null);
 	}
 }
+

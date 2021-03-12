@@ -122,7 +122,7 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_ITEM_USE_ON_NPC_CONFIG_STRING",
-            name = "Item ID : NPC ID #1 / #2 : Menu Option",
+            name = "Item ID : NPC ID #1 / #2",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -150,7 +150,7 @@ public interface QOLClicksBetaConfig extends Config
 
     @ConfigItem(
             keyName = "INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING",
-            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
+            name = "Item ID : Game Object ID #1 / #2",
             description = "",
             position = 3,
             title = "configOptionsTitle",
