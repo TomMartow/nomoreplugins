@@ -11,29 +11,29 @@ import javax.inject.Inject;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class QOLClicksOverlay extends Overlay
+public class QOLClicksBetaOverlay extends Overlay
 {
 
     @Inject
     private Client client;
 
     @Inject
-    private QOLClicksPlugin plugin;
+    private QOLClicksBetaPlugin plugin;
 
     @Inject
-    private QOLClicksConfig config;
+    private QOLClicksBetaConfig config;
 
     @Inject
     private Arrow arrow;
 
     @Inject
-    public QOLClicksOverlay() {
+    public QOLClicksBetaOverlay() {
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.LOW);
         setLayer(OverlayLayer.ABOVE_SCENE);
     }
 
-    static final BufferedImage arrowIcon = ImageUtil.loadImageResource(QOLClicksPlugin.class, "/arrow.png");
+    static final BufferedImage arrowIcon = ImageUtil.loadImageResource(QOLClicksBetaPlugin.class, "/arrow.png");
 
     @Override
     public Dimension render(Graphics2D graphics)

@@ -4,8 +4,8 @@ import joptsimple.internal.Strings;
 import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicksbeta.QOLClicksConfig;
-import plugin.nomore.qolclicksbeta.QOLClicksPlugin;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
@@ -14,7 +14,6 @@ import plugin.nomore.qolclicksbeta.utils.Utils;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class INV_GAME_OBJECT_FIRST_OPTION
@@ -24,10 +23,10 @@ public class INV_GAME_OBJECT_FIRST_OPTION
     Client client;
 
     @Inject
-    QOLClicksPlugin plugin;
+    QOLClicksBetaPlugin plugin;
 
     @Inject
-    QOLClicksConfig config;
+    QOLClicksBetaConfig config;
 
     @Inject
     Inventory inventory;
@@ -50,25 +49,28 @@ public class INV_GAME_OBJECT_FIRST_OPTION
         WidgetItem itemClicked = null;
         GameObject gameObjectToInteractWith = null;
 
-        String fullConfigString = utils.rws(config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING());
+        String fullConfigString = config.INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING();
+        String menuOption = "";
         String[] fullSplitConfigString = fullConfigString.split(",");
 
         List<Integer> idsList = new ArrayList<>();
 
         for (String individualConfigString : fullSplitConfigString)
         {
-            String[] individualPart = new String[]{"-1", "-1"};
+            String[] individualPart = new String[]{"-1", "-1", ""};
             String[] individualSplitConfigString = individualConfigString.split(":");
 
             try
             {
-                individualPart[0] = individualSplitConfigString[0];
-                individualPart[1] = individualSplitConfigString[1];
+                individualPart[0] = utils.rws(individualSplitConfigString[0]);
+                individualPart[1] = utils.rws(individualSplitConfigString[1]);
+                menuOption = individualSplitConfigString[2];
             }
             catch (Exception exc)
             {
                 individualPart[0] = "-1";
                 individualPart[1] = "-1";
+                menuOption = "";
             }
 
             int id1 = Integer.parseInt(individualPart[0]);
@@ -115,23 +117,17 @@ public class INV_GAME_OBJECT_FIRST_OPTION
             }
         }
 
-        if (itemClicked == null || gameObjectToInteractWith == null)
+        if (itemClicked == null || gameObjectToInteractWith == null || Strings.isNullOrEmpty(menuOption))
         {
             return;
         }
 
         ObjectComposition def = client.getObjectDefinition(gameObjectToInteractWith.getId());
 
-        String menuOption = Arrays.stream(def.getActions()).findFirst().orElse(null);
-        if (Strings.isNullOrEmpty(menuOption))
-        {
-            return;
-        }
-
         MenuEntry menuEntry = new MenuEntry(
                 menuOption,
                 "<col=ff9040>"
-                        + client.getObjectDefinition(gameObjectToInteractWith.getId()).getName(),
+                        + def.getName(),
                 gameObjectToInteractWith.getId(),
                 MenuAction.GAME_OBJECT_FIRST_OPTION.getId(),
                 gameObjectToInteractWith.getSceneMinLocation().getX(),

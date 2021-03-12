@@ -63,7 +63,7 @@ import java.awt.datatransfer.StringSelection;
 		tags = {"nomore", "qol", "click"}
 )
 @Slf4j
-public class QOLClicksPlugin extends Plugin
+public class QOLClicksBetaPlugin extends Plugin
 {
 
 	@Inject
@@ -73,13 +73,13 @@ public class QOLClicksPlugin extends Plugin
 	private ClientThread clientThread;
 
 	@Inject
-	private QOLClicksConfig config;
+	private QOLClicksBetaConfig config;
 
 	@Inject
 	private OverlayManager overlayManager;
 
 	@Inject
-	private QOLClicksOverlay overlay;
+	private QOLClicksBetaOverlay overlay;
 
 	@Inject
 	private KeyManager keyManager;
@@ -97,9 +97,9 @@ public class QOLClicksPlugin extends Plugin
 	private Inventory inventory;
 
 	@Provides
-    QOLClicksConfig provideConfig(ConfigManager configManager)
+	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(QOLClicksConfig.class);
+		return configManager.getConfig(QOLClicksBetaConfig.class);
 	}
 
 	@Getter(AccessLevel.PUBLIC)
@@ -170,24 +170,22 @@ public class QOLClicksPlugin extends Plugin
 	@Subscribe
 	private void on(MenuOptionClicked e)
 	{
-		if (automation.getTargetMenu() == null)
-		{
-			menu.onClicked(e);
-		}
-		else
+		menu.onClicked(e);
+		if (automation.getTargetMenu() != null)
 		{
 			e.setMenuEntry(automation.getTargetMenu());
-			if (isSpoofClick())
+		}
+
+		automation.setTargetMenu(null);
+		if (isSpoofClick())
+		{
+			new Thread(() ->
 			{
-				new Thread(() ->
-				{
-					automation.clickR(getClickArea());
-					setSpoofClick(false);
-					e.consume();
-				}).start();
-				return;
-			}
-			automation.setTargetMenu(null);
+				automation.clickR(getClickArea());
+				setSpoofClick(false);
+				e.consume();
+			}).start();
+			return;
 		}
 
 		if (qolClick
@@ -239,14 +237,7 @@ public class QOLClicksPlugin extends Plugin
 			return;
 		}
 		System.out.println(
-				"Point: " + automation.getClickedPoint() + "\n" +
-				"isQOLClick: " + isQolClick() + "\n" +
-				"Option: " + e.getMenuOption() + "\n" +
-				"Target: " + e.getMenuTarget() + "\n" +
-				"ID: " + e.getId() + "\n" +
-				"MenuAction: " + e.getMenuAction() + "\n" +
-				"ActionParam: " + e.getActionParam() + "\n" +
-				"WidgetID: " + e.getWidgetId() + "\n"
+				"P: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId()
 		);
 
 		if (!config.enableClipboard())
@@ -255,14 +246,7 @@ public class QOLClicksPlugin extends Plugin
 		}
 
 		String myString =
-				"Point: " + automation.getClickedPoint() + "\n" +
-				"isQOLClick: " + isQolClick() + "\n" +
-				"Option: " + e.getMenuOption() + "\n" +
-				"Target: " + e.getMenuTarget() + "\n" +
-				"ID: " + e.getId() + "\n" +
-				"MenuAction: " + e.getMenuAction() + "\n" +
-				"ActionParam: " + e.getActionParam() + "\n" +
-				"WidgetID: " + e.getWidgetId() + "\n";
+				"P: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId();
 		StringSelection stringSelection = new StringSelection(myString);
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(stringSelection, null);

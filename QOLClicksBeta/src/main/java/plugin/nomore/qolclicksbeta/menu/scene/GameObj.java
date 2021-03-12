@@ -2,8 +2,8 @@ package plugin.nomore.qolclicksbeta.menu.scene;
 
 import net.runelite.api.*;
 import net.runelite.api.queries.GameObjectQuery;
-import plugin.nomore.qolclicksbeta.QOLClicksConfig;
-import plugin.nomore.qolclicksbeta.QOLClicksPlugin;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
@@ -16,10 +16,10 @@ public class GameObj
     private Client client;
 
     @Inject
-    private QOLClicksConfig config;
+    private QOLClicksBetaConfig config;
 
     @Inject
-    private QOLClicksPlugin plugin;
+    private QOLClicksBetaPlugin plugin;
 
     @Inject
     private Inventory inventory;

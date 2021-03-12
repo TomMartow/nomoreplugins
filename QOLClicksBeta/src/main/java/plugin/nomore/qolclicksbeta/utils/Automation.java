@@ -10,7 +10,7 @@ import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClickWidgetItemInteractionType;
-import plugin.nomore.qolclicksbeta.QOLClicksConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.builds.BuiltInventoryItem;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 
@@ -29,7 +29,7 @@ public class Automation
     Client client;
 
     @Inject
-    QOLClicksConfig config;
+    QOLClicksBetaConfig config;
 
     @Inject
     Utils utils;

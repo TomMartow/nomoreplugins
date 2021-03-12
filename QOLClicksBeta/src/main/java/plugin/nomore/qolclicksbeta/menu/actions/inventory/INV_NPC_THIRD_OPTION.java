@@ -4,8 +4,8 @@ import joptsimple.internal.Strings;
 import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicksbeta.QOLClicksConfig;
-import plugin.nomore.qolclicksbeta.QOLClicksPlugin;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
@@ -23,10 +23,10 @@ public class INV_NPC_THIRD_OPTION
     Client client;
 
     @Inject
-    QOLClicksPlugin plugin;
+    QOLClicksBetaPlugin plugin;
 
     @Inject
-    QOLClicksConfig config;
+    QOLClicksBetaConfig config;
 
     @Inject
     Inventory inventory;
@@ -48,25 +48,28 @@ public class INV_NPC_THIRD_OPTION
         WidgetItem itemClicked = null;
         NPC npcToInteractWith = null;
 
-        String fullConfigString = utils.rws(config.INV_NPC_THIRD_OPTION_CONFIG_STRING());
+        String fullConfigString = config.INV_NPC_THIRD_OPTION_CONFIG_STRING();
+        String menuOption = "";
         String[] fullSplitConfigString = fullConfigString.split(",");
 
         List<Integer> idsList = new ArrayList<>();
 
         for (String individualConfigString : fullSplitConfigString)
         {
-            String[] individualPart = new String[]{"-1", "-1"};
+            String[] individualPart = new String[]{"-1", "-1", ""};
             String[] individualSplitConfigString = individualConfigString.split(":");
 
             try
             {
-                individualPart[0] = individualSplitConfigString[0];
-                individualPart[1] = individualSplitConfigString[1];
+                individualPart[0] = utils.rws(individualSplitConfigString[0]);
+                individualPart[1] = utils.rws(individualSplitConfigString[1]);
+                menuOption = individualSplitConfigString[2];
             }
             catch (Exception exc)
             {
                 individualPart[0] = "-1";
                 individualPart[1] = "-1";
+                menuOption = "";
             }
 
             int id1 = Integer.parseInt(individualPart[0]);
@@ -113,25 +116,19 @@ public class INV_NPC_THIRD_OPTION
             }
         }
 
-        if (itemClicked == null || npcToInteractWith == null)
+        if (itemClicked == null || npcToInteractWith == null || Strings.isNullOrEmpty(menuOption))
         {
             return;
         }
 
         NPCComposition def = client.getNpcDefinition(npcToInteractWith.getId());
 
-        String menuOption = Arrays.stream(def.getActions()).findFirst().orElse(null);
-        if (Strings.isNullOrEmpty(menuOption))
-        {
-            return;
-        }
-
         MenuEntry menuEntry = new MenuEntry(
                 menuOption,
                 "<col=ff9040>"
                         + def.getName(),
                 npcToInteractWith.getIndex(),
-                MenuAction.NPC_FIFTH_OPTION.getId(),
+                MenuAction.NPC_THIRD_OPTION.getId(),
                 0,
                 0,
                 false

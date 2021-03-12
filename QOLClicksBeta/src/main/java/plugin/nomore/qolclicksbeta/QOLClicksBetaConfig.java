@@ -29,7 +29,7 @@ import net.runelite.client.config.*;
 import plugin.nomore.qolclicksbeta.menu.scene.spells.*;
 
 @ConfigGroup("qolclicksbeta")
-public interface QOLClicksConfig extends Config
+public interface QOLClicksBetaConfig extends Config
 {
 
     @ConfigTitle(
@@ -122,7 +122,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_ITEM_USE_ON_NPC_CONFIG_STRING",
-            name = "Item ID : NPC ID",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -150,7 +150,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING",
-            name = "Item ID : Game Object ID #1 / #2",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -206,7 +206,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_NPC_FIRST_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID #1 / #2",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -234,7 +234,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_NPC_SECOND_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID #1 / #2",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -262,7 +262,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_NPC_THIRD_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID #1 / #2",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -290,7 +290,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_NPC_FOURTH_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -318,7 +318,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_NPC_FIFTH_OPTION_CONFIG_STRING",
-            name = "Item ID : NPC ID",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -346,7 +346,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING",
-            name = "Item ID : Game Object ID",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -374,7 +374,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_GAME_OBJECT_SECOND_OPTION_CONFIG_STRING",
-            name = "Item ID : Game Object ID",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -402,7 +402,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING",
-            name = "Item ID : Game Object ID",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -430,7 +430,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_GAME_OBJECT_FOURTH_OPTION_CONFIG_STRING",
-            name = "Item ID : Game Object ID",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",
@@ -458,7 +458,7 @@ public interface QOLClicksConfig extends Config
 
     @ConfigItem(
             keyName = "INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING",
-            name = "Item ID : Game Object ID",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
             description = "",
             position = 3,
             title = "configOptionsTitle",

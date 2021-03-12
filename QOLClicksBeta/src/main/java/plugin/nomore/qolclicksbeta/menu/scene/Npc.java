@@ -3,8 +3,8 @@ package plugin.nomore.qolclicksbeta.menu.scene;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.queries.NPCQuery;
-import plugin.nomore.qolclicksbeta.QOLClicksConfig;
-import plugin.nomore.qolclicksbeta.QOLClicksPlugin;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
@@ -17,10 +17,10 @@ public class Npc
     private Client client;
 
     @Inject
-    private QOLClicksConfig config;
+    private QOLClicksBetaConfig config;
 
     @Inject
-    private QOLClicksPlugin plugin;
+    private QOLClicksBetaPlugin plugin;
 
     @Inject
     private Inventory inventory;
@@ -36,8 +36,6 @@ public class Npc
         }
         return new NPCQuery()
                 .idEquals(ids)
-                .filter(npc -> npc != null
-                        && !npc.isDead())
                 .result(client)
                 .nearestTo(client.getLocalPlayer());
     }
@@ -50,8 +48,6 @@ public class Npc
         }
         return new NPCQuery()
                 .idEquals(ids)
-                .filter(npc -> npc != null
-                        && !npc.isDead())
                 .result(client)
                 .nearestTo(client.getLocalPlayer());
     }
@@ -64,8 +60,6 @@ public class Npc
         }
         return new NPCQuery()
                 .nameEquals(namesEqual)
-                .filter(npc -> npc != null
-                        && !npc.isDead())
                 .result(client)
                 .nearestTo(client.getLocalPlayer());
     }
@@ -78,8 +72,6 @@ public class Npc
         }
         return new NPCQuery()
                 .nameContains(namesContain)
-                .filter(npc -> npc != null
-                        && !npc.isDead())
                 .result(client)
                 .nearestTo(client.getLocalPlayer());
     }

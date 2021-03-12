@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "4.0.19"
+version = "4.0.21"
 
 project.extra["PluginName"] = "QOL CLicks (Beta)"
 project.extra["PluginDescription"] = "QOL fixes that should be implemented."
