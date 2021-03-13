@@ -243,7 +243,7 @@ public class QOLClicksBetaPlugin extends Plugin
 		if (config.enableGameMessage())
 		{
 			clientThread.invoke(() -> client.addChatMessage(
-					ChatMessageType.GAMEMESSAGE, "", automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId(), ""));
+					ChatMessageType.GAMEMESSAGE, "", String.valueOf(automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId()), ""));
 		}
 
 		if (config.enableClipboard())
