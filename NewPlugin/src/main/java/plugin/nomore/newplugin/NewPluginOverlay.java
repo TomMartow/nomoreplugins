@@ -16,7 +16,7 @@ public class NewPluginOverlay extends Overlay
     private Client client;
 
     @Inject
-    public NewAutomationPluginOverlay() {
+    public NewPluginOverlay() {
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.LOW);
         setLayer(OverlayLayer.ABOVE_SCENE);
