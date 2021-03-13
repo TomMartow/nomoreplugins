@@ -240,16 +240,20 @@ public class QOLClicksBetaPlugin extends Plugin
 				"P: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId()
 		);
 
-		if (!config.enableClipboard())
+		if (config.enableGameMessage())
 		{
-			return;
+			clientThread.invoke(() -> client.addChatMessage(
+					ChatMessageType.GAMEMESSAGE, "", automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId(), ""));
 		}
 
-		String myString =
-				"```\nP: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId() + "\n```";
-		StringSelection stringSelection = new StringSelection(myString);
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(stringSelection, null);
+		if (config.enableClipboard())
+		{
+			String myString =
+					"```\nP: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId() + "\n```";
+			StringSelection stringSelection = new StringSelection(myString);
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			clipboard.setContents(stringSelection, null);
+		}
 	}
 }
 

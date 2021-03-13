@@ -808,4 +808,16 @@ public interface QOLClicksBetaConfig extends Config
             unhideValue = "true"
     )
     default boolean enableClipboard() { return false; }
+
+    @ConfigItem(
+            keyName = "enableGameMessage",
+            name = "Enable send game message",
+            description = "",
+            position = 22,
+            title = "miscTitle",
+            hidden = true,
+            unhide = "enableDebug",
+            unhideValue = "true"
+    )
+    default boolean enableGameMessage() { return false; }
 }
