@@ -195,7 +195,10 @@ public class QOLClicksBetaPlugin extends Plugin
 				e.getWidgetId(),
 				false);
 
-		menu.onClicked(e);
+		if (getQolMenuEntry() == null)
+		{
+			menu.onClicked(e);
+		}
 		if (getQolMenuEntry() != null)
 		{
 			e.setMenuEntry(qolMenuEntry);
