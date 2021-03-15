@@ -31,13 +31,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.MenuOpened;
-import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.Point;
+import net.runelite.api.events.*;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.chat.ChatColorType;
+import net.runelite.client.chat.ChatMessageBuilder;
+import net.runelite.client.chat.ChatMessageManager;
+import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
@@ -55,6 +57,8 @@ import javax.inject.Inject;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Extension
 @PluginDescriptor(
@@ -96,6 +100,9 @@ public class QOLClicksBetaPlugin extends Plugin
 	@Inject
 	private Inventory inventory;
 
+	@Inject
+	private ChatMessageManager chatMessageManager;
+
 	@Provides
 	QOLClicksBetaConfig provideConfig(ConfigManager configManager)
 	{
@@ -116,7 +123,15 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
-	static Rectangle clickArea = null;
+	Rectangle clickArea = null;
+
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
+	List<TileItem> groundItems = new ArrayList<>();
+
+	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC)
+	MenuEntry qolMenuEntry = null;
 
 	private final HotkeyListener toggle = new HotkeyListener(() -> config.automationKeybind())
 	{
@@ -170,24 +185,31 @@ public class QOLClicksBetaPlugin extends Plugin
 	@Subscribe
 	private void on(MenuOptionClicked e)
 	{
+		// Stop the spoof click from clicking constantly.
+		setSpoofClick(false);
+		MenuEntry clonedEntry = new MenuEntry(e.getMenuOption(),
+				e.getMenuTarget(),
+				e.getId(),
+				e.getMenuAction().getId(),
+				e.getActionParam(),
+				e.getWidgetId(),
+				false);
+
 		menu.onClicked(e);
-		if (automation.getTargetMenu() != null)
+		if (getQolMenuEntry() != null)
 		{
-			e.setMenuEntry(automation.getTargetMenu());
+			e.setMenuEntry(qolMenuEntry);
 		}
 
-		automation.setTargetMenu(null);
 		if (isSpoofClick())
 		{
 			new Thread(() ->
-			{
-				automation.clickR(getClickArea());
-				setSpoofClick(false);
-				e.consume();
-			}).start();
+					automation.clickR(getClickArea())).start();
+			e.consume();
 			return;
 		}
 
+		// Display marker
 		if (qolClick
 				&& config.displayQOLClickOverlay())
 		{
@@ -195,11 +217,29 @@ public class QOLClicksBetaPlugin extends Plugin
 			setQolClick(false);
 		}
 
+		setQolMenuEntry(null);
 		debugMessage(e);
 	}
 
 	@Subscribe
 	private void on(MenuEntryAdded e) { menu.onAdded(e); }
+
+	@Subscribe
+	private void on(ItemSpawned e)
+	{
+		TileItem item = e.getItem();
+		if (item == null)
+		{
+			return;
+		}
+		groundItems.add(item);
+	}
+
+	@Subscribe
+	private void on(ItemDespawned e)
+	{
+		groundItems.remove(e.getItem());
+	}
 
 	public void setSelectedItem(WidgetInfo widgetInfo, int itemIndex, int itemId)
 	{
@@ -231,29 +271,57 @@ public class QOLClicksBetaPlugin extends Plugin
 
 	private void debugMessage(MenuOptionClicked e)
 	{
-		if (!config.enableDebug() || e.getMenuAction() == MenuAction.WALK
+		if (e.getMenuAction() == MenuAction.WALK
 				|| e.getMenuOption().equalsIgnoreCase("Cancel"))
 		{
 			return;
 		}
-		System.out.println(
-				"P: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId()
-		);
+
+		String debugString = automation.getClickedPoint().equals(new Point(0, 0))
+				? 	"O: " + e.getMenuOption() +
+				  ", T: " + e.getMenuTarget() +
+				  ", ID: " + e.getId() +
+				  ", MA: " + e.getMenuAction() +
+				  ", A: " + e.getActionParam() +
+				  ", WID: " + e.getWidgetId()
+				:	"QOLSpoof: x" + automation.getClickedPoint().getX() + " y" + automation.getClickedPoint().getY() +
+				  ", O: " + e.getMenuOption() +
+				  ", T: " + e.getMenuTarget() +
+				  ", ID: " + e.getId() +
+				  ", MA: " + e.getMenuAction() +
+				  ", A: " + e.getActionParam() +
+				  ", WID: " + e.getWidgetId();
+
+		if (config.enableDebug())
+		{
+			System.out.println(debugString);
+		}
 
 		if (config.enableGameMessage())
 		{
-			clientThread.invoke(() -> client.addChatMessage(
-					ChatMessageType.GAMEMESSAGE, "", String.valueOf(automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId()), ""));
+			clientThread.invoke(() ->
+			{
+				String chatMessage = new ChatMessageBuilder()
+						.append(ChatColorType.HIGHLIGHT)
+						.append(debugString)
+						.build();
+
+				chatMessageManager
+						.queue(QueuedMessage.builder()
+								.type(ChatMessageType.CONSOLE)
+								.runeLiteFormattedMessage(chatMessage)
+								.build());
+			});
 		}
 
 		if (config.enableClipboard())
 		{
-			String myString =
-					"```\nP: " + automation.getClickedPoint() + ", Q: " + isQolClick() + ", O: " + e.getMenuOption() + ", T: " + e.getMenuTarget() + ", ID: " + e.getId() + ", MA: " + e.getMenuAction() + ", A: " + e.getActionParam() + ", WID: " + e.getWidgetId() + "\n```";
-			StringSelection stringSelection = new StringSelection(myString);
+			StringSelection stringSelection = new StringSelection("``` \n" + debugString + "\n ```");
 			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 			clipboard.setContents(stringSelection, null);
 		}
+
+		automation.setClickedPoint(new Point(0,0));
 	}
 }
 

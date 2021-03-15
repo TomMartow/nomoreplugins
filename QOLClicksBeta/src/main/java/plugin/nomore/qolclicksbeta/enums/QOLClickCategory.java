@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicksbeta;
+package plugin.nomore.qolclicksbeta.enums;
 
 public enum QOLClickCategory
 {

@@ -7,6 +7,7 @@ import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 import plugin.nomore.qolclicksbeta.menu.actions.inventory.*;
+import plugin.nomore.qolclicksbeta.menu.actions.npc.NPC_ITEM_USE_ON_NPC;
 
 import javax.inject.Inject;
 import java.util.Set;
@@ -14,8 +15,8 @@ import java.util.Set;
 public class Menu
 {
 
-    @Inject
-    QOLClicksBetaConfig config;
+    @Inject QOLClicksBetaConfig config;
+
     @Inject INV_ITEM_USE inv_item_use;
     @Inject INV_ITEM_USE_ON_NPC inv_item_use_on_npc;
     @Inject INV_ITEM_USE_ON_WIDGET_ITEM inv_item_use_on_widget_item;
@@ -35,6 +36,8 @@ public class Menu
     @Inject INV_SPELL_CAST_ON_GAME_OBJECT inv_spell_cast_on_game_object;
     @Inject INV_SPELL_CAST_ON_GROUND_ITEM inv_spell_cast_on_ground_item;
 
+    @Inject NPC_ITEM_USE_ON_NPC npc_item_use_on_npc;
+
     Set<MenuAction> itemMenuActions = ImmutableSet.of(
             MenuAction.ITEM_USE,
             MenuAction.ITEM_FIRST_OPTION,
@@ -43,6 +46,15 @@ public class Menu
             MenuAction.ITEM_FOURTH_OPTION,
             MenuAction.ITEM_FIFTH_OPTION,
             MenuAction.EXAMINE_ITEM
+    );
+
+    Set<MenuAction> npcMenuActions = ImmutableSet.of(
+            MenuAction.NPC_FIRST_OPTION,
+            MenuAction.NPC_SECOND_OPTION,
+            MenuAction.NPC_THIRD_OPTION,
+            MenuAction.NPC_FOURTH_OPTION,
+            MenuAction.NPC_FIFTH_OPTION,
+            MenuAction.EXAMINE_NPC
     );
 
     public void onOpen(MenuOpened e)
@@ -78,6 +90,11 @@ public class Menu
             if (config.ENABLE_INV_SPELL_CAST_ON_NPC()) { inv_spell_cast_on_npc.check(e); }
             if (config.ENABLE_INV_SPELL_CAST_ON_GAME_OBJECT()) { inv_spell_cast_on_game_object.check(e); }
             if (config.ENABLE_INV_SPELL_CAST_ON_GROUND_ITEM()) { inv_spell_cast_on_ground_item.check(e); }
+        }
+
+        if (npcMenuActions.contains(e.getMenuAction()))
+        {
+            if (config.ENABLE_NPC_ITEM_USE_ON_NPC()) { inv_item_use.check(e); }
         }
 
     }

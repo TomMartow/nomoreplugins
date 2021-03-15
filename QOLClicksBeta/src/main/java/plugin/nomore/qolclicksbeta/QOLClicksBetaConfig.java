@@ -26,6 +26,9 @@ package plugin.nomore.qolclicksbeta;
 
 
 import net.runelite.client.config.*;
+import plugin.nomore.qolclicksbeta.enums.QOLClickCategory;
+import plugin.nomore.qolclicksbeta.enums.QOLClickWidgetItemInteractionType;
+import plugin.nomore.qolclicksbeta.enums.QOLSpoofClickCategory;
 import plugin.nomore.qolclicksbeta.menu.scene.spells.*;
 
 @ConfigGroup("qolclicksbeta")
@@ -79,6 +82,15 @@ public interface QOLClicksBetaConfig extends Config
     //INV_ITEM_USE
     //
     //
+
+
+//  ██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+//  ██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+//  ██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝ ╚████╔╝
+//  ██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝
+//  ██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║
+//  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+//
 
     @ConfigItem(
             keyName = "ENABLE_INV_ITEM_USE",
@@ -628,6 +640,39 @@ public interface QOLClicksBetaConfig extends Config
     )
     default MiscSkills INV_SPELL_CAST_ON_GROUND_ITEM_SPELL() { return MiscSkills.TELEKINETIC_GRAB; }
 
+//  ███╗   ██╗██████╗  ██████╗
+//  ████╗  ██║██╔══██╗██╔════╝
+//  ██╔██╗ ██║██████╔╝██║     
+//  ██║╚██╗██║██╔═══╝ ██║     
+//  ██║ ╚████║██║     ╚██████╗
+//  ╚═╝  ╚═══╝╚═╝      ╚═════╝
+//                            
+    
+    @ConfigItem(
+            keyName = "ENABLE_NPC_ITEM_USE_ON_NPC",
+            name = "Enable",
+            description = "",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_ITEM_USE_ON_NPC"
+    )
+    default boolean ENABLE_NPC_ITEM_USE_ON_NPC() { return false; }
+
+    @ConfigItem(
+            keyName = "NPC_ITEM_USE_ON_NPC_CONFIG_STRING",
+            name = "TEXT_BOX_PLACEHOLDER_TEXT",
+            description = "",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "NPC_ITEM_USE_ON_NPC"
+    )
+    default String NPC_ITEM_USE_ON_NPC_CONFIG_STRING() { return ""; }
+    
+    
 //   █████╗ ██╗   ██╗████████╗ ██████╗ ███╗   ███╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
 //  ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
 //  ███████║██║   ██║   ██║   ██║   ██║██╔████╔██║███████║   ██║   ██║██║   ██║██╔██╗ ██║
@@ -789,35 +834,62 @@ public interface QOLClicksBetaConfig extends Config
     default boolean displayQOLClickOverlay() { return true; }
 
     @ConfigItem(
+            keyName = "enableQOLSpoofClick",
+            name = "Enable spoof click",
+            description = "If enabled, will consume the real click and dispatch a spoofed click on the canvas.",
+            position = 20,
+            title = "miscTitle"
+    )
+    default boolean enableQOLSpoofClick() { return true; }
+
+    @ConfigItem(
+            keyName = "qolSpoofClickCategory",
+            name = "Location",
+            description = "",
+            position = 21,
+            title = "miscTitle",
+            hidden = true,
+            unhide = "enableQOLSpoofClick",
+            unhideValue = "true"
+    )
+    default QOLSpoofClickCategory qolSpoofClickCategory() { return QOLSpoofClickCategory.FULL_CLIENT; }
+
+    @ConfigItem(
+            keyName = "customSpoofClickLocation",
+            name = "   Custom click location",
+            description = "X:Y:W:H of your click location",
+            position = 22,
+            title = "miscTitle",
+            hidden = true,
+            unhide = "enableQOLSpoofClick",
+            unhideValue = "true"
+    )
+    default String customSpoofClickLocation() { return "0:0:100:100"; }
+
+    @ConfigItem(
             keyName = "enableDebug",
             name = "Enable console debugging",
             description = "",
-            position = 20,
+            position = 23,
             title = "miscTitle"
     )
     default boolean enableDebug() { return false; }
 
     @ConfigItem(
-            keyName = "enableClipboard",
-            name = "Enable copy to clipboard",
-            description = "",
-            position = 21,
-            title = "miscTitle",
-            hidden = true,
-            unhide = "enableDebug",
-            unhideValue = "true"
-    )
-    default boolean enableClipboard() { return false; }
-
-    @ConfigItem(
             keyName = "enableGameMessage",
             name = "Enable send game message",
             description = "",
-            position = 22,
-            title = "miscTitle",
-            hidden = true,
-            unhide = "enableDebug",
-            unhideValue = "true"
+            position = 24,
+            title = "miscTitle"
     )
     default boolean enableGameMessage() { return false; }
+
+    @ConfigItem(
+            keyName = "enableClipboard",
+            name = "Enable copy to clipboard",
+            description = "",
+            position = 25,
+            title = "miscTitle"
+    )
+    default boolean enableClipboard() { return false; }
 }

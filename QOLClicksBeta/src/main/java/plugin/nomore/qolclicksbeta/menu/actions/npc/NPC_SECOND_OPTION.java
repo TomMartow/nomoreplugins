@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicksbeta.menu.actions.inventory;
+package plugin.nomore.qolclicksbeta.menu.actions.npc;
 
 import joptsimple.internal.Strings;
 import net.runelite.api.*;
@@ -9,15 +9,13 @@ import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
-import plugin.nomore.qolclicksbeta.enums.QOLSpoofClickCategory;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class INV_NPC_FOURTH_OPTION
+public class NPC_SECOND_OPTION
 {
 
     @Inject
@@ -49,7 +47,7 @@ public class INV_NPC_FOURTH_OPTION
         WidgetItem itemClicked = null;
         NPC npcToInteractWith = null;
 
-        String fullConfigString = config.INV_NPC_FOURTH_OPTION_CONFIG_STRING();
+        String fullConfigString = config.INV_NPC_SECOND_OPTION_CONFIG_STRING();
         String menuOption = "";
         String[] fullSplitConfigString = fullConfigString.split(",");
 
@@ -128,25 +126,13 @@ public class INV_NPC_FOURTH_OPTION
                 menuOption,
                 "<col=ffff00>" + def.getName() + "<col=ff00>",
                 npcToInteractWith.getIndex(),
-                MenuAction.NPC_FOURTH_OPTION.getId(),
+                MenuAction.NPC_SECOND_OPTION.getId(),
                 0,
                 0,
                 false
         );
 
-        plugin.setQolMenuEntry(menuEntry);
+        e.setMenuEntry(menuEntry);
         plugin.setQolClick(true);
-
-        if (config.enableQOLSpoofClick())
-        {
-            plugin.setSpoofClick(true);
-
-            int[] loc = utils.getCanvasIndicatorLocation(config.customSpoofClickLocation());
-            plugin.setClickArea(
-                    config.qolSpoofClickCategory() == QOLSpoofClickCategory.FULL_CLIENT
-                            ? client.getCanvas().getBounds()
-                            : new Rectangle(loc[0], loc[1], loc[2], loc[3])
-            );
-        }
     }
 }

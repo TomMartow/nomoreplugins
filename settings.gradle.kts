@@ -28,7 +28,6 @@ rootProject.name = "NoMorePlugins"
 include(":GroundItemsExtended")
 include(":InterfaceMarking")
 include(":InventoryTagsExtended")
-include(":JSON")
 include(":MouseLogger")
 include(":NoMoreAgility")
 include(":NoMoreWintertodt")

@@ -4,6 +4,8 @@ import joptsimple.internal.Strings;
 import net.runelite.api.mixins.Inject;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
 
+import java.awt.*;
+
 public class Utils
 {
 
@@ -80,5 +82,48 @@ public class Utils
             sortedString[2] = splitString[2];
         }
         return sortedString[configIteration];
+    }
+
+    public void canvasIndicator(Graphics2D graphics, int[] indicatorLocation, Color color)
+    {
+        if (color == null)
+        {
+            color = Color.RED;
+        }
+        graphics.setColor(color);
+        graphics.fillRect(indicatorLocation[0],
+                indicatorLocation[1],
+                indicatorLocation[2],
+                indicatorLocation[3]);
+    }
+
+    public void canvasIndicator(Graphics2D graphics, int x, int y, int width, int height, Color color)
+    {
+        if (color == null)
+        {
+            color = Color.RED;
+        }
+        graphics.setColor(color);
+        graphics.fillRect(x, y, width, height);
+    }
+
+    public int[] getCanvasIndicatorLocation(String string)
+    {
+        int[] location = {0,0,5,5};
+        if (string.isEmpty())
+        {
+            return location;
+        }
+        String[] parts = rws(string).split(":");
+        for (int i = 0; i < 4; i++)
+        {
+            String part = removeCharactersFromString(parts[i]);
+            if (part.isEmpty())
+            {
+                break;
+            }
+            location[i] = Integer.parseInt(part);
+        }
+        return location;
     }
 }

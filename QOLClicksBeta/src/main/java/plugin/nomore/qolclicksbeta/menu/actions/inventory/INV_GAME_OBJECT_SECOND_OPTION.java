@@ -9,11 +9,13 @@ import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
+import plugin.nomore.qolclicksbeta.utils.Automation;
+import plugin.nomore.qolclicksbeta.enums.QOLSpoofClickCategory;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class INV_GAME_OBJECT_SECOND_OPTION
@@ -39,6 +41,9 @@ public class INV_GAME_OBJECT_SECOND_OPTION
 
     @Inject
     Utils utils;
+
+    @Inject
+    Automation automation;
 
     public void check(MenuOptionClicked e)
     {
@@ -135,7 +140,19 @@ public class INV_GAME_OBJECT_SECOND_OPTION
                 false
         );
 
-        e.setMenuEntry(menuEntry);
+        plugin.setQolMenuEntry(menuEntry);
         plugin.setQolClick(true);
+
+        if (config.enableQOLSpoofClick())
+        {
+            plugin.setSpoofClick(true);
+
+            int[] loc = utils.getCanvasIndicatorLocation(config.customSpoofClickLocation());
+            plugin.setClickArea(
+                    config.qolSpoofClickCategory() == QOLSpoofClickCategory.FULL_CLIENT
+                    ? client.getCanvas().getBounds()
+                    : new Rectangle(loc[0], loc[1], loc[2], loc[3])
+            );
+        }
     }
 }

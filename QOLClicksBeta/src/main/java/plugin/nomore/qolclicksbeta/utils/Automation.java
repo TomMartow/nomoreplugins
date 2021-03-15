@@ -9,8 +9,9 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicksbeta.QOLClickWidgetItemInteractionType;
+import plugin.nomore.qolclicksbeta.enums.QOLClickWidgetItemInteractionType;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.builds.BuiltInventoryItem;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 
@@ -32,6 +33,9 @@ public class Automation
     QOLClicksBetaConfig config;
 
     @Inject
+    QOLClicksBetaPlugin plugin;
+
+    @Inject
     Utils utils;
 
     @Inject
@@ -44,10 +48,6 @@ public class Automation
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
     boolean readyToDrop = false;
-
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
-    MenuEntry targetMenu = null;
 
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
@@ -128,7 +128,7 @@ public class Automation
             {
                 if (config.qolClickWidgetItemInteractionType() == QOLClickWidgetItemInteractionType.DROP_ITEM)
                 {
-                    setTargetMenu(new MenuEntry(
+                    plugin.setQolMenuEntry(new MenuEntry(
                             "Drop",
                             "<col=ff9040>" + inventoryItem.getName(),
                             inventoryItem.getWidgetItem().getId(),

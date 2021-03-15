@@ -1,7 +1,9 @@
-package plugin.nomore.qolclicksbeta.menu.actions.inventory;
+package plugin.nomore.qolclicksbeta.menu.actions.npc;
 
-import joptsimple.internal.Strings;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.MenuAction;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.NPC;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetItem;
 import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
@@ -9,15 +11,13 @@ import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
 import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
 import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
 import plugin.nomore.qolclicksbeta.menu.scene.Npc;
-import plugin.nomore.qolclicksbeta.enums.QOLSpoofClickCategory;
 import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class INV_NPC_FOURTH_OPTION
+public class NPC_SPELL_CAST_ON_NPC
 {
 
     @Inject
@@ -47,30 +47,27 @@ public class INV_NPC_FOURTH_OPTION
         int itemClickedSlot = e.getActionParam();
 
         WidgetItem itemClicked = null;
-        NPC npcToInteractWith = null;
+        NPC npcToCastSpellOn = null;
 
-        String fullConfigString = config.INV_NPC_FOURTH_OPTION_CONFIG_STRING();
-        String menuOption = "";
+        String fullConfigString = utils.rws(config.INV_SPELL_CAST_ON_NPC_CONFIG_STRING());
         String[] fullSplitConfigString = fullConfigString.split(",");
 
         List<Integer> idsList = new ArrayList<>();
 
         for (String individualConfigString : fullSplitConfigString)
         {
-            String[] individualPart = new String[]{"-1", "-1", ""};
+            String[] individualPart = new String[]{"-1", "-1"};
             String[] individualSplitConfigString = individualConfigString.split(":");
 
             try
             {
-                individualPart[0] = utils.rws(individualSplitConfigString[0]);
-                individualPart[1] = utils.rws(individualSplitConfigString[1]);
-                menuOption = individualSplitConfigString[2];
+                individualPart[0] = individualSplitConfigString[0];
+                individualPart[1] = individualSplitConfigString[1];
             }
             catch (Exception exc)
             {
                 individualPart[0] = "-1";
                 individualPart[1] = "-1";
-                menuOption = "";
             }
 
             int id1 = Integer.parseInt(individualPart[0]);
@@ -95,7 +92,7 @@ public class INV_NPC_FOURTH_OPTION
                 if (id1 == itemClickedId)
                 {
                     itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
-                    npcToInteractWith = npc.getClosestNpc(idsList);
+                    npcToCastSpellOn = npc.getClosestNpc(idsList);
                     break;
                 }
             }
@@ -111,42 +108,32 @@ public class INV_NPC_FOURTH_OPTION
                 if (id1 == itemClickedId)
                 {
                     itemClicked = inventory.getItemInSlot(itemClickedId, itemClickedSlot);
-                    npcToInteractWith = npc.getClosestNpc(id2);
+                    npcToCastSpellOn = npc.getClosestNpc(id2);
                     break;
                 }
             }
         }
 
-        if (itemClicked == null || npcToInteractWith == null || Strings.isNullOrEmpty(menuOption))
+        if (itemClicked == null || npcToCastSpellOn == null)
         {
             return;
         }
 
-        NPCComposition def = client.getNpcDefinition(npcToInteractWith.getId());
+        plugin.setSelectSpell(config.INV_SPELL_CAST_ON_NPC_SPELL().getSpell());
 
         MenuEntry menuEntry = new MenuEntry(
-                menuOption,
-                "<col=ffff00>" + def.getName() + "<col=ff00>",
-                npcToInteractWith.getIndex(),
-                MenuAction.NPC_FOURTH_OPTION.getId(),
+                "Cast",
+                "<col=00ff00>" + config.INV_SPELL_CAST_ON_NPC_SPELL().getName()
+                        + "</col><col=ffffff> -> <col=ffff00>"
+                        + client.getNpcDefinition(npcToCastSpellOn.getId()).getName(),
+                npcToCastSpellOn.getIndex(),
+                MenuAction.SPELL_CAST_ON_NPC.getId(),
                 0,
                 0,
                 false
         );
 
-        plugin.setQolMenuEntry(menuEntry);
+        e.setMenuEntry(menuEntry);
         plugin.setQolClick(true);
-
-        if (config.enableQOLSpoofClick())
-        {
-            plugin.setSpoofClick(true);
-
-            int[] loc = utils.getCanvasIndicatorLocation(config.customSpoofClickLocation());
-            plugin.setClickArea(
-                    config.qolSpoofClickCategory() == QOLSpoofClickCategory.FULL_CLIENT
-                            ? client.getCanvas().getBounds()
-                            : new Rectangle(loc[0], loc[1], loc[2], loc[3])
-            );
-        }
     }
 }
