@@ -1,4 +1,4 @@
-package plugin.nomore.newplugin;
+package plugin.nomore.inventorystateindicators;
 
 import lombok.Builder;
 import lombok.Data;

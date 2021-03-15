@@ -62,7 +62,7 @@ import java.util.List;
 
 @Extension
 @PluginDescriptor(
-		name = "QOL Clicks ➯ (Beta)",
+		name = "QOL Clicks ➯",
 		description = "QOL fixes that should be implemented.",
 		tags = {"nomore", "qol", "click"}
 )

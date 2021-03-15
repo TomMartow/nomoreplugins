@@ -100,8 +100,6 @@ public class InventoryTagsExtendedPlugin extends Plugin implements KeyListener
 
 	private static final List<HighlightingObject> inventoryItemsToHighlight = new ArrayList<>();
 	private final List<ConfigObject> configObjects = new ArrayList<>();
-	private int gameTick = 5;
-	private boolean initialCheck = false;
 	private static final String UNMARK = "Un-tag";
 	private static final String MARK = "Tag";
 	private boolean isShiftKeyPressed = false;
@@ -112,7 +110,6 @@ public class InventoryTagsExtendedPlugin extends Plugin implements KeyListener
 		keyManager.registerKeyListener(this);
 		overlayManager.add(overlay);
 		getConfigTextField();
-		clientThread.invoke(this::getAllInventoryItems);
 	}
 
 	@Override
@@ -213,72 +210,11 @@ public class InventoryTagsExtendedPlugin extends Plugin implements KeyListener
 	}
 
 	@Subscribe
-	private void on(GameTick event)
-	{
-		if (initialCheck)
-		{
-			return;
-		}
-		Widget clickHereToPlay = client.getWidget(378,87);
-		if (clickHereToPlay != null)
-		{
-			if (!clickHereToPlay.isHidden())
-			{
-				initialCheck = false;
-				gameTick = 5;
-				return;
-			}
-		}
-		if (!initialCheck && clickHereToPlay == null)
-		{
-			Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
-			if (inventory == null)
-			{
-				return;
-			}
-			if (inventory.isHidden())
-			{
-				return;
-			}
-			if (gameTick != 0)
-			{
-				gameTick -= 1;
-				inventoryItemsToHighlight.clear();
-				getConfigTextField();
-				getAllInventoryItems();
-			}
-			else
-			{
-				initialCheck = true;
-			}
-		}
-	}
-
-	@Subscribe
-	private void on(GameStateChanged event)
-	{
-		switch (event.getGameState())
-		{
-			case LOGGED_IN:
-			case LOADING:
-			case LOGIN_SCREEN_AUTHENTICATOR:
-			case UNKNOWN:
-			case STARTING:
-			case CONNECTION_LOST:
-			case LOGIN_SCREEN:
-			case LOGGING_IN:
-			case HOPPING:
-				gameTick = 5;
-				initialCheck = false;
-		}
-	}
-
-	@Subscribe
 	private void on(ItemContainerChanged event)
 	{
 		inventoryItemsToHighlight.clear();
 		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
-		if (inventory == null || inventory.isHidden())
+		if (inventory == null)
 		{
 			return;
 		}

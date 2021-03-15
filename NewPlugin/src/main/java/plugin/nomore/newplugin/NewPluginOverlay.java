@@ -1,4 +1,4 @@
-package plugin.nomore.newplugin;
+package plugin.nomore.inventorystateindicators;
 
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;

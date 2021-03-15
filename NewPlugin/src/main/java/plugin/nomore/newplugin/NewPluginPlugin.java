@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.newplugin;
+package plugin.nomore.inventorystateindicators;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import org.pf4j.Extension;
-import plugin.nomore.nmputils.NMPUtils;
-import plugin.nomore.nmputils.api.DebugAPI;
 
 import javax.inject.Inject;
 
@@ -54,9 +52,9 @@ public class NewPluginPlugin extends Plugin
 	private Client client;
 
 	@Provides
-	NewAutomationPluginConfig provideConfig(ConfigManager configManager)
+	NewPluginConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(NewAutomationPluginConfig.class);
+		return configManager.getConfig(NewPluginConfig.class);
 	}
 
 	@Override

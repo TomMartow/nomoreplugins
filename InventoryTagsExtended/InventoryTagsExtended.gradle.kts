@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "4.0.3"
+version = "4.0.4"
 
 project.extra["PluginName"] = "Ex: Inventory Tags"
 project.extra["PluginDescription"] = "Inventory Tags, but with more options."
