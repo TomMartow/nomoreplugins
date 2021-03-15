@@ -23,9 +23,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "4.0.2"
+version = "4.1.0"
 
-project.extra["PluginName"] = "QOL CLicks"
+project.extra["PluginName"] = "QOL CLicks ➯"
 project.extra["PluginDescription"] = "QOL fixes that should be implemented."
 
 tasks {

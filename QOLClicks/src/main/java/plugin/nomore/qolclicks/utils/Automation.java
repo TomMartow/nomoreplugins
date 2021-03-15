@@ -9,9 +9,11 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicks.builds.BuiltInventoryItem;
-import plugin.nomore.qolclicks.menu.inventory.Inventory;
 import plugin.nomore.qolclicks.QOLClicksConfig;
+import plugin.nomore.qolclicks.QOLClicksPlugin;
+import plugin.nomore.qolclicks.builds.BuiltInventoryItem;
+import plugin.nomore.qolclicks.enums.QOLClickWidgetItemInteractionType;
+import plugin.nomore.qolclicks.menu.scene.Inventory;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -31,6 +33,9 @@ public class Automation
     QOLClicksConfig config;
 
     @Inject
+    QOLClicksPlugin plugin;
+
+    @Inject
     Utils utils;
 
     @Inject
@@ -46,19 +51,15 @@ public class Automation
 
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
-    MenuEntry targetMenu = null;
-
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     Point clickedPoint = new Point(0,0);
 
     public void dropItems()
     {
-        if (config.dropMatching())
+        if (config.itemsMatching())
         {
             dropMatching();
         }
-        if (config.dropExcept())
+        if (config.itemsExcept())
         {
             dropExcept();
         }
@@ -125,15 +126,18 @@ public class Automation
         {
             for (BuiltInventoryItem inventoryItem : items)
             {
-                setTargetMenu(new MenuEntry(
-                        "Drop",
-                        "<col=ff9040>" + inventoryItem.getName(),
-                        inventoryItem.getWidgetItem().getId(),
-                        MenuAction.ITEM_FIFTH_OPTION.getId(),
-                        inventoryItem.getWidgetItem().getIndex(),
-                        WidgetInfo.INVENTORY.getId(),
-                        false
-                ));
+                if (config.qolClickWidgetItemInteractionType() == QOLClickWidgetItemInteractionType.DROP_ITEM)
+                {
+                    plugin.setQolMenuEntry(new MenuEntry(
+                            "Drop",
+                            "<col=ff9040>" + inventoryItem.getName(),
+                            inventoryItem.getWidgetItem().getId(),
+                            MenuAction.ITEM_FIFTH_OPTION.getId(),
+                            inventoryItem.getWidgetItem().getIndex(),
+                            WidgetInfo.INVENTORY.getId(),
+                            false
+                    ));
+                }
                 clickC(inventoryItem.getWidgetItem().getCanvasBounds());
                 try
                 {
@@ -153,7 +157,7 @@ public class Automation
 
     public List<BuiltInventoryItem> sortDropListOrder(List<BuiltInventoryItem> items)
     {
-        String[] dropOrder = utils.rws(config.listOrder()).split(",");
+        String[] dropOrder = utils.rws(config.inventorySlotOrder()).split(",");
         List<BuiltInventoryItem> sortedDropItems = new ArrayList<>();
         for (int i = 0; i < dropOrder.length; i++)
         {
@@ -269,7 +273,7 @@ public class Automation
             final Dimension real = client.getRealDimensions();
             final double width = (stretched.width / real.getWidth());
             final double height = (stretched.height / real.getHeight());
-            final net.runelite.api.Point point = new Point((int) (p.getX() * width), (int) (p.getY() * height));
+            final Point point = new Point((int) (p.getX() * width), (int) (p.getY() * height));
             mouseEvent(501, point);
             mouseEvent(502, point);
             mouseEvent(500, point);

@@ -25,11 +25,11 @@ public class Arrow
 
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
-    static BuiltNPC builtNPC = null;
+    BuiltNPC builtNPC = null;
 
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
-    static BuiltObject builtObject = null;
+    BuiltObject builtObject = null;
 
     Set<MenuAction> npcMenuActions = ImmutableSet.of(
             MenuAction.NPC_FIRST_OPTION,

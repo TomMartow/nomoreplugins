@@ -1,7 +1,10 @@
 package plugin.nomore.qolclicks;
 
 import net.runelite.api.Client;
-import net.runelite.client.ui.overlay.*;
+import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.util.ImageUtil;
 import plugin.nomore.qolclicks.builds.BuiltNPC;
 import plugin.nomore.qolclicks.builds.BuiltObject;

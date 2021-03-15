@@ -24,9 +24,15 @@
  */
 package plugin.nomore.qolclicks;
 
-import net.runelite.client.config.*;
 
-@ConfigGroup("qolclicks")
+import net.runelite.client.config.*;
+import plugin.nomore.qolclicks.enums.QOLClickCategory;
+import plugin.nomore.qolclicks.enums.QOLClickWidgetItemInteractionType;
+import plugin.nomore.qolclicks.enums.QOLSpoofClickCategory;
+import plugin.nomore.qolclicks.menu.scene.spells.CombatSpells;
+import plugin.nomore.qolclicks.menu.scene.spells.MiscSkills;
+
+@ConfigGroup("qolclicksbeta")
 public interface QOLClicksConfig extends Config
 {
 
@@ -45,276 +51,629 @@ public interface QOLClicksConfig extends Config
             position = 2,
             title = "configOptionsTitle"
     )
-    default ConfigOptions configOptions() { return ConfigOptions.INV_ITEM_ON_ITEM; }
+    default QOLClickCategory configOptions() { return QOLClickCategory.INV_ITEM_USE; }
 
-//  ██╗████████╗███████╗███╗   ███╗
-//  ██║╚══██╔══╝██╔════╝████╗ ████║
-//  ██║   ██║   █████╗  ██╔████╔██║
-//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
-//  ██║   ██║   ███████╗██║ ╚═╝ ██║
-//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
-//
-//   ██████╗ ███╗   ██╗
-//  ██╔═══██╗████╗  ██║
-//  ██║   ██║██╔██╗ ██║
-//  ██║   ██║██║╚██╗██║
-//  ╚██████╔╝██║ ╚████║
-//   ╚═════╝ ╚═╝  ╚═══╝
-//
-//  ██╗████████╗███████╗███╗   ███╗
-//  ██║╚══██╔══╝██╔════╝████╗ ████║
-//  ██║   ██║   █████╗  ██╔████╔██║
-//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
-//  ██║   ██║   ███████╗██║ ╚═╝ ██║
-//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
+    /*
+
+    @ConfigItem(
+            keyName = "ENABLE_[REPLACE]",
+            name = "Enable",
+            description = "",
+            position = 4,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "[REPLACE]"
+    )
+    default boolean ENABLE_[REPLACE]() { return false; }
+
+    @ConfigItem(
+            keyName = "[REPLACE]_CONFIG_STRING",
+            name = "TEXT_BOX_PLACEHOLDER_TEXT",
+            description = "",
+            position = 5,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "[REPLACE]"
+    )
+    default String [REPLACE]_CONFIG_STRING() { return ""; }
+    */
+    
+    //INV_ITEM_USE
+    //
+    //
+
+
+//  ██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗
+//  ██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
+//  ██║██╔██╗ ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝ ╚████╔╝
+//  ██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝
+//  ██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║
+//  ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝
 //
 
     @ConfigItem(
-            keyName = "enableItemOnItem",
+            keyName = "ENABLE_INV_ITEM_USE",
             name = "Enable",
             description = "",
             position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "INV_ITEM_ON_ITEM"
+            unhideValue = "Click Item -> Drop Item"
     )
-    default boolean enableItemOnItem() { return false; }
+    default boolean ENABLE_INV_ITEM_USE() { return false; }
 
     @ConfigItem(
-            keyName = "itemOnItemTarget",
-            name = "Clicked Item ID : Selected Item ID",
-            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"Selected item\" with the item you want to be selected.",
-            position = 4,
+            keyName = "INV_ITEM_USE_CONFIG_STRING",
+            name = "Item IDs",
+            description = "",
+            position = 3,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "INV_ITEM_ON_ITEM"
+            unhideValue = "Click Item -> Drop Item"
     )
-    default String itemOnItemIds() { return "1519:590"; }
+    default String INV_ITEM_USE_CONFIG_STRING() { return ""; }
+    
+    //INV_ITEM_USE_ON_NPC
+    //
+    //
 
-//  ██╗   ██╗███████╗███████╗
-//  ██║   ██║██╔════╝██╔════╝
-//  ██║   ██║███████╗█████╗
-//  ██║   ██║╚════██║██╔══╝
-//  ╚██████╔╝███████║███████╗
-//   ╚═════╝ ╚══════╝╚══════╝
-//
-//  ██╗████████╗███████╗███╗   ███╗
-//  ██║╚══██╔══╝██╔════╝████╗ ████║
-//  ██║   ██║   █████╗  ██╔████╔██║
-//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
-//  ██║   ██║   ███████╗██║ ╚═╝ ██║
-//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
-//
-//   ██████╗ ███╗   ██╗
-//  ██╔═══██╗████╗  ██║
-//  ██║   ██║██╔██╗ ██║
-//  ██║   ██║██║╚██╗██║
-//  ╚██████╔╝██║ ╚████║
-//   ╚═════╝ ╚═╝  ╚═══╝
-//
+    @ConfigItem(
+            keyName = "ENABLE_INV_ITEM_USE_ON_NPC",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Use on NPC"
+    )
+    default boolean ENABLE_INV_ITEM_USE_ON_NPC() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_ITEM_USE_ON_NPC_CONFIG_STRING",
+            name = "Item ID : NPC ID #1 / #2",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Use on NPC"
+    )
+    default String INV_ITEM_USE_ON_NPC_CONFIG_STRING() { return ""; }
+
+    //INV_ITEM_USE_ON_GAME_OBJECT
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_ITEM_USE_ON_GAME_OBJECT",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Use on Game Object"
+    )
+    default boolean ENABLE_INV_ITEM_USE_ON_GAME_OBJECT() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING",
+            name = "Item ID : Game Object ID #1 / #2",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Use on Game Object"
+    )
+    default String INV_ITEM_USE_ON_GAME_OBJECT_CONFIG_STRING() { return ""; }
+
+    //INV_ITEM_USE_ON_WIDGET_ITEM
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_ITEM_USE_ON_WIDGET_ITEM",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Use on Item"
+    )
+    default boolean ENABLE_INV_ITEM_USE_ON_WIDGET_ITEM() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING",
+            name = "Clicked Item ID : Selected Item ID",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Use on Item"
+    )
+    default String INV_ITEM_USE_ON_WIDGET_ITEM_CONFIG_STRING() { return ""; }
+
+    //INV_NPC_FIRST_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_NPC_FIRST_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC First Option"
+    )
+    default boolean ENABLE_INV_NPC_FIRST_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_NPC_FIRST_OPTION_CONFIG_STRING",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC First Option"
+    )
+    default String INV_NPC_FIRST_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_NPC_SECOND_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_NPC_SECOND_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Second Option"
+    )
+    default boolean ENABLE_INV_NPC_SECOND_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_NPC_SECOND_OPTION_CONFIG_STRING",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Second Option"
+    )
+    default String INV_NPC_SECOND_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_NPC_THIRD_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_NPC_THIRD_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Third Option"
+    )
+    default boolean ENABLE_INV_NPC_THIRD_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_NPC_THIRD_OPTION_CONFIG_STRING",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Third Option"
+    )
+    default String INV_NPC_THIRD_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_NPC_FOURTH_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_NPC_FOURTH_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Fourth Option"
+    )
+    default boolean ENABLE_INV_NPC_FOURTH_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_NPC_FOURTH_OPTION_CONFIG_STRING",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Fourth Option"
+    )
+    default String INV_NPC_FOURTH_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_NPC_FIFTH_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_NPC_FIFTH_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Fifth Option"
+    )
+    default boolean ENABLE_INV_NPC_FIFTH_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_NPC_FIFTH_OPTION_CONFIG_STRING",
+            name = "Item ID : NPC ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> NPC Fifth Option"
+    )
+    default String INV_NPC_FIFTH_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_GAME_OBJECT_FIRST_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_GAME_OBJECT_FIRST_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object First Option"
+    )
+    default boolean ENABLE_INV_GAME_OBJECT_FIRST_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object First Option"
+    )
+    default String INV_GAME_OBJECT_FIRST_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_GAME_OBJECT_SECOND_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_GAME_OBJECT_SECOND_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Second Option"
+    )
+    default boolean ENABLE_INV_GAME_OBJECT_SECOND_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_GAME_OBJECT_SECOND_OPTION_CONFIG_STRING",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Second Option"
+    )
+    default String INV_GAME_OBJECT_SECOND_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_GAME_OBJECT_THIRD_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_GAME_OBJECT_THIRD_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Third Option"
+    )
+    default boolean ENABLE_INV_GAME_OBJECT_THIRD_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Third Option"
+    )
+    default String INV_GAME_OBJECT_THIRD_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_GAME_OBJECT_FOURTH_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_GAME_OBJECT_FOURTH_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Fourth Option"
+    )
+    default boolean ENABLE_INV_GAME_OBJECT_FOURTH_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_GAME_OBJECT_FOURTH_OPTION_CONFIG_STRING",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Fourth Option"
+    )
+    default String INV_GAME_OBJECT_FOURTH_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_GAME_OBJECT_FIFTH_OPTION
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_GAME_OBJECT_FIFTH_OPTION",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Fifth Option"
+    )
+    default boolean ENABLE_INV_GAME_OBJECT_FIFTH_OPTION() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING",
+            name = "Item ID : Game Object ID #1 / #2 : Menu Option",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Game Object Fifth Option"
+    )
+    default String INV_GAME_OBJECT_FIFTH_OPTION_CONFIG_STRING() { return ""; }
+
+    //INV_SPELL_CAST_ON_WIDGET
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_SPELL_CAST_ON_WIDGET",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Item"
+    )
+    default boolean ENABLE_INV_SPELL_CAST_ON_WIDGET() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_WIDGET_CONFIG_STRING",
+            name = "Item ID",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Item"
+    )
+    default String INV_SPELL_CAST_ON_WIDGET_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_WIDGET_SPELL",
+            name = "Spell",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Item"
+    )
+    default MiscSkills INV_SPELL_CAST_ON_WIDGET_SPELL() { return MiscSkills.HIGH_LEVEL_ALCHEMY; }
+
+    //INV_SPELL_CAST_ON_NPC
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_SPELL_CAST_ON_NPC",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on NPC"
+    )
+    default boolean ENABLE_INV_SPELL_CAST_ON_NPC() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_NPC_CONFIG_STRING",
+            name = "Item ID : NPC ID",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on NPC"
+    )
+    default String INV_SPELL_CAST_ON_NPC_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_NPC_SPELL",
+            name = "Spell",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on NPC"
+    )
+    default CombatSpells INV_SPELL_CAST_ON_NPC_SPELL() { return CombatSpells.WIND_STRIKE; }
+
+    //INV_SPELL_CAST_ON_GAME_OBJECT
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_SPELL_CAST_ON_GAME_OBJECT",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Game Object"
+    )
+    default boolean ENABLE_INV_SPELL_CAST_ON_GAME_OBJECT() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_CONFIG_STRING",
+            name = "Item ID : Game Object ID",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Game Object"
+    )
+    default String INV_SPELL_CAST_ON_GAME_OBJECT_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_GAME_OBJECT_SPELL",
+            name = "Spell",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Game Object"
+    )
+    default MiscSkills INV_SPELL_CAST_ON_GAME_OBJECT_SPELL() { return MiscSkills.TELEKINETIC_GRAB; }
+
+    //INV_SPELL_CAST_ON_GROUND_ITEM
+    //
+    //
+
+    @ConfigItem(
+            keyName = "ENABLE_INV_SPELL_CAST_ON_GROUND_ITEM",
+            name = "Enable",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Ground Item"
+    )
+    default boolean ENABLE_INV_SPELL_CAST_ON_GROUND_ITEM() { return false; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_CONFIG_STRING",
+            name = "Item ID : Ground Item ID",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Ground Item"
+    )
+    default String INV_SPELL_CAST_ON_GROUND_ITEM_CONFIG_STRING() { return ""; }
+
+    @ConfigItem(
+            keyName = "INV_SPELL_CAST_ON_GROUND_ITEM_SPELL",
+            name = "Spell",
+            description = "",
+            position = 3,
+            title = "configOptionsTitle",
+            hidden = true,
+            unhide = "configEnum",
+            unhideValue = "Click Item -> Cast Spell on Ground Item"
+    )
+    default MiscSkills INV_SPELL_CAST_ON_GROUND_ITEM_SPELL() { return MiscSkills.TELEKINETIC_GRAB; }
+
 //  ███╗   ██╗██████╗  ██████╗
 //  ████╗  ██║██╔══██╗██╔════╝
-//  ██╔██╗ ██║██████╔╝██║
-//  ██║╚██╗██║██╔═══╝ ██║
+//  ██╔██╗ ██║██████╔╝██║     
+//  ██║╚██╗██║██╔═══╝ ██║     
 //  ██║ ╚████║██║     ╚██████╗
 //  ╚═╝  ╚═══╝╚═╝      ╚═════╝
-//
-
-    @ConfigItem(
-            keyName = "enableItemOnNpc",
-            name = "Enable",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "NPC_USE_ITEM_ON"
-    )
-    default boolean enableItemOnNpc() { return false; }
-
-    @ConfigItem(
-            keyName = "useItemOnNpcIds",
-            name = "Clicked Item ID : NPC ID",
-            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"NPC ID\" with the npc you want to use the item on.",
-            position = 4,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "NPC_USE_ITEM_ON"
-    )
-    default String useItemOnNpcIds() { return "1519:590"; }
-    
-//  ███╗   ██╗██████╗  ██████╗                      
-//  ████╗  ██║██╔══██╗██╔════╝                      
-//  ██╔██╗ ██║██████╔╝██║                           
-//  ██║╚██╗██║██╔═══╝ ██║                           
-//  ██║ ╚████║██║     ╚██████╗                      
-//  ╚═╝  ╚═══╝╚═╝      ╚═════╝                      
-//                                                  
-//  ███████╗██╗██████╗ ███████╗████████╗            
-//  ██╔════╝██║██╔══██╗██╔════╝╚══██╔══╝            
-//  █████╗  ██║██████╔╝███████╗   ██║               
-//  ██╔══╝  ██║██╔══██╗╚════██║   ██║               
-//  ██║     ██║██║  ██║███████║   ██║               
-//  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝               
-//                                                  
-//   ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗
-//  ██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
-//  ██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║
-//  ██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║
-//  ╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║
-//   ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-//      
+//                            
     
     @ConfigItem(
-            keyName = "enableNPCFirstOption",
+            keyName = "ENABLE_NPC_ITEM_USE_ON_NPC",
             name = "Enable",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "NPC_FIRST_OPTION"
-    )
-    default boolean enableNPCFirstOption() { return false; }
-
-    @ConfigItem(
-            keyName = "npcOption",
-            name = "Option",
             description = "",
             position = 4,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "NPC_FIRST_OPTION"
+            unhideValue = "NPC_ITEM_USE_ON_NPC"
     )
-    default String npcOption() { return "Use-rod"; }
+    default boolean ENABLE_NPC_ITEM_USE_ON_NPC() { return false; }
 
     @ConfigItem(
-            keyName = "npcFirstOptionTarget",
-            name = "Clicked Item ID : NPC ID",
-            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"NPC ID\" with the npc you want to interact with.",
+            keyName = "NPC_ITEM_USE_ON_NPC_CONFIG_STRING",
+            name = "TEXT_BOX_PLACEHOLDER_TEXT",
+            description = "",
             position = 5,
             title = "configOptionsTitle",
             hidden = true,
             unhide = "configEnum",
-            unhideValue = "NPC_FIRST_OPTION"
+            unhideValue = "NPC_ITEM_USE_ON_NPC"
     )
-    default String npcFirstOptionIds() { return "11323:1542"; }
-
-//   ██████╗  █████╗ ███╗   ███╗███████╗ ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗
-//  ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
-//  ██║  ███╗███████║██╔████╔██║█████╗  ██║   ██║██████╔╝     ██║█████╗  ██║        ██║   
-//  ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║   
-//  ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║   
-//   ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝ ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   
-//                                                                                        
-//  ███████╗██╗██████╗ ███████╗████████╗                                                  
-//  ██╔════╝██║██╔══██╗██╔════╝╚══██╔══╝                                                  
-//  █████╗  ██║██████╔╝███████╗   ██║                                                     
-//  ██╔══╝  ██║██╔══██╗╚════██║   ██║                                                     
-//  ██║     ██║██║  ██║███████║   ██║                                                     
-//  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝                                                     
-//                                                                                        
-//   ██████╗ ██████╗ ████████╗██╗ ██████╗ ███╗   ██╗                                      
-//  ██╔═══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║                                      
-//  ██║   ██║██████╔╝   ██║   ██║██║   ██║██╔██╗ ██║                                      
-//  ██║   ██║██╔═══╝    ██║   ██║██║   ██║██║╚██╗██║                                      
-//  ╚██████╔╝██║        ██║   ██║╚██████╔╝██║ ╚████║                                      
-//   ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝                                      
-//                                                                                        
-
-    @ConfigItem(
-            keyName = "enableGameObjectFirstOption",
-            name = "Enable",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "OBJECT_FIRST_OPTION"
-    )
-    default boolean enableGameObjectFirstOption() { return false; }
-
-    @ConfigItem(
-            keyName = "gameObjectOption",
-            name = "Option",
-            description = "",
-            position = 4,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "OBJECT_FIRST_OPTION"
-    )
-    default String gameObjectOption() { return "Chop down"; }
-
-    @ConfigItem(
-            keyName = "gameObjectFirstOptionTarget",
-            name = "Clicked Item ID : GameObject ID",
-            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"GameObject ID\" with the game object you want to interact with.",
-            position = 5,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "OBJECT_FIRST_OPTION"
-    )
-    default String gameObjectFirstOptionIds() { return "1353:3511"; }
-
-//  ██╗   ██╗███████╗███████╗
-//  ██║   ██║██╔════╝██╔════╝
-//  ██║   ██║███████╗█████╗
-//  ██║   ██║╚════██║██╔══╝
-//  ╚██████╔╝███████║███████╗
-//   ╚═════╝ ╚══════╝╚══════╝
-//
-//  ██╗████████╗███████╗███╗   ███╗
-//  ██║╚══██╔══╝██╔════╝████╗ ████║
-//  ██║   ██║   █████╗  ██╔████╔██║
-//  ██║   ██║   ██╔══╝  ██║╚██╔╝██║
-//  ██║   ██║   ███████╗██║ ╚═╝ ██║
-//  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝
-//
-//   ██████╗ ███╗   ██╗
-//  ██╔═══██╗████╗  ██║
-//  ██║   ██║██╔██╗ ██║
-//  ██║   ██║██║╚██╗██║
-//  ╚██████╔╝██║ ╚████║
-//   ╚═════╝ ╚═╝  ╚═══╝
-//
-//   ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗
-//  ██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝
-//  ██║   ██║██████╔╝     ██║█████╗  ██║        ██║
-//  ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║
-//  ╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║
-//   ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝
-//
-
-    @ConfigItem(
-            keyName = "enableItemOnObject",
-            name = "Enable",
-            description = "",
-            position = 3,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "OBJECT_USE_ITEM_ON"
-    )
-    default boolean enableItemOnObject() { return false; }
-
-    @ConfigItem(
-            keyName = "useItemOnObjectIds",
-            name = "Clicked Item ID : NPC ID",
-            description = "Replace \"Clicked item\" with the id of the item you want to click on. Replace \"Object ID\" with the object you want to use the item on.",
-            position = 4,
-            title = "configOptionsTitle",
-            hidden = true,
-            unhide = "configEnum",
-            unhideValue = "OBJECT_USE_ITEM_ON"
-    )
-    default String useItemOnObjectIds() { return "1519:590"; }
-
+    default String NPC_ITEM_USE_ON_NPC_CONFIG_STRING() { return ""; }
+    
+    
 //   █████╗ ██╗   ██╗████████╗ ██████╗ ███╗   ███╗ █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
 //  ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗████╗ ████║██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
 //  ███████║██║   ██║   ██║   ██║   ██║██╔████╔██║███████║   ██║   ██║██║   ██║██╔██╗ ██║
@@ -327,79 +686,211 @@ public interface QOLClicksConfig extends Config
             keyName = "automationTitle",
             name = "Automation Options",
             description = "",
-            position = 2
+            position = 3
     )
     String automationTitle = "automationTitle";
 
     @ConfigItem(
-            keyName = "droppingKeybind",
-            name = "Keybind",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 3,
-            title = "automationTitle"
-    )
-    default Keybind dropKeybind() { return Keybind.NOT_SET; }
-
-    @ConfigItem(
-            keyName = "dropMatching",
-            name = "Drop matching",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            keyName = "shopAutomationOptions",
+            name = "Display options",
+            description = "",
             position = 4,
             title = "automationTitle"
     )
-    default boolean dropMatching() { return false; }
+    default boolean shopAutomationOptions() { return false; }
+
+    @ConfigItem(
+            keyName = "automationKeybind",
+            name = "Keybind",
+            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
+            position = 5,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
+    )
+    default Keybind automationKeybind() { return Keybind.NOT_SET; }
+
+    @ConfigItem(
+            keyName = "itemsMatching",
+            name = "Interact with all matching",
+            description = "If enabled, when the keybind hotkey is pressed, all items that match in the box below will be interacted with based on your interaction choice.",
+            position = 6,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
+    )
+    default boolean itemsMatching() { return false; }
 
     @ConfigItem(
             keyName = "matchingList",
             name = "Matching list",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 5,
-            title = "automationTitle"
+            description = "If enabled, when the keybind hotkey is pressed, all items that match in the box below will be interacted with based on your interaction choice.",
+            position = 7,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
     )
     default String matchingList() { return "Bones"; }
 
     @ConfigItem(
-            keyName = "dropExcept",
-            name = "Drop except",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that match in the box below will be dropped.",
-            position = 6,
-            title = "automationTitle"
+            keyName = "itemsExcept",
+            name = "Interact with all except",
+            description = "If enabled, when the keybind hotkey is pressed, all items that match in the box below will be interacted with based on your interaction choice.",
+            position = 8,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
     )
-    default boolean dropExcept() { return false; }
+    default boolean itemsExcept() { return false; }
 
     @ConfigItem(
             keyName = "exceptList",
             name = "Except list",
-            description = "If enabled, when the drop-matching hotkey is pressed, all items that don't match in the box below will be dropped.",
-            position = 7,
-            title = "automationTitle"
+            description = "If enabled, when the keybind hotkey is pressed, all items that don't match in the box below will be interacted with based on your interaction choice.",
+            position = 9,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
     )
     default String exceptList() { return "Bones"; }
 
     @ConfigItem(
-            keyName = "listOrder",
-            name = "Order",
-            description = "The iteration order.",
-            position = 8,
-            title = "automationTitle"
+            keyName = "qolClickWidgetItemInteractionType",
+            name = "Interaction type",
+            description = "How the item will be interacted with.",
+            position = 9,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
     )
-    default String listOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
+    default QOLClickWidgetItemInteractionType qolClickWidgetItemInteractionType() { return QOLClickWidgetItemInteractionType.DEFAULT_CLICK; }
+
+    @ConfigItem(
+            keyName = "inventorySlotOrder",
+            name = "Order",
+            description = "Will interact with inventory items in the order provided below.",
+            position = 15,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
+    )
+    default String inventorySlotOrder() { return "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27"; }
 
     @ConfigItem(
             keyName = "minTime",
             name = "Min (millis)",
-            description = "The minimum time between dropping.",
-            position = 9,
-            title = "automationTitle"
+            description = "The minimum time between interacting.",
+            position = 16,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
     )
     default String minTime() { return "250"; }
 
     @ConfigItem(
             keyName = "maxTime",
             name = "Max (millis)",
-            description = "The maximum time between dropping.",
-            position = 10,
-            title = "automationTitle"
+            description = "The maximum time between interacting.",
+            position = 17,
+            title = "automationTitle",
+            hidden = true,
+            unhide = "shopAutomationOptions",
+            unhideValue = "true"
     )
     default String maxTime() { return "1000"; }
+
+
+
+//  ███╗   ███╗██╗███████╗ ██████╗
+//  ████╗ ████║██║██╔════╝██╔════╝
+//  ██╔████╔██║██║███████╗██║
+//  ██║╚██╔╝██║██║╚════██║██║
+//  ██║ ╚═╝ ██║██║███████║╚██████╗
+//  ╚═╝     ╚═╝╚═╝╚══════╝ ╚═════╝
+//
+
+    @ConfigTitle(
+            keyName = "miscTitle",
+            name = "Miscellaneous Options",
+            description = "",
+            position = 18
+    )
+    String miscTitle = "miscTitle";
+
+    @ConfigItem(
+            keyName = "displayQOLClickOverlay",
+            name = "Display qol click overlay",
+            description = "If enabled, will display an overlay over an NPC / Object that you're interacting with.",
+            position = 19,
+            title = "miscTitle"
+    )
+    default boolean displayQOLClickOverlay() { return true; }
+
+    @ConfigItem(
+            keyName = "enableQOLSpoofClick",
+            name = "Enable spoof click",
+            description = "If enabled, will consume the real click and dispatch a spoofed click on the canvas.",
+            position = 20,
+            title = "miscTitle"
+    )
+    default boolean enableQOLSpoofClick() { return true; }
+
+    @ConfigItem(
+            keyName = "qolSpoofClickCategory",
+            name = "Location",
+            description = "",
+            position = 21,
+            title = "miscTitle",
+            hidden = true,
+            unhide = "enableQOLSpoofClick",
+            unhideValue = "true"
+    )
+    default QOLSpoofClickCategory qolSpoofClickCategory() { return QOLSpoofClickCategory.FULL_CLIENT; }
+
+    @ConfigItem(
+            keyName = "customSpoofClickLocation",
+            name = "   Custom click location",
+            description = "X:Y:W:H of your click location",
+            position = 22,
+            title = "miscTitle",
+            hidden = true,
+            unhide = "enableQOLSpoofClick",
+            unhideValue = "true"
+    )
+    default String customSpoofClickLocation() { return "0:0:100:100"; }
+
+    @ConfigItem(
+            keyName = "enableDebug",
+            name = "Enable console debugging",
+            description = "",
+            position = 23,
+            title = "miscTitle"
+    )
+    default boolean enableDebug() { return false; }
+
+    @ConfigItem(
+            keyName = "enableGameMessage",
+            name = "Enable send game message",
+            description = "",
+            position = 24,
+            title = "miscTitle"
+    )
+    default boolean enableGameMessage() { return false; }
+
+    @ConfigItem(
+            keyName = "enableClipboard",
+            name = "Enable copy to clipboard",
+            description = "",
+            position = 25,
+            title = "miscTitle"
+    )
+    default boolean enableClipboard() { return false; }
 }

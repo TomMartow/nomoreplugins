@@ -1,8 +1,8 @@
-package plugin.nomore.qolclicksbeta.utils;
+package plugin.nomore.qolclicks.utils;
 
 import joptsimple.internal.Strings;
 import net.runelite.api.mixins.Inject;
-import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicks.QOLClicksBetaConfig;
 
 import java.awt.*;
 
