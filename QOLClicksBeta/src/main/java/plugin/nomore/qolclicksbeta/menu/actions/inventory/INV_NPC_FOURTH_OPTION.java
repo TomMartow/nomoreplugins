@@ -1,16 +1,16 @@
-package plugin.nomore.qolclicks.menu.actions.inventory;
+package plugin.nomore.qolclicksbeta.menu.actions.inventory;
 
 import joptsimple.internal.Strings;
 import net.runelite.api.*;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetItem;
-import plugin.nomore.qolclicks.QOLClicksBetaConfig;
-import plugin.nomore.qolclicks.QOLClicksBetaPlugin;
-import plugin.nomore.qolclicks.menu.scene.GameObj;
-import plugin.nomore.qolclicks.menu.scene.Inventory;
-import plugin.nomore.qolclicks.menu.scene.Npc;
-import plugin.nomore.qolclicks.enums.QOLSpoofClickCategory;
-import plugin.nomore.qolclicks.utils.Utils;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
+import plugin.nomore.qolclicksbeta.menu.scene.GameObj;
+import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
+import plugin.nomore.qolclicksbeta.menu.scene.Npc;
+import plugin.nomore.qolclicksbeta.enums.QOLSpoofClickCategory;
+import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
 import java.awt.*;

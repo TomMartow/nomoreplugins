@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.enums;
+package plugin.nomore.qolclicksbeta.enums;
 
 public enum QOLSpoofClickCategory
 {

@@ -22,14 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.qolclicks;
+package plugin.nomore.qolclicksbeta;
 
 
 import net.runelite.client.config.*;
-import plugin.nomore.qolclicks.enums.QOLClickCategory;
-import plugin.nomore.qolclicks.enums.QOLClickWidgetItemInteractionType;
-import plugin.nomore.qolclicks.enums.QOLSpoofClickCategory;
-import plugin.nomore.qolclicks.menu.scene.spells.*;
+import plugin.nomore.qolclicksbeta.enums.QOLClickCategory;
+import plugin.nomore.qolclicksbeta.enums.QOLClickWidgetItemInteractionType;
+import plugin.nomore.qolclicksbeta.enums.QOLSpoofClickCategory;
+import plugin.nomore.qolclicksbeta.menu.scene.spells.*;
 
 @ConfigGroup("qolclicksbeta")
 public interface QOLClicksBetaConfig extends Config

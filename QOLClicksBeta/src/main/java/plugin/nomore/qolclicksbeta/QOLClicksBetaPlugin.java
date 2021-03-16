@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package plugin.nomore.qolclicks;
+package plugin.nomore.qolclicksbeta;
 
 import com.google.inject.Provides;
 import lombok.AccessLevel;
@@ -48,10 +48,10 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 import org.pf4j.Extension;
-import plugin.nomore.qolclicks.highlighting.Arrow;
-import plugin.nomore.qolclicks.menu.actions.Menu;
-import plugin.nomore.qolclicks.menu.scene.Inventory;
-import plugin.nomore.qolclicks.utils.Automation;
+import plugin.nomore.qolclicksbeta.highlighting.Arrow;
+import plugin.nomore.qolclicksbeta.menu.actions.Menu;
+import plugin.nomore.qolclicksbeta.menu.scene.Inventory;
+import plugin.nomore.qolclicksbeta.utils.Automation;
 
 import javax.inject.Inject;
 import java.awt.*;
@@ -207,7 +207,7 @@ public class QOLClicksBetaPlugin extends Plugin
 		if (isSpoofClick())
 		{
 			new Thread(() ->
-					automation.clickR(getClickArea())).start();
+					automation.clickC(getClickArea())).start();
 			e.consume();
 			return;
 		}

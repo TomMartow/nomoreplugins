@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.menu.scene;
+package plugin.nomore.qolclicksbeta.menu.scene;
 
 import net.runelite.api.Client;
 import net.runelite.api.queries.InventoryWidgetItemQuery;

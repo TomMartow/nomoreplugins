@@ -1,4 +1,4 @@
-package plugin.nomore.qolclicks.menu.scene.spells;
+package plugin.nomore.qolclicksbeta.menu.scene.spells;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

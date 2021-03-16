@@ -1,11 +1,11 @@
-package plugin.nomore.qolclicks.menu.scene;
+package plugin.nomore.qolclicksbeta.menu.scene;
 
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.queries.NPCQuery;
-import plugin.nomore.qolclicks.QOLClicksBetaConfig;
-import plugin.nomore.qolclicks.QOLClicksBetaPlugin;
-import plugin.nomore.qolclicks.utils.Utils;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaPlugin;
+import plugin.nomore.qolclicksbeta.utils.Utils;
 
 import javax.inject.Inject;
 import java.util.List;

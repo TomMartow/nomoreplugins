@@ -1,13 +1,13 @@
-package plugin.nomore.qolclicks.menu.actions;
+package plugin.nomore.qolclicksbeta.menu.actions;
 
 import com.google.common.collect.ImmutableSet;
 import net.runelite.api.MenuAction;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
-import plugin.nomore.qolclicks.QOLClicksBetaConfig;
-import plugin.nomore.qolclicks.menu.actions.inventory.*;
-import plugin.nomore.qolclicks.menu.actions.npc.NPC_ITEM_USE_ON_NPC;
+import plugin.nomore.qolclicksbeta.QOLClicksBetaConfig;
+import plugin.nomore.qolclicksbeta.menu.actions.inventory.*;
+import plugin.nomore.qolclicksbeta.menu.actions.npc.NPC_ITEM_USE_ON_NPC;
 
 import javax.inject.Inject;
 import java.util.Set;
